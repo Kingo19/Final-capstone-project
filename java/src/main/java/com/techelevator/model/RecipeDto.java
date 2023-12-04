@@ -1,16 +1,16 @@
 package com.techelevator.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 public class RecipeDto {
     private String recipe_name;
     private String recipe_instructions;
-    private List<IngredientDto> ingredientList;
 
-    public RecipeDto(String recipe_name, String recipe_instructions, List<IngredientDto> ingredientList) {
+    public RecipeDto(String recipe_name, String recipe_instructions) {
         this.recipe_name = recipe_name;
         this.recipe_instructions = recipe_instructions;
-        this.ingredientList = ingredientList;
     }
     public RecipeDto(){
 
@@ -31,11 +31,4 @@ public class RecipeDto {
         this.recipe_instructions = recipe_instructions;
     }
 
-    public List<IngredientDto> getIngredientList() {
-        return ingredientList;
-    }
-
-    public void setIngredientList(List<IngredientDto> ingredientList) {
-        this.ingredientList = ingredientList;
-    }
 }

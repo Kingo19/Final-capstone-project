@@ -13,9 +13,30 @@ public class JdbcIngredientDao implements IngredientDao{
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void addIngredient(IngredientDto ingredientDto){
-        String sql = "INSERT INTO ingredient(ingredient_name) VALUES (?);";
+    public int addIngredient(IngredientDto ingredientDto){
+        int resultID = ingredientDto.getId();
+        try{
+            ingredientDto.setId(getIngredientID(ingredientDto));
+        } catch (Exception e) {
+            System.out.println("uh oh." + e);
+        }
+        if(resultID == 0){
+            String sql = "INSERT INTO ingredient(ingredient_name) VALUES (?) RETURNING ingredient_id;";
+            jdbcTemplate.queryForObject(sql, int.class,ingredientDto.getIngredient_name());
+            ingredientDto.setId( jdbcTemplate.queryForObject(sql, int.class,ingredientDto.getIngredient_name()));
+        }
+        return ingredientDto.getId();
+    }
 
+    public int getIngredientID(IngredientDto ingredientDto){
+        int id = 0;
+        String sql = "SELECT ingredient_id FROM ingredient WHERE ingredient_name = ?;";
+        System.out.println();
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, ingredientDto.getIngredient_name());
+        while(result.next()){
+            id = result.getInt("ingredient_id");
+        }
+        System.out.println(id);
+        return id;
     }
 }
