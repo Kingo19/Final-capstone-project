@@ -1,0 +1,55 @@
+Menu
+
+        A list of the dishes to be served or available for a meal.
+        The dishes served or available at a meal.
+
+    a list of dishes served at a meal or that can be ordered in a restaurant
+
+Worth noting from earlier comments:
+
+        Breakfast, Lunch, Dinner are called Meals. Non-meal light food consumption is generally called Snacks even if you're eating something that would normally be a dessert item. - Hellion
+
+Meals
+
+        the food served and eaten especially at one of the customary, regular occasions for taking food during the day, as breakfast, lunch, or supper.
+        one of these regular occasions or times for eating food.
+
+Snacks
+
+    a small portion of food or drink or a light meal, especially one eaten between regular meals.
+
+
+
+
+"Nutritional Information": "Optional detailed nutritional breakdown per serving.",
+"Dietary Preferences": "Tags for specific dietary needs (e.g., Vegan, Gluten-Free, Nut-Free).",
+"Image Upload": "An option for users to upload a photo of the finished dish.",
+
+    //
+    // calculateTime() {
+    //   let hours = this.formData.preparationTime.hours
+    //   let days = this.formData.preparationTime.days
+    //   let minutes = this.formData.preparationTime.minutes
+    //   let hour = 60
+    //   let day = 24
+    //   this.formData.preparationTime.minutes = minutes % hour
+    //   this.formData.preparationTime.hours = (Math.floor(minutes / hour) + hours ) % day;
+    //   this.formData.preparationTime.days = Math.floor((Math.floor(minutes / hour) + hours) / day) + days;
+    //   console.log(this.formData.preparationTime)
+    // },
+    //
+    // calculateMinutes(){
+    //   console.log(this.formData.preparationTime.minutes)
+    //   let numMin = this.formData.preparationTime.minutes
+    //   let hour = 60
+    //   this.formData.preparationTime.hours += Math.floor(numMin / hour)
+    //   return numMin % hour
+    // },
+    //
+    // calculateHours(){
+    //   let hour = 60
+    //   let day = 24
+    //   this.formData.preparationTime.days += (this.formData.preparationTime.hours + numHours) % day;
+    //   return (this.formData.preparationTime.hours + numHours ) % day;
+    // },
+
