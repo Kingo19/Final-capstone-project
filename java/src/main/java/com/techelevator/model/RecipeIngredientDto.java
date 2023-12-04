@@ -1,0 +1,28 @@
+package com.techelevator.model;
+
+import java.util.List;
+
+public class RecipeIngredientDto {
+    private List<IngredientDto> ingredients;
+    private RecipeDto recipe;
+
+    public RecipeIngredientDto(List<IngredientDto> ingredients, RecipeDto recipe) {
+        this.ingredients = ingredients;
+        this.recipe = recipe;
+    }
+    public List<IngredientDto> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<IngredientDto> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public RecipeDto getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(RecipeDto recipe) {
+        this.recipe = recipe;
+    }
+}
