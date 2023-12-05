@@ -7,6 +7,6 @@ export default {
 
 
     addRecipeAndIngredients(recipeIngredient) {
-        return axios.post('recipes/add', recipeIngredient)
+        axios.post('http://localhost:9000/recipes/add', recipeIngredient)
     }
 }
