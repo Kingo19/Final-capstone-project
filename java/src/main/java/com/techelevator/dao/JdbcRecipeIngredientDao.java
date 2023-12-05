@@ -69,6 +69,14 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         return ingredientList;
     }
 
+    /**
+     * takes in a RecipeIngredientDto
+     * checks to see if the recipe exists already if not, add to db and gets new id
+     * checks each ingredient to see if it exists already, if not, add to db and get the new id
+     *
+     * then adds to the joiner
+     * @param rID
+     */
     public void addRecipeIngredientConnection(RecipeIngredientDto rID) {
         int recipeId = jdbcRecipeDao.getRecipeID(rID.getRecipe());
         if (recipeId == 0) {
