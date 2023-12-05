@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Ingredient;
 import com.techelevator.model.IngredientDto;
+import com.techelevator.model.RecipeDto;
 import com.techelevator.model.RecipeIngredientDto;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -45,6 +46,8 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
             int checkForId = jdbcIngredientDao.getIngredientID(currentIngredient);
             if(checkForId == 0) {
                 idsList.add(jdbcIngredientDao.addIngredientReturnId(currentIngredient));
+            } else {
+                idsList.add(checkForId);
             }
         }
         return idsList;
@@ -65,4 +68,15 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         }
         return ingredientList;
     }
+
+    public void addRecipeIngredientConnection(RecipeDto recipeDto, List<Ingredient> ingredients) {
+        int recipeId = jdbcRecipeDao.getRecipeID(recipeDto);
+        if (recipeId == 0) {
+            recipeId = jdbcRecipeDao.addRecipeReturnId(recipeDto);
+        }
+        for (Ingredient ingredient : ingredients) {
+            String sql = "";
+        }
+    }
+
 }
