@@ -205,21 +205,21 @@ export default {
   methods: {
 
     submitForm() {
-      let warning = "The following needs attention:"
-      let warn = false
-      for(let each in this.formData){
-        let item = this.formData[each]
-        if(typeof item == "string" && item.length === 0){
-          warn = true
-          let addon = `\n${each}\n`
-          warning += addon
-        }
+      // let warning = "The following needs attention:"
+      // let warn = false
+      // for(let each in this.formData){
+      //   let item = this.formData[each]
+      //   if(typeof item == "string" && item.length === 0){
+      //     warn = true
+      //     let addon = `\n${each}\n`
+      //     warning += addon
+      //   }
 
-      }
-      console.log(warning)
-      if(warn){
-        alert(warning)
-      }
+      // }
+      // console.log(warning)
+      // if(warn){
+      //   alert(warning)
+      // }
     },
     addIngredient() {
       this.formData.ingredients.push({ name: '', quantity: null, unit: '' });
