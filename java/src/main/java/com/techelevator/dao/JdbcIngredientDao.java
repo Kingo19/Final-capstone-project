@@ -26,7 +26,6 @@ public class JdbcIngredientDao implements IngredientDao{
 
     }
 
-
     /**
      * Takes in ingredientDto
      * adds it to database

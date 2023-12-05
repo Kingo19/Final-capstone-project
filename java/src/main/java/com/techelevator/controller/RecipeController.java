@@ -48,4 +48,20 @@ public class RecipeController {
             );
         }
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(path = "recipes/modify", method = RequestMethod.POST)
+    public void modifyRecipe(@RequestBody RecipeDto recipeDto) {
+        try {
+            System.out.println(recipeDto);
+        } catch (Exception e) {
+            logger.error("Recipe Failure: ", e);
+            System.out.printf("%s%n%s%n%s%n%s%n",
+                    "Class: " + this.getClass(),
+                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
+                    "Exception: " + e,
+                    "Parameters: " + recipeDto.toString()
+            );
+        }
+    }
 }

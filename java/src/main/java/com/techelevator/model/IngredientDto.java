@@ -20,12 +20,4 @@ public class IngredientDto {
                 "ingredient_name='" + ingredient_name + '\'' +
                 '}';
     }
-
-    //    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
 }

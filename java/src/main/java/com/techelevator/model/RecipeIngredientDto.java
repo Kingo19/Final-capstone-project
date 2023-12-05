@@ -25,4 +25,12 @@ public class RecipeIngredientDto {
     public void setRecipe(RecipeDto recipe) {
         this.recipe = recipe;
     }
+
+    @Override
+    public String toString() {
+        return "RecipeIngredientDto{" +
+                "ingredients=" + ingredients +
+                ", recipe=" + recipe +
+                '}';
+    }
 }

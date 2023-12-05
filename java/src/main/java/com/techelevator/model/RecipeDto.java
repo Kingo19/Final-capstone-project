@@ -31,4 +31,11 @@ public class RecipeDto {
         this.recipe_instructions = recipe_instructions;
     }
 
+    @Override
+    public String toString() {
+        return "RecipeDto{" +
+                "recipe_name='" + recipe_name + '\'' +
+                ", recipe_instructions='" + recipe_instructions + '\'' +
+                '}';
+    }
 }
