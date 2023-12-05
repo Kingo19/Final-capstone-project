@@ -44,8 +44,6 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
 //        }
 //    }
 
-
-
     //BUILD ERRORS
 //@Override
 //public void addRecipeIngredients(List<IngredientDto> ingredients, int recipeId) {
@@ -75,16 +73,15 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
 //    }
 //}
 
-    // Original#
-//    @Override
-//    public List<Integer> getIngredientIds(List<IngredientDto> ingredientDtoList) {
-//        List<Integer> idsList = new ArrayList<>();
-//        for(IngredientDto currentIngredient : ingredientDtoList ){
-//            idsList.add(jdbcIngredientDao.addIngredient(currentIngredient));
-//        }
-//        return idsList;
-//    }
-
+    /**
+     * INCOMPLETE
+     * takes in list of ingredientDtos
+     * checks if item is already in db, if not, adds it and adds new id to the list
+     * if is in db already SHOULD add id to the list
+     *
+     * @param ingredientDtoList
+     * @return list of Integers corresponding to ids of ingredients in the db
+     */
     public List<Integer> getIngredientIds(List<IngredientDto> ingredientDtoList) {
         //Gets back all ids except ones already in the system
         List<Integer> idsList = new ArrayList<>();
@@ -97,6 +94,14 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         return idsList;
     }
 
+    /**
+     * takes in list of ingredientDtos,
+     * turns list of Dtos into list of Ingredient objects *with ids*
+     * **SHOULD NOT BE CALLED IF OBJECT IS NOT IN DB**
+     *
+     * @param ingredientDtoList
+     * @return
+     */
     public List<Ingredient> getListIngredients(List<IngredientDto> ingredientDtoList) {
         List<Ingredient> ingredientList = new ArrayList<>();
         for(IngredientDto currentIngredient : ingredientDtoList ){

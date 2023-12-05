@@ -58,7 +58,14 @@ public class JdbcIngredientDao implements IngredientDao{
 //        return id;
 //    }
 
-
+    /**
+     * Takes in ingredientDto
+     * adds it to database
+     * **SHOULD NOT BE CALLED IF OBJECT ALREADY IN DB**
+     *
+     * @param ingredientDto
+     * @return in corresponding to the id of the new object
+     */
     public int addIngredientReturnId(IngredientDto ingredientDto) {
         Ingredient newIngredient =  new Ingredient(ingredientDto.getIngredient_name());
         String sql = "INSERT INTO ingredient(ingredient_name) VALUES (?) RETURNING ingredient_id;";
@@ -81,6 +88,15 @@ public class JdbcIngredientDao implements IngredientDao{
         return newIngredient.getId();
     }
 
+    /**
+     * Takes in ingredientDto
+     * adds object to db
+     * **SHOULD NOT BE CALLED IF OBJECT ALREADY IN DB**
+     * transfers Dto information to Object form
+     *
+     * @param ingredientDto
+     * @return ingredient with the data of the Dto AND the new id from the db
+     */
     public Ingredient addReturnIngredient(IngredientDto ingredientDto) {
         Ingredient newIngredient = new Ingredient(ingredientDto.getIngredient_name());
         String sql = "INSERT INTO ingredient(ingredient_name) VALUES (?) RETURNING ingredient_id;";
@@ -103,6 +119,14 @@ public class JdbcIngredientDao implements IngredientDao{
         return newIngredient;
     }
 
+    /**
+     * Takes in IngredientDto,
+     * returns id if found in db
+     * returns 0 if not found in db
+     *
+     * @param ingredientDto
+     * @return int corresponding to the ID of the ingredient, 0 if not found
+     */
     public int getIngredientID (IngredientDto ingredientDto){
         int ID = 0;
         String sql = "SELECT ingredient_id FROM ingredient WHERE ingredient_name = (?);";
@@ -116,6 +140,14 @@ public class JdbcIngredientDao implements IngredientDao{
         return ID;
     }
 
+    /**
+     * Takes in IngredientDto,
+     * adds information to Ingredient object,
+     * returns Ingredient
+     *
+     * @param ingredientDto
+     * @return ingredient with name and ID set
+     */
     public Ingredient getIngredient(IngredientDto ingredientDto){
         Ingredient newIngredient = new Ingredient(ingredientDto.getIngredient_name());
         String sql = "SELECT ingredient_id FROM ingredient WHERE ingredient_name = (?);";

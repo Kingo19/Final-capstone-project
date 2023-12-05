@@ -50,6 +50,11 @@ public class IngredientsController {
         }
     }
 
+    /**
+     * Takes a list of IngredienDtos
+     * @param ingredientDtoList
+     */
+
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "ingredients/add-multiple", method = RequestMethod.POST)
     public void addIngredientsGetIdList(@RequestBody List<IngredientDto> ingredientDtoList) {

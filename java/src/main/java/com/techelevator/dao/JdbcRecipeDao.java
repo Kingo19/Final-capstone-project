@@ -52,6 +52,14 @@ public class JdbcRecipeDao implements RecipeDao{
 //        return id;
 //    }
 
+    /**
+     * takes in recipeDto,
+     * adds to the db
+     * **SHOULD NOT BE CALLED IF OBJECT ALREADY IN DB**
+     *
+     * @param recipeDto
+     * @return int corresponding to the new id from the db
+     */
     public int addRecipeReturnId(RecipeDto recipeDto) {
         String sql = "INSERT INTO recipe(recipe_name, recipe_instructions) VALUES (?, ?) RETURNING recipe_id;";
         try {
@@ -73,6 +81,12 @@ public class JdbcRecipeDao implements RecipeDao{
         }
     }
 
+    /**
+     * takes in recipeDto
+     *
+     * @param recipeDto
+     * @return int corresponding to the id of the object in the db
+     */
     public int getRecipeID(RecipeDto recipeDto) {
         String sql = "SELECT recipe_id FROM recipe WHERE recipe_name = ?;";
         try {
