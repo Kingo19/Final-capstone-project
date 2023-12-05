@@ -7,8 +7,8 @@ public class RecipeIngredientDto {
     private RecipeDto recipe;
 
     public RecipeIngredientDto(List<IngredientDto> ingredients, RecipeDto recipe) {
-        this.ingredients = ingredients;
         this.recipe = recipe;
+        this.ingredients = ingredients;
     }
 
     public RecipeIngredientDto(){

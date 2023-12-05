@@ -97,6 +97,15 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
             }
         }
     }
+
+    /**
+     * takes an id
+     * then returns the corresponding recipe and ingredients
+     * as an object
+     * 
+     * @param id
+     * @return
+     */
     public RecipeIngredientDto getRecipeAndIngredientsFromId(int id){
         RecipeIngredientDto recipeIngredientDto = new RecipeIngredientDto();
         RecipeDto recipe = new RecipeDto();
