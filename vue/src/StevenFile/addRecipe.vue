@@ -4,14 +4,14 @@
     <!-- Recipe Name -->
     <div class="input-group">
       <label for="recipeName">Recipe Name</label>
-      <input type="text" id="recipeName" v-model="formData.recipeName"
+      <input type="text" id="recipeName" v-model="formData.recipe.recipe_name"
              :aria-required="requiredFields.recipeName.toString()" maxlength="200" :placeholder="recipeFormFields['Recipe Name']">
     </div>
 
     <!-- Description -->
     <div class="input-group textfield">
       <label for="description">Description</label>
-      <textarea :maxlength="maxlen" id="description" v-model="formData.description"
+      <textarea :maxlength="maxlen" id="description" v-model="formData.recipe.recipe_instructions"
                 :aria-required="requiredFields.description.toString()" rows="4" cols="50"
                 :placeholder="recipeFormFields['Description']"></textarea>
     </div>
@@ -72,7 +72,7 @@
       <div class="ingredient-group" v-for="(ingredient, index) in formData.ingredients" :key="index">
 
         <!-- Text field -->
-        <input :id="'ingredientName' + index" type="text" v-model="ingredient.name" list="ingredientNames" placeholder="Ingredient Name">
+        <input :id="'ingredientName' + index" type="text" v-model="ingredient.ingredient_name" list="ingredientNames" placeholder="Ingredient Name">
         <!-- Datalist is for predictive text. Array is used named foodName from foodNameArray.js -->
         <datalist id="ingredientNames">
           <option class="innerIngredient" v-for="itemName in foodName" :value="itemName" :key="itemName"></option>
@@ -155,30 +155,38 @@ export default {
       usUnits: ['teaspoon', 'tablespoon', 'cup', 'ounce', 'pound', 'quart', 'gallon'],
       maxlen:200,
       foodName: foodarray.fullFoodNameArray,
-      formData: {
-        ingredients: [
-          { name: '', quantity: null, unit: '' }
-        ],
-        recipeName: "",
-        description: "",
-        preparationTime: {
-          days:0,
-          hours:0,
-          minutes:0
+      // formData: {
+      //   ingredients: [
+      //     { name: '', quantity: null, unit: '' }
+      //   ],
+      //   recipeName: "",
+      //   description: "",
+      //   preparationTime: {
+      //     days:0,
+      //     hours:0,
+      //     minutes:0
+      //   },
+      //   cookingTime: {
+      //     days:0,
+      //     hours:0,
+      //     minutes:0
+      //   },
+      //   servings: null,
+      //   difficultyLevel: "Easy", // Default value
+      //   category: "Appetizer", // Default value
+      //   instructions: "",
+      //   tagsKeywords: "",
+      //   authorNotes: "",
+      //   sourceCredits: ""
+      // },
+      formData:{
+        recipe:{
+          recipe_name:"",
+          recipe_instructions:"",
         },
-        cookingTime: {
-          days:0,
-          hours:0,
-          minutes:0
-        },
-        servings: null,
-        difficultyLevel: "Easy", // Default value
-        category: "Appetizer", // Default value
-        instructions: "",
-        tagsKeywords: "",
-        authorNotes: "",
-        sourceCredits: ""
+        ingredients: []
       },
+
 
       recipeFormFields: {
         "Recipe Name": "Name your recipe, we suggest something unique and easy to remember",
@@ -194,6 +202,12 @@ export default {
         "Author Notes": "Additional tips or suggestions from the recipe's creator.",
         "Source/Credits": "If the recipe is adapted from another source, a field to give proper credit."
       },
+      //
+      // Ingredients: {
+      //   "Name": "The name of each ingredient.",
+      //   "Quantity": "The specific amount needed (e.g., 1 cup, 2 teaspoons).",
+      //   "Unit": "The measurement unit for the quantity (e.g., cups, grams, tablespoons)."
+      // },
 
       Ingredients: {
         "Name": "The name of each ingredient.",
@@ -205,6 +219,8 @@ export default {
   methods: {
 
     submitForm() {
+      console.log(this.formData)
+    },
       // let warning = "The following needs attention:"
       // let warn = false
       // for(let each in this.formData){
@@ -220,9 +236,16 @@ export default {
       // if(warn){
       //   alert(warning)
       // }
-    },
+    // },
+    // addIngredient() {
+    //   this.formData.ingredients.push({ name: '', quantity: null, unit: '' });
+    // },
+    // removeIngredient(index) {
+    //   this.formData.ingredients.splice(index, 1);
+    // },
+
     addIngredient() {
-      this.formData.ingredients.push({ name: '', quantity: null, unit: '' });
+      this.formData.ingredients.push({ ingredient_name: ''});
     },
     removeIngredient(index) {
       this.formData.ingredients.splice(index, 1);
@@ -230,7 +253,7 @@ export default {
 
     getArrayOfKeywords() {
       let keywords = []
-      let tags = this.formData.tagsKeywords.split(',');   // Split the initial string by commas
+      let tags = this.recipe.tagsKeywords.split(',');   // Split the initial string by commas
       for(let each of tags){  //Looping over that array to find words with spaces
         each = each.trim() //Trims the leading or trailing characters
         keywords.push(each)
