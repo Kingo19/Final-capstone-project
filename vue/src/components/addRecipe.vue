@@ -129,7 +129,9 @@
 
 <script>
 
-import foodarray from "./foodNameArray"
+import foodarray from "../StevenFile/foodNameArray";
+import RecipeService from "../services/RecipeService";
+
 
 export default {
   data() {
@@ -219,7 +221,7 @@ export default {
   methods: {
 
     submitForm() {
-      console.log(this.formData)
+      RecipeService.addRecipeAndIngredients(this.formData)
     },
       // let warning = "The following needs attention:"
       // let warn = false
