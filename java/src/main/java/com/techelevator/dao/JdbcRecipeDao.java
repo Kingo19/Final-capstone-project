@@ -4,6 +4,7 @@ import com.techelevator.controller.MealController;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.IngredientDto;
 import com.techelevator.model.RecipeDto;
+import com.techelevator.model.RecipeIngredientDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -73,5 +74,37 @@ public class JdbcRecipeDao implements RecipeDao{
             logger.error("Error retrieving recipe ID: ", e);
             throw new DaoException("Error retrieving recipe ID", e);
         }
+    }
+
+    /**
+     * takes a recipeId
+     * and returns a recipe object
+     */
+    public RecipeDto getRecipeFromId(int id){
+        RecipeDto recipe = new RecipeDto();
+        String sql = "SELECT recipe_name, recipe_instructions FROM recipe WHERE recipe_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        while(results.next()){
+            recipe = mapRowToRecipe(results);
+        }
+        if(recipe.getRecipe_name() == null){
+            throw new DaoException("Error receiving recipe info.");
+        }
+        return recipe;
+    }
+
+    /**
+     * takes in SqlRowSet
+     * applies data to recipe object
+     * returns populated recipe object
+     *
+     * @param results
+     * @return
+     */
+    private RecipeDto mapRowToRecipe(SqlRowSet results){
+        RecipeDto recipe = new RecipeDto();
+        recipe.setRecipe_name(results.getString("recipe_name"));
+        recipe.setRecipe_instructions(results.getString("recipe_instructions"));
+        return recipe;
     }
 }

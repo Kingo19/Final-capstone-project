@@ -13,4 +13,6 @@ public interface IngredientDao {
     public Ingredient addReturnIngredient(IngredientDto ingredientDto);
     public int getIngredientID (IngredientDto ingredientDto);
     public Ingredient getIngredient(IngredientDto ingredientDto);
+
+    public IngredientDto getIngredientFromId(int id);
 }

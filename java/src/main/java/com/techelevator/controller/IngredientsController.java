@@ -4,11 +4,13 @@ import com.techelevator.dao.IngredientDao;
 import com.techelevator.dao.RecipeIngredientDao;
 import com.techelevator.model.Ingredient;
 import com.techelevator.model.IngredientDto;
+import com.techelevator.model.RecipeDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,5 +93,22 @@ public class IngredientsController {
                     "Parameters: " + ingredientDtoList.toString()
             );
         }
+    }
+
+    @RequestMapping(path = "ingredients/{id}", method = RequestMethod.GET)
+    public IngredientDto fetchIngredientInfo(@Valid @PathVariable int id){
+        IngredientDto ingredientDto = new IngredientDto();
+        try {
+            ingredientDto = ingredientDao.getIngredientFromId(id);
+        } catch (Exception e) {
+            logger.error("Recipe Failure: ", e);
+            System.out.printf("%s%n%s%n%s%n%s%n",
+                    "Class: " + this.getClass(),
+                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
+                    "Exception: " + e,
+                    "Parameters: " + id
+            );
+        }
+        return ingredientDto;
     }
 }

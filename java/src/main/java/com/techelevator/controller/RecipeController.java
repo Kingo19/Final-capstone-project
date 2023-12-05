@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
 @CrossOrigin
@@ -63,5 +65,22 @@ public class RecipeController {
                     "Parameters: " + recipeDto.toString()
             );
         }
+    }
+
+    @RequestMapping(path = "recipes/{id}", method = RequestMethod.GET)
+    public RecipeIngredientDto fetchRecipeInfo(@Valid @PathVariable int id){
+        RecipeIngredientDto recipeIngredientDto = new RecipeIngredientDto();
+        try {
+            recipeIngredientDto = recipeIngredientDao.getRecipeAndIngredientsFromId(id);
+        } catch (Exception e) {
+            logger.error("Recipe Failure: ", e);
+            System.out.printf("%s%n%s%n%s%n%s%n",
+                    "Class: " + this.getClass(),
+                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
+                    "Exception: " + e,
+                    "Parameters: " + id
+            );
+        }
+        return recipeIngredientDto;
     }
 }

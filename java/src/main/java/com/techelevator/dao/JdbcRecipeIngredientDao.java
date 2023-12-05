@@ -97,4 +97,28 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
             }
         }
     }
+    public RecipeIngredientDto getRecipeAndIngredientsFromId(int id){
+        RecipeIngredientDto recipeIngredientDto = new RecipeIngredientDto();
+        RecipeDto recipe = new RecipeDto();
+        List<IngredientDto> ingredients = new ArrayList<>();
+        String sql = "SELECT ingredient_id FROM recipe_ingredient WHERE recipe_id = ?;";
+        try{
+            recipe = jdbcRecipeDao.getRecipeFromId(id);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+            while(results.next()){
+                IngredientDto currentIngredient = jdbcIngredientDao.getIngredientFromId(results.getInt("ingredient_id"));
+                ingredients.add(currentIngredient);
+            }
+            recipeIngredientDto.setRecipe(recipe);
+            recipeIngredientDto.setIngredients(ingredients);
+        } catch (Exception e) {
+            System.out.printf("%s%n%s%n%s%n%s%n",
+                    "Class: " + this.getClass(),
+                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
+                    "Exception: " + e,
+                    "Parameters: "
+            );
+        }
+        return recipeIngredientDto;
+    }
 }

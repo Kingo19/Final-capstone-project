@@ -2,6 +2,7 @@ package com.techelevator.dao;
 import com.techelevator.controller.MealController;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Ingredient;
+import com.techelevator.model.RecipeDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -128,5 +129,24 @@ public class JdbcIngredientDao implements IngredientDao{
         }catch (EmptyResultDataAccessException e){
             return addReturnIngredient(ingredientDto);
         }
+    }
+
+    public IngredientDto getIngredientFromId(int id){
+        IngredientDto ingredient = new IngredientDto();
+        String sql = "SELECT ingredient_name FROM ingredient WHERE ingredient_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        while(results.next()){
+            ingredient = mapRowToIngredient(results);
+        }
+        if(ingredient.getIngredient_name() == null){
+            throw new DaoException("Error receiving ingredient info.");
+        }
+        return ingredient;
+    }
+
+    private IngredientDto mapRowToIngredient(SqlRowSet results){
+        IngredientDto ingredient = new IngredientDto();
+        ingredient.setIngredient_name(results.getString("ingredient_name"));
+        return ingredient;
     }
 }

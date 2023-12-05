@@ -10,6 +10,10 @@ public class RecipeIngredientDto {
         this.ingredients = ingredients;
         this.recipe = recipe;
     }
+
+    public RecipeIngredientDto(){
+
+    }
     public List<IngredientDto> getIngredients() {
         return ingredients;
     }
