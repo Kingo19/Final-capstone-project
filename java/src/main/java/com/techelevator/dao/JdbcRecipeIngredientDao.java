@@ -86,6 +86,7 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
 //    }
 
     public List<Integer> getIngredientIds(List<IngredientDto> ingredientDtoList) {
+        //Gets back all ids except ones already in the system
         List<Integer> idsList = new ArrayList<>();
         for(IngredientDto currentIngredient : ingredientDtoList ){
             int checkForId = jdbcIngredientDao.getIngredientID(currentIngredient);

@@ -52,7 +52,8 @@ public class IngredientsController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "ingredients/add-multiple", method = RequestMethod.POST)
-    public void addIngredients(@RequestBody List<IngredientDto> ingredientDtoList) {
+    public void addIngredientsGetIdList(@RequestBody List<IngredientDto> ingredientDtoList) {
+        //Gets back list of id's
         try {
             List<Integer> idsList = recipeIngredientDao.getIngredientIds(ingredientDtoList);
             System.out.println(idsList.toString());
