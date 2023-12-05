@@ -24,34 +24,16 @@ public class JdbcRecipeDao implements RecipeDao{
     public JdbcRecipeDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
-// Original Reference Code
-    //All code works.
     //TODO: implement userIds to know ownership
-//    @Override
-//    public int addRecipe(RecipeDto recipeDto) {
-//        int resultID = 0;
-//        try{
-//            resultID = getRecipeID(recipeDto);
-//        } catch (Exception e) {
-//            System.out.println("Recipe Problem. " + e);
-//        }
-//        if(resultID == 0){
-//            String sql = "INSERT INTO recipe(recipe_name, recipe_instructions) VALUES (?,?) RETURNING recipe_id;";
-//            resultID = jdbcTemplate.queryForObject(sql, int.class,recipeDto.getRecipe_name(), recipeDto.getRecipe_instructions());
-//        }
-//        return resultID;
-//    }
-//
-//    public int getRecipeID(RecipeDto recipeDto){
-//        int id = 0;
-//        String sql = "SELECT recipe_id FROM recipe WHERE recipe_name = ?;";
-//        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, recipeDto.getRecipe_name());
-//        while(result.next()) {
-//            id = result.getInt("recipe_id");
-//        }
-//        return id;
-//    }
 
+    /**
+     * takes in recipeDto,
+     * adds to the db
+     * **SHOULD NOT BE CALLED IF OBJECT ALREADY IN DB**
+     *
+     * @param recipeDto
+     * @return int corresponding to the new id from the db
+     */
     public int addRecipeReturnId(RecipeDto recipeDto) {
         String sql = "INSERT INTO recipe(recipe_name, recipe_instructions) VALUES (?, ?) RETURNING recipe_id;";
         try {
@@ -73,6 +55,12 @@ public class JdbcRecipeDao implements RecipeDao{
         }
     }
 
+    /**
+     * takes in recipeDto
+     *
+     * @param recipeDto
+     * @return int corresponding to the id of the object in the db
+     */
     public int getRecipeID(RecipeDto recipeDto) {
         String sql = "SELECT recipe_id FROM recipe WHERE recipe_name = ?;";
         try {

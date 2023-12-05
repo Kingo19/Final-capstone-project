@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Ingredient;
 import com.techelevator.model.IngredientDto;
+import com.techelevator.model.RecipeDto;
 import com.techelevator.model.RecipeIngredientDto;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -27,64 +28,17 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         this.jdbcIngredientDao = jdbcIngredientDao;
         this.jdbcRecipeDao = jdbcRecipeDao;
     }
-    //Original Code for Reference
-    // All other code works
-//    @Override
-//    public void addRecipeAndIngredients(RecipeIngredientDto recipeIngredientDto) {
-//        String sql = "INSERT INTO recipe_ingredient(recipe_id, ingredient_id) VALUES (?,?);";
-//
-//        int recipeResult = jdbcRecipeDao.addRecipe(recipeIngredientDto.getRecipe());
-//        System.out.println(recipeResult);
-//        System.out.println("-------RECIPE ID-------");
-//        List<Integer> ingredientIds = getIngredientIds(recipeIngredientDto.getIngredients());
-//        for(Integer currentId : ingredientIds){
-//            jdbcTemplate.update(sql, recipeResult, currentId);
-//            System.out.println(currentId + "ingredient id");
-//            System.out.println(recipeResult + "Recipe id");
-//        }
-//    }
 
 
-
-    //BUILD ERRORS
-//@Override
-//public void addRecipeIngredients(List<IngredientDto> ingredients, int recipeId) {
-//    int ingredientsToAdd = ingredients.size();
-//    int ingredientsAdded = 0;
-//    String sql = "INSERT INTO recipe_ingredient(recipe_id, ingredient_id) VALUES (?, ?)";
-//    try {
-//        for (IngredientDto ingredient : ingredients) {
-//            jdbcTemplate.update(sql, recipeId, ingredient.getId());
-//            ingredientsAdded++;
-//            System.out.println("Ingredient added to the recipe. Recipe ID: " + recipeId + ", Ingredient ID: " + ingredient.getId());
-//        }
-//        if (ingredientsToAdd != ingredientsAdded) {
-//            throw new RuntimeException("Didn't create the expected number of rows.");
-//        } else {
-//            System.out.println("All ingredients added successfully.");
-//        }
-//    } catch (CannotGetJdbcConnectionException e) {
-//        System.out.println("Unable to connect to the database.");
-//        throw new RuntimeException("Unable to connect to the database.", e);
-//    } catch (DataIntegrityViolationException e) {
-//        System.out.println("Action would violate data integrity.");
-//        throw new RuntimeException("Action would violate data integrity.", e);
-//    } catch (BadSqlGrammarException e) {
-//        System.out.println("Invalid syntax.");
-//        throw new RuntimeException("Invalid syntax.", e);
-//    }
-//}
-
-    // Original#
-//    @Override
-//    public List<Integer> getIngredientIds(List<IngredientDto> ingredientDtoList) {
-//        List<Integer> idsList = new ArrayList<>();
-//        for(IngredientDto currentIngredient : ingredientDtoList ){
-//            idsList.add(jdbcIngredientDao.addIngredient(currentIngredient));
-//        }
-//        return idsList;
-//    }
-
+    /**
+     * INCOMPLETE
+     * takes in list of ingredientDtos
+     * checks if item is already in db, if not, adds it and adds new id to the list
+     * if is in db already SHOULD add id to the list
+     *
+     * @param ingredientDtoList
+     * @return list of Integers corresponding to ids of ingredients in the db
+     */
     public List<Integer> getIngredientIds(List<IngredientDto> ingredientDtoList) {
         //Gets back all ids except ones already in the system
         List<Integer> idsList = new ArrayList<>();
@@ -92,16 +46,55 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
             int checkForId = jdbcIngredientDao.getIngredientID(currentIngredient);
             if(checkForId == 0) {
                 idsList.add(jdbcIngredientDao.addIngredientReturnId(currentIngredient));
+            } else {
+                idsList.add(checkForId);
             }
         }
         return idsList;
     }
 
+    /**
+     * takes in list of ingredientDtos,
+     * turns list of Dtos into list of Ingredient objects *with ids*
+     * **SHOULD NOT BE CALLED IF OBJECT IS NOT IN DB**
+     *
+     * @param ingredientDtoList
+     * @return
+     */
     public List<Ingredient> getListIngredients(List<IngredientDto> ingredientDtoList) {
         List<Ingredient> ingredientList = new ArrayList<>();
         for(IngredientDto currentIngredient : ingredientDtoList ){
             ingredientList.add(jdbcIngredientDao.getIngredient(currentIngredient));
         }
         return ingredientList;
+    }
+
+    /**
+     * takes in a RecipeIngredientDto
+     * checks to see if the recipe exists already if not, add to db and gets new id
+     * checks each ingredient to see if it exists already, if not, add to db and get the new id
+     *
+     * then adds to the joiner
+     * @param rID
+     */
+    public void addRecipeIngredientConnection(RecipeIngredientDto rID) {
+        int recipeId = jdbcRecipeDao.getRecipeID(rID.getRecipe());
+        if (recipeId == 0) {
+            recipeId = jdbcRecipeDao.addRecipeReturnId(rID.getRecipe());
+        }
+        List<Integer> ingredientsIds = getIngredientIds(rID.getIngredients());
+        String sql = "INSERT INTO recipe_ingredient(recipe_id, ingredient_id) VALUES (?,?)";
+        for (Integer ingredientId : ingredientsIds) {
+            try {
+                jdbcTemplate.update(sql, recipeId, ingredientId);
+            } catch (Exception e) {
+                System.out.printf("%s%n%s%n%s%n%s%n",
+                        "Class: " + this.getClass(),
+                        "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
+                        "Exception: " + e,
+                        "Parameters: "
+                );
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.RecipeDao;
 import com.techelevator.dao.RecipeIngredientDao;
 import com.techelevator.model.RecipeDto;
+import com.techelevator.model.RecipeIngredientDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -34,17 +35,16 @@ public class RecipeController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "recipes/add", method = RequestMethod.POST)
-    public void addRecipe(@RequestBody RecipeDto recipeDto) {
+    public void addRecipe(@RequestBody RecipeIngredientDto recipeIngredientDto) {
         try {
-            int recipeId = recipeDao.addRecipeReturnId(recipeDto);
-            // Handle the case where the recipe ID is 0, which indicates an issue
+            recipeIngredientDao.addRecipeIngredientConnection(recipeIngredientDto);
         } catch (Exception e) {
             logger.error("Recipe Failure: ", e);
             System.out.printf("%s%n%s%n%s%n%s%n",
                     "Class: " + this.getClass(),
                     "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
                     "Exception: " + e,
-                    "Parameters: " + recipeDto.toString()
+                    "Parameters: " + recipeIngredientDto.toString()
             );
         }
     }

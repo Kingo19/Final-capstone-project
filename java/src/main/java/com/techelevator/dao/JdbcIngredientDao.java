@@ -25,40 +25,16 @@ public class JdbcIngredientDao implements IngredientDao{
     public void getIdOrInsertIdReturningId(){
 
     }
-// Original Reference Code
-    //All code works.
-//    public int addIngredient(IngredientDto ingredientDto){
-//        int resultID = ingredientDto.getId();
-//        try{
-//            ingredientDto.setId(getIngredientID(ingredientDto));
-//        } catch (Exception e) {
-//            logger.error("Error adding ingredient: ", e);
-//            System.out.printf("%s%n%s%n%s%n%s%n",
-//                    "Class: " + this.getClass(),
-//                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
-//                    "Exception: " + e,
-//                    "Parameters: " + ingredientDto.toString()
-//            );
-//        }
-//        if(resultID == 0){
-//            String sql = "INSERT INTO ingredient(ingredient_name) VALUES (?) RETURNING ingredient_id;";
-//            jdbcTemplate.queryForObject(sql, int.class,ingredientDto.getIngredient_name());
-//            ingredientDto.setId( jdbcTemplate.queryForObject(sql, int.class,ingredientDto.getIngredient_name()));
-//        }
-//        return ingredientDto.getId();
-//    }
-//
-//    public int getIngredientID(IngredientDto ingredientDto){
-//        int id = 0;
-//        String sql = "SELECT ingredient_id FROM ingredient WHERE ingredient_name = ?;";
-//        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, ingredientDto.getIngredient_name());
-//        while(result.next()){
-//            id = result.getInt("ingredient_id");
-//        }
-//        return id;
-//    }
 
 
+    /**
+     * Takes in ingredientDto
+     * adds it to database
+     * **SHOULD NOT BE CALLED IF OBJECT ALREADY IN DB**
+     *
+     * @param ingredientDto
+     * @return in corresponding to the id of the new object
+     */
     public int addIngredientReturnId(IngredientDto ingredientDto) {
         Ingredient newIngredient =  new Ingredient(ingredientDto.getIngredient_name());
         String sql = "INSERT INTO ingredient(ingredient_name) VALUES (?) RETURNING ingredient_id;";
@@ -81,6 +57,15 @@ public class JdbcIngredientDao implements IngredientDao{
         return newIngredient.getId();
     }
 
+    /**
+     * Takes in ingredientDto
+     * adds object to db
+     * **SHOULD NOT BE CALLED IF OBJECT ALREADY IN DB**
+     * transfers Dto information to Object form
+     *
+     * @param ingredientDto
+     * @return ingredient with the data of the Dto AND the new id from the db
+     */
     public Ingredient addReturnIngredient(IngredientDto ingredientDto) {
         Ingredient newIngredient = new Ingredient(ingredientDto.getIngredient_name());
         String sql = "INSERT INTO ingredient(ingredient_name) VALUES (?) RETURNING ingredient_id;";
@@ -103,6 +88,14 @@ public class JdbcIngredientDao implements IngredientDao{
         return newIngredient;
     }
 
+    /**
+     * Takes in IngredientDto,
+     * returns id if found in db
+     * returns 0 if not found in db
+     *
+     * @param ingredientDto
+     * @return int corresponding to the ID of the ingredient, 0 if not found
+     */
     public int getIngredientID (IngredientDto ingredientDto){
         int ID = 0;
         String sql = "SELECT ingredient_id FROM ingredient WHERE ingredient_name = (?);";
@@ -116,6 +109,14 @@ public class JdbcIngredientDao implements IngredientDao{
         return ID;
     }
 
+    /**
+     * Takes in IngredientDto,
+     * adds information to Ingredient object,
+     * returns Ingredient
+     *
+     * @param ingredientDto
+     * @return ingredient with name and ID set
+     */
     public Ingredient getIngredient(IngredientDto ingredientDto){
         Ingredient newIngredient = new Ingredient(ingredientDto.getIngredient_name());
         String sql = "SELECT ingredient_id FROM ingredient WHERE ingredient_name = (?);";
