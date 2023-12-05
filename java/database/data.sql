@@ -3,6 +3,8 @@ BEGIN TRANSACTION;
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
+INSERT INTO recipe (recipe_name, recipe_instructions) VALUES
+('Chocolate Cake', 'Mix ingredients and bake for 30 minutes.'),
 ('Pasta Carbonara', 'Cook pasta, fry bacon, mix with eggs and cheese.'),
 ('Grilled Cheese Sandwich', 'Butter bread, add cheese, and grill.');
 
