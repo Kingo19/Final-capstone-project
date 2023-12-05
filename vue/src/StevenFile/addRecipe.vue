@@ -16,52 +16,52 @@
                 :placeholder="recipeFormFields['Description']"></textarea>
     </div>
 
-    <!-- Preparation Time -->
-    <div class="input-group">
-      <label for="preparationTime">Preparation Time</label>
-      <div class="time-inputs">
-        <input type="number" class="nums" v-model.number="formData.preparationTime.days" placeholder="Days" min="0">
-        <input type="number" class="nums" v-model.number="formData.preparationTime.hours" placeholder="Hours" min="0" max="23">
-        <input type="number" class="nums" v-model.number="formData.preparationTime.minutes" placeholder="Minutes" min="0" max="59">
-      </div>
-    </div>
+<!--    &lt;!&ndash; Preparation Time &ndash;&gt;-->
+<!--    <div class="input-group">-->
+<!--      <label for="preparationTime">Preparation Time</label>-->
+<!--      <div class="time-inputs">-->
+<!--        <input type="number" class="nums" v-model.number="formData.preparationTime.days" placeholder="Days" min="0">-->
+<!--        <input type="number" class="nums" v-model.number="formData.preparationTime.hours" placeholder="Hours" min="0" max="23">-->
+<!--        <input type="number" class="nums" v-model.number="formData.preparationTime.minutes" placeholder="Minutes" min="0" max="59">-->
+<!--      </div>-->
+<!--    </div>-->
 
-    <!-- Cooking Time -->
-    <div class="input-group">
-      <label for="cookingTime">Cooking Time</label>
-      <div class="time-inputs">
-        <input type="number" class="nums" v-model.number="formData.cookingTime.days" placeholder="Days" min="0">
-        <input type="number" class="nums" v-model.number="formData.cookingTime.hours" placeholder="Hours" min="0" max="23">
-        <input type="number" class="nums" v-model.number="formData.cookingTime.minutes" placeholder="Minutes" min="0" max="59">
-      </div>
-    </div>
+<!--    &lt;!&ndash; Cooking Time &ndash;&gt;-->
+<!--    <div class="input-group">-->
+<!--      <label for="cookingTime">Cooking Time</label>-->
+<!--      <div class="time-inputs">-->
+<!--        <input type="number" class="nums" v-model.number="formData.cookingTime.days" placeholder="Days" min="0">-->
+<!--        <input type="number" class="nums" v-model.number="formData.cookingTime.hours" placeholder="Hours" min="0" max="23">-->
+<!--        <input type="number" class="nums" v-model.number="formData.cookingTime.minutes" placeholder="Minutes" min="0" max="59">-->
+<!--      </div>-->
+<!--    </div>-->
 
-    <!-- Servings -->
-    <div class="input-group">
-      <label for="servings">Servings</label>
-      <input type="number" id="servings" v-model.number="formData.servings" :placeholder="recipeFormFields['Servings']" min="0">
-    </div>
+<!--    &lt;!&ndash; Servings &ndash;&gt;-->
+<!--    <div class="input-group">-->
+<!--      <label for="servings">Servings</label>-->
+<!--      <input type="number" id="servings" v-model.number="formData.servings" :placeholder="recipeFormFields['Servings']" min="0">-->
+<!--    </div>-->
 
-    <!-- Difficulty Level -->
-    <div class="input-group">
-      <label for="difficultyLevel">Difficulty Level</label>
-      <select id="difficultyLevel" v-model="formData.difficultyLevel">
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
-      </select>
-    </div>
+<!--    &lt;!&ndash; Difficulty Level &ndash;&gt;-->
+<!--    <div class="input-group">-->
+<!--      <label for="difficultyLevel">Difficulty Level</label>-->
+<!--      <select id="difficultyLevel" v-model="formData.difficultyLevel">-->
+<!--        <option value="Easy">Easy</option>-->
+<!--        <option value="Medium">Medium</option>-->
+<!--        <option value="Hard">Hard</option>-->
+<!--      </select>-->
+<!--    </div>-->
 
-    <!-- Category -->
-    <div class="input-group">
-      <label for="category">Category</label>
-      <select id="category" v-model="formData.category">
-        <option value="Snack">Snack</option>
-        <option value="Appetizer">Appetizer</option>
-        <option value="Main Course">Main Course</option>
-        <option value="Dessert">Dessert</option>
-      </select>
-    </div>
+<!--    &lt;!&ndash; Category &ndash;&gt;-->
+<!--    <div class="input-group">-->
+<!--      <label for="category">Category</label>-->
+<!--      <select id="category" v-model="formData.category">-->
+<!--        <option value="Snack">Snack</option>-->
+<!--        <option value="Appetizer">Appetizer</option>-->
+<!--        <option value="Main Course">Main Course</option>-->
+<!--        <option value="Dessert">Dessert</option>-->
+<!--      </select>-->
+<!--    </div>-->
 
     <!-- Ingredients Section -->
     <!-- Area is placed in a div container for separation -->
@@ -75,51 +75,51 @@
         <input :id="'ingredientName' + index" type="text" v-model="ingredient.name" list="ingredientNames" placeholder="Ingredient Name">
         <!-- Datalist is for predictive text. Array is used named foodName from foodNameArray.js -->
         <datalist id="ingredientNames">
-          <option class="innerIngredient" v-for="itemName in foodName" :value="itemName"></option>
+          <option class="innerIngredient" v-for="itemName in foodName" :value="itemName" :key="itemName"></option>
         </datalist>
-        <input :id="'ingredientQuantity' + index" type="number" v-model.number="ingredient.quantity" placeholder="Quantity" min="0">
-        <input :id="'ingredientUnit' + index" type="text" v-model="ingredient.unit" placeholder="Unit (e.g., cups, grams)">
+<!--        <input :id="'ingredientQuantity' + index" type="number" v-model.number="ingredient.quantity" placeholder="Quantity" min="0">-->
+<!--        <input :id="'ingredientUnit' + index" type="text" v-model="ingredient.unit" placeholder="Unit (e.g., cups, grams)">-->
         <!-- Show's only that conversion -->
-        <select v-model="selectedUnitType">
-          <option value="metric">METRIC</option>
-          <option value="us">US</option>
-        </select>
+<!--        <select v-model="selectedUnitType">-->
+<!--          <option value="metric">METRIC</option>-->
+<!--          <option value="us">US</option>-->
+<!--        </select>-->
 
-        <select v-show="selectedUnitType === 'metric'">
-          <option v-for="unit in metricUnits" :key="unit" :value="unit">{{ unit }}</option>
-        </select>
+<!--        <select v-show="selectedUnitType === 'metric'">-->
+<!--          <option v-for="unit in metricUnits" :key="unit" :value="unit">{{ unit }}</option>-->
+<!--        </select>-->
 
-        <select v-show="selectedUnitType === 'us'">
-          <option v-for="unit in usUnits" :key="unit" :value="unit">{{ unit }}</option>
-        </select>
+<!--        <select v-show="selectedUnitType === 'us'">-->
+<!--          <option v-for="unit in usUnits" :key="unit" :value="unit">{{ unit }}</option>-->
+<!--        </select>-->
       </div>
       <button type="button" @click="addIngredient">Add Ingredient</button>
       <button type="button" @click="removeIngredient(index)">Remove</button>
     </div>
 
-    <!-- Instructions -->
-    <div class="input-group textfield">
-      <label for="instructions">Instructions</label>
-      <textarea :maxlength="maxlen" id="instructions" v-model="formData.instructions" :aria-required="requiredFields.instructions.toString()" rows="4" cols="50" :placeholder="recipeFormFields['Instructions']"></textarea>
-    </div>
+<!--    &lt;!&ndash; Instructions &ndash;&gt;-->
+<!--    <div class="input-group textfield">-->
+<!--      <label for="instructions">Instructions</label>-->
+<!--      <textarea :maxlength="maxlen" id="instructions" v-model="formData.instructions" :aria-required="requiredFields.instructions.toString()" rows="4" cols="50" :placeholder="recipeFormFields['Instructions']"></textarea>-->
+<!--    </div>-->
 
-    <!-- Tags/Keywords -->
-    <div class="input-group textfield">
-      <label for="tagsKeywords">Tags/Keywords</label>
-      <textarea :maxlength="maxlen" id="tagsKeywords" v-model="formData.tagsKeywords" :aria-required="requiredFields.tagsKeywords.toString()" rows="4" cols="50" :placeholder="recipeFormFields['tagsKeywords']"></textarea>
-    </div>
+<!--    &lt;!&ndash; Tags/Keywords &ndash;&gt;-->
+<!--    <div class="input-group textfield">-->
+<!--      <label for="tagsKeywords">Tags/Keywords</label>-->
+<!--      <textarea :maxlength="maxlen" id="tagsKeywords" v-model="formData.tagsKeywords" :aria-required="requiredFields.tagsKeywords.toString()" rows="4" cols="50" :placeholder="recipeFormFields['tagsKeywords']"></textarea>-->
+<!--    </div>-->
 
-    <!-- Author Notes -->
-    <div class="input-group textfield">
-      <label for="authorNotes">Author Notes</label>
-      <textarea :maxlength="maxlen" id="authorNotes" v-model="formData.authorNotes" :aria-required="requiredFields.authorNotes.toString()" rows="4" cols="50" :placeholder="recipeFormFields['authorNotes']"></textarea>
-    </div>
+<!--    &lt;!&ndash; Author Notes &ndash;&gt;-->
+<!--    <div class="input-group textfield">-->
+<!--      <label for="authorNotes">Author Notes</label>-->
+<!--      <textarea :maxlength="maxlen" id="authorNotes" v-model="formData.authorNotes" :aria-required="requiredFields.authorNotes.toString()" rows="4" cols="50" :placeholder="recipeFormFields['authorNotes']"></textarea>-->
+<!--    </div>-->
 
-    <!-- Source/Credits -->
-    <div class="input-group textfield">
-      <label for="sourceCredits">Source/Credits</label>
-      <textarea :maxlength="maxlen" id="sourceCredits" v-model="formData.sourceCredits" :aria-required="requiredFields.sourceCredits.toString()" rows="4" cols="50" :placeholder="recipeFormFields['sourceCredits']"></textarea>
-    </div>
+<!--    &lt;!&ndash; Source/Credits &ndash;&gt;-->
+<!--    <div class="input-group textfield">-->
+<!--      <label for="sourceCredits">Source/Credits</label>-->
+<!--      <textarea :maxlength="maxlen" id="sourceCredits" v-model="formData.sourceCredits" :aria-required="requiredFields.sourceCredits.toString()" rows="4" cols="50" :placeholder="recipeFormFields['sourceCredits']"></textarea>-->
+<!--    </div>-->
 
     <div class="button-group">
       <button type="submit" class="submit-button" :disabled="!isFormValid">Submit</button>
@@ -129,7 +129,7 @@
 
 <script>
 
-import foodarray from "../services/foodNameArray"
+import foodarray from "./foodNameArray"
 
 export default {
   data() {
