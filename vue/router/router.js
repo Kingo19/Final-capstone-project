@@ -10,6 +10,7 @@ const routes = [
   { path: '/', component: HomePage },
   { path: '/ingredients', component: IngredientsView },
   { path: '/recipes', component: RecipieView },
+  { path: '/recipes/add', }
   
 
 ];
