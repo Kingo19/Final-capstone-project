@@ -1,0 +1,4 @@
+select * from recipe
+join recipe_ingredient on recipe_ingredient.recipe_id = recipe.recipe_id
+join ingredient on recipe_ingredient.ingredient_id = ingredient.ingredient_id
+where recipe.recipe_id = 3;
