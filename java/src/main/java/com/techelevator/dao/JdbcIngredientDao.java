@@ -36,7 +36,8 @@ public class JdbcIngredientDao implements IngredientDao{
      * @return in corresponding to the id of the new object
      */
     public int addIngredientReturnId(IngredientDto ingredientDto) {
-        Ingredient newIngredient =  new Ingredient(ingredientDto.getIngredient_name());
+        Ingredient newIngredient =  new Ingredient();
+        newIngredient.setIngredient_name(ingredientDto.getIngredient_name());
         String sql = "INSERT INTO ingredient(ingredient_name) VALUES (?) RETURNING ingredient_id;";
         try {
             int result = jdbcTemplate.queryForObject(sql, Integer.class, ingredientDto.getIngredient_name());
@@ -67,7 +68,8 @@ public class JdbcIngredientDao implements IngredientDao{
      * @return ingredient with the data of the Dto AND the new id from the db
      */
     public Ingredient addReturnIngredient(IngredientDto ingredientDto) {
-        Ingredient newIngredient = new Ingredient(ingredientDto.getIngredient_name());
+        Ingredient newIngredient = new Ingredient();
+        newIngredient.setIngredient_name(ingredientDto.getIngredient_name());
         String sql = "INSERT INTO ingredient(ingredient_name) VALUES (?) RETURNING ingredient_id;";
         try {
             int result = jdbcTemplate.queryForObject(sql, Integer.class, ingredientDto.getIngredient_name());
@@ -118,7 +120,8 @@ public class JdbcIngredientDao implements IngredientDao{
      * @return ingredient with name and ID set
      */
     public Ingredient getIngredient(IngredientDto ingredientDto){
-        Ingredient newIngredient = new Ingredient(ingredientDto.getIngredient_name());
+        Ingredient newIngredient = new Ingredient();
+        newIngredient.setIngredient_name(ingredientDto.getIngredient_name());
         String sql = "SELECT ingredient_id FROM ingredient WHERE ingredient_name = (?);";
         try {
             int result = jdbcTemplate.queryForObject(sql, Integer.class, ingredientDto.getIngredient_name());

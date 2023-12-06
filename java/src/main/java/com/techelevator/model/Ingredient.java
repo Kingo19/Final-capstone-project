@@ -1,10 +1,15 @@
 package com.techelevator.model;
 
 public class Ingredient {
+    private int ingredient_id;
     private String ingredient_name;
     private int id = 0;
-    public Ingredient(String ingredient_name) {
+    public Ingredient(int id ,String ingredient_name) {
+        this.ingredient_id = id;
         this.ingredient_name = ingredient_name;
+    }
+    public Ingredient(){
+
     }
     public String getIngredient_name() {
         return ingredient_name;
