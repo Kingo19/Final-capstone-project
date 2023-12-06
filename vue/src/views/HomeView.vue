@@ -34,16 +34,8 @@
 
     <section class="testimonials">
       <h2 class="title">Testimonials</h2>
-      <div class="testimonial-grid">
-        <TestimonialComp 
-          v-for="(testimonial, index) in testimonials"
-          :key="index"
-          :userAvatar="testimonial.userAvatar"
-          :userName="testimonial.userName"
-          :userRole="testimonial.userRole"
-          :testimonialText="testimonial.testimonialText"
-        />
-      </div>
+      <TestimonialComp />
+     
     </section>
 
 
