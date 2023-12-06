@@ -45,7 +45,8 @@ public class JdbcRecipeIngredientTests extends BaseDaoTests {
         List<Integer> expected = new ArrayList<>();
         expected.add(1);
         expected.add(2);
-       List<Integer> results = jdbcRecipeIngredientDao.getIngredientIds(INGREDIENT_LIST_1);
+        List<Integer> results = jdbcRecipeIngredientDao.getIngredientIds(INGREDIENT_LIST_1);
+        Assert.assertNotNull(results);
         Assert.assertEquals(expected.get(0), results.get(0));
         Assert.assertEquals(expected.get(1), results.get(1));
     }
@@ -56,7 +57,7 @@ public class JdbcRecipeIngredientTests extends BaseDaoTests {
 
         int recipeID = jdbcRecipeDao.getRecipeID(RECIPE_1);
         RecipeIngredientDto result = jdbcRecipeIngredientDao.getRecipeAndIngredientsFromId(recipeID);
-
+        Assert.assertNotNull(result);
         assertRecipeIngredientEquals(RECIPE_INGREDIENT_1, result);
     }
 
@@ -65,7 +66,7 @@ public class JdbcRecipeIngredientTests extends BaseDaoTests {
         List<IngredientDto> expectedIngredients = expected.getIngredients();
         RecipeDto resultRecipe = result.getRecipe();
         List<IngredientDto> resultIngredients = result.getIngredients();
-
+        Assert.assertNotNull(result);
         Assert.assertEquals(expectedRecipe.getRecipe_name(),resultRecipe.getRecipe_name());
         Assert.assertEquals(expectedRecipe.getRecipe_instructions(), resultRecipe.getRecipe_instructions());
         for (int i = 0; i < expectedIngredients.size(); i++) {
