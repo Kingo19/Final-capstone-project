@@ -131,6 +131,14 @@ public class JdbcIngredientDao implements IngredientDao{
         }
     }
 
+    /**
+     * takes in an id
+     * returns its corresponding ingredient object
+     * if it doesn't exist, returns a null
+     * @param id
+     * @return
+     */
+
     public IngredientDto getIngredientFromId(int id){
         IngredientDto ingredient = new IngredientDto();
         String sql = "SELECT ingredient_name FROM ingredient WHERE ingredient_id = ?;";

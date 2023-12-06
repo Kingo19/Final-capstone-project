@@ -4,7 +4,11 @@
       <div ><img src="@/assets/logo.png" class="logo"></div>
       <nav>
         <a @click.prevent="navigateTo('/')">Home</a>
+<<<<<<< HEAD
         <a @click.prevent="navigateTo('/recipes')"> Add Recipes</a>
+=======
+        <a @click.prevent="navigateTo('/recipes/add')">Recipes</a>
+>>>>>>> 829bbd7a1a118083d282b1ba1b73a89b87248718
         <a @click.prevent="navigateTo('/ingredients')">Ingredients</a>
         <a @click.prevent="navigateTo('/all/recipes')">View Recipes </a>
         <a @click.prevent="navigateTo('/meal-plans')">Meal Plans</a>
