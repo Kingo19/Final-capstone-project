@@ -4,7 +4,7 @@
       <div ><img src="@/assets/logo.png" class="logo"></div>
       <nav>
         <a @click.prevent="navigateTo('/')">Home</a>
-        <a @click.prevent="navigateTo('/recipes')">Recipes</a>
+        <a @click.prevent="navigateTo('/recipes/add')">Recipes</a>
         <a @click.prevent="navigateTo('/ingredients')">Ingredients</a>
         <a @click.prevent="navigateTo('/meal-plans')">Meal Plans</a>
       </nav>
