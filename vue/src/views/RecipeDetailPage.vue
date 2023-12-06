@@ -1,21 +1,16 @@
 <template>
     <div>
 <!--      This is where you will loop over the response of data from the server to get each or every recipe-->
-      <RecipeDetailView  v-for="recipeDto in allRecipe" :key="recipeDto" :recipe-dto="recipeDto"/>
+      <RecipeDetailView  v-for="recipeDto in testrecipe" :key="recipeDto" :recipe-dto="recipeDto"/>
     </div>
   </template>
   
   <script>
   import RecipeDetailView from "@/components/RecipeDetailView.vue";
-  import recipeService from "@/services/RecipeService";
   
   export default {
     components: {
       RecipeDetailView,
-    },
-    mounted:function(){
-      this.allRecipe = recipeService.getAllRecipes()
-      console.log(this.allRecipe)
     },
     data(){
       return {
@@ -69,7 +64,7 @@
         ]
       }
 
-    }
+    },
   };
   </script>
   

@@ -87,6 +87,7 @@ public class RecipeController {
     }
     @RequestMapping(path = "recipes/all", method = RequestMethod.GET)
     public List<RecipeIngredientDto> fetchAllRecipeInfo(){
+        System.out.println("Triggered");
         List<RecipeIngredientDto> recipeIngredientList = new ArrayList<>();
         try {
              recipeIngredientList = recipeIngredientDao.getAllRecipes();
@@ -99,6 +100,7 @@ public class RecipeController {
                     "Parameters: "
             );
         }
+        System.out.println(recipeIngredientList.toString());
         return recipeIngredientList;
     }
 }

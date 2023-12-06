@@ -8,7 +8,7 @@
         <a @click.prevent="navigateTo('/recipes')"> Add Recipes</a>
         <a @click.prevent="navigateTo('/recipes/add')">Recipes</a>
 <!--        <a @click.prevent="navigateTo('/ingredients')">Ingredients</a>-->
-        <a @click.prevent="navigateTo('/all/recipes')">View Recipes </a>
+        <a @click.prevent="navigateTo('/all/recipe')">View Recipes </a>
 <!--        <a @click.prevent="navigateTo('/meal-plans')">Meal Plans</a>-->
       </nav>
     </header>
