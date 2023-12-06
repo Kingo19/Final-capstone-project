@@ -102,7 +102,7 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
      * takes an id
      * then returns the corresponding recipe and ingredients
      * as an object
-     * 
+     *
      * @param id
      * @return
      */
@@ -129,5 +129,20 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
             );
         }
         return recipeIngredientDto;
+    }
+
+    //temp for demo JANK
+    public List<RecipeIngredientDto> getAllRecipes(){
+        List<Integer> recipeIdList = new ArrayList<>();
+        List<RecipeIngredientDto> recipeIngredientDtoList = new ArrayList<>();
+        String sql = "SELECT recipe_id FROM recipe";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while(results.next()){
+            recipeIdList.add(results.getInt("recipe_id"));
+        }
+        for(Integer currentId : recipeIdList){
+            recipeIngredientDtoList.add(getRecipeAndIngredientsFromId(currentId));
+        }
+        return recipeIngredientDtoList;
     }
 }

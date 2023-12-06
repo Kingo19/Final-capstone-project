@@ -14,4 +14,5 @@ public interface RecipeIngredientDao {
     public void addRecipeIngredientConnection(RecipeIngredientDto rID);
 
     public RecipeIngredientDto getRecipeAndIngredientsFromId(int id);
+    public List<RecipeIngredientDto> getAllRecipes();
 }
