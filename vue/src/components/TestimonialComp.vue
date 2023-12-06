@@ -1,30 +1,25 @@
 <!-- Testimonial.vue -->
 <template>
     <div class="testimonial">
-      <FeatureCard title="Add Ingredients" description="Easily add and manage your favorite ingredients. Keep track of quantities, expiration dates, and organize them into categories for effortless meal planning and grocery shopping. Simplify your cooking process and ensure you always have the ingredients you need." />
-
+      <FeatureCard :title="title" />
     </div>
   </template>
   
   <script>
   import FeatureCard from '@/components/FeatureCard.vue';
   export default {
-
-    name: 'TestimonialCompPage',
-   
-    props: {
-      
-      userName: String,
-      userRole: String,
-      testimonialText: String,
+      title: "Add Ingredients\" description=\"Easily add and manage your favorite ingredients. " +
+          "Keep track of quantities, expiration dates, and organize them into categories for effortless meal planning " +
+          "and grocery shopping. Simplify your cooking process and ensure you always have the ingredients you need.\"",
+      name: 'TestimonialCompPage',
+      props: {
+        userName: String,
+        userRole: String,
+        testimonialText: String,
+      },
+      components: {
+      FeatureCard,
     },
-    components: {
-    FeatureCard,
-    
-   
- 
-  },
-   
   };
   </script>
   
