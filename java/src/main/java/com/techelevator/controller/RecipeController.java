@@ -100,7 +100,7 @@ public class RecipeController {
                     "Parameters: "
             );
         }
-        System.out.println(recipeIngredientList.toString());
+        System.out.println(recipeIngredientList.get(0).getRecipe());
         return recipeIngredientList;
     }
 }

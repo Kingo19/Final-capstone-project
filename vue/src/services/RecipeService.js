@@ -7,6 +7,9 @@ export default {
     },
 
     getAllRecipes(){
-        return axios.get('http://localhost:9000/recipes/all')
+        let check =  axios.get('http://localhost:9000/recipes/all').then(cu =>
+        console.log(cu)).catch(cu => console.log(cu + "trigger+"))
+        console.log(Object.values(check[0]))
+        return check
     }
 }
