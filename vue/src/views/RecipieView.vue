@@ -4,7 +4,7 @@
   
   <script>
 
-  import RecipiePage from '../components/RecipiePage.vue';
+  import RecipiePage from '../Unused vue/RecipiePage.vue';
   export default {
     components: {
         RecipiePage 

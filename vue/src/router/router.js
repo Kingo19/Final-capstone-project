@@ -19,7 +19,7 @@ const routes = [
     component: RecipeListPage,
   },
   {
-    path: "/all/recipe/:id",
+    path: "/all/recipe",
     component: RecipeDetailPage,
   },
 

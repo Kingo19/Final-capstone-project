@@ -1,18 +1,23 @@
 <template>
   <div class="recipe-detail-container">
+
     <div class="header">
-      <h1>{{ recipe.name }}</h1>
+      <h1>{{ recipeDto.recipe_name }}</h1>
       <router-link to="/all/recipes" class="back-link">
         <span class="back-icon">&lt; Back to Recipes</span>
       </router-link>
     </div>
+
     <div class="recipe-details">
-      <img class="recipe-image" src="https://www.sandiegoprosthodontics.com/files/2018/09/Recipes-Banner.jpg" alt="Recipe Image" />
-      <p class="instructions">{{ recipe.instructions }}</p>
+      <img class="recipe-image"
+           src="https://www.sandiegoprosthodontics.com/files/2018/09/Recipes-Banner.jpg"
+           alt="Recipe Image" />
+      <p class="instructions">{{ recipeDto.recipe_instructions }}</p>
+
       <div class="ingredient-list">
         <strong>Ingredients:</strong>
         <ul>
-          <li v-for="(ingredient, i) in recipe.ingredients" :key="i">{{ ingredient }}</li>
+            <li v-for="ingredient in recipeDto.ingredients" :key="ingredient">{{ ingredient.ingredient_name }}</li>
         </ul>
       </div>
     </div>
@@ -22,15 +27,22 @@
 <script>
 export default {
   props: {
-    recipes: Array, 
+    recipeDto:Object
+//     recipeDto:{
+//       recipe: Object,
+//       ingredients:[],
+// }
   },
-  computed: {
-    recipe() {
-      
-      const recipeId = this.$route.params.id;
-      return this.recipes[recipeId] || {};
-    },
+  methods:{
+    getObject(){
+      console.log("get 1")
+      console.log(this.recipeDto)
+    }
+
   },
+  computed:{
+
+  }
 };
 </script>
 
@@ -98,7 +110,6 @@ h1 {
 
 .ingredient-list ul {
   padding: 0;
-  list-style: none;
 }
 
 .ingredient-list li {

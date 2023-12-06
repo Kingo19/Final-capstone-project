@@ -1,6 +1,6 @@
 <template>
     <div>
-      <RecipeListView :recipes="dummyRecipes" />
+      <RecipeListView />
     </div>
   </template>
   
