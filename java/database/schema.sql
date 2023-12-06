@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS recipe;
 DROP TABLE IF EXISTS recipe_ingredient;
 DROP TABLE IF EXISTS ingredient;
+DROP TABLE IF EXISTS recipe_users;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -33,6 +34,14 @@ CREATE TABLE recipe_ingredient (
     CONSTRAINT PK_recipe_ingredient PRIMARY KEY (recipe_id, ingredient_id),
     CONSTRAINT FK_recipe_id FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id),
     CONSTRAINT FK_ingredient_id FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id)
+);
+
+CREATE TABLE recipe_users (
+	recipe_id int,
+    user_id int,
+    CONSTRAINT PK_recipe_user PRIMARY KEY (recipe_id, user_id),
+    CONSTRAINT FK_recipe_id FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id),
+    CONSTRAINT FK_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 COMMIT TRANSACTION;
