@@ -110,7 +110,7 @@ export default {
 
 @font-face {
   font-family: "MV Boli";
-  src: url("mvboli.ttf");
+  src: url("../resources/mvboli.ttf");
 }
 
 #test {
