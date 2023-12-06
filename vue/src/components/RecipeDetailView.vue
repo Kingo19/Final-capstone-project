@@ -3,7 +3,7 @@
 
     <div class="header">
       <h1>{{ recipeDto.recipe_name }}</h1>
-      <router-link to="/all/recipes" class="back-link">
+      <router-link to="/" class="back-link">
         <span class="back-icon">&lt; Back to Recipes</span>
       </router-link>
     </div>
