@@ -23,9 +23,9 @@
     </section>
 
     <section class="features">
-      <FeatureCard title="Add Ingredients" description="Easily add and manage your favorite ingredients. Keep track of quantities, expiration dates, and organize them into categories for effortless meal planning and grocery shopping. Simplify your cooking process and ensure you always have the ingredients you need." />
-      <FeatureCard title="Create Recipes" description="Create and store your own recipes for quick access. With our user-friendly recipe editor, you can input detailed instructions, ingredient lists, cooking times, and even add your own photos. Never forget a recipe again and share your culinary creations with friends and family." />
-      <FeatureCard title="Plan Meals" description="Efficiently plan your meals for the week with our intuitive planner. Choose from a vast library of recipes, customize your meal schedule, and drag-and-drop meals to specific days. Generate automated shopping lists based on your meal plan, save time, and ensure you have all the necessary ingredients for a successful week of delicious and nutritious meals." />
+      <FeatureCard title="Add Ingredients" :description="Add_Ingredients" />
+      <FeatureCard title="Create Recipes" :description="Create_Recipes" />
+      <FeatureCard title="Plan Meals" :description="Plan_Meals" />
     </section>
 
     <section class="sign-up">
@@ -72,55 +72,61 @@ import TestimonialComp from '@/components/TestimonialComp.vue';
 
 export default {
   name: 'HomePage',
-  props: {
-    msg: String
-  },
-  data(){
-    Add Ingredients: "Easily add and manage your favorite ingredients. Keep track of quantities, expiration dates, and organize them into categories for effortless meal planning and grocery shopping. Simplify your cooking process and ensure you always have the ingredients you need.",
-    Create Recipes:  "Create and store your own recipes for quick access. With our user-friendly recipe editor, you can input detailed instructions, ingredient lists, cooking times, and even add your own photos. Never forget a recipe again and share your culinary creations with friends and family.",
-    Plan Meals: "Efficiently plan your meals for the week with our intuitive planner. Choose from a vast library of recipes, customize your meal schedule, and drag-and-drop meals to specific days. Generate automated shopping lists based on your meal plan, save time, and ensure you have all the necessary ingredients for a successful week of delicious and nutritious meals.",
-  }
-
-  methods: {
-    navigateTo(route) {
-      this.$router.push(route);
-    }
-},
-
-components: {
-    FeatureCard,
-    TestimonialComp ,
-   
- 
-  },
-
-
   data() {
     return {
+
+      Add_Ingredients: "Easily add and manage your favorite ingredients. Keep track of quantities, expiration dates, " +
+          "and organize them into categories for effortless meal planning and grocery shopping. " +
+          "Simplify your cooking process and ensure you always have the ingredients you need.",
+
+      Create_Recipes:  "Create and store your own recipes for quick access. With our user-friendly recipe editor, " +
+          "you can input detailed instructions, ingredient lists, cooking times, and even add your own photos. " +
+          "Never forget a recipe again and share your culinary creations with friends and family.",
+
+      Plan_Meals: "Efficiently plan your meals for the week with our intuitive planner. " +
+          "Choose from a vast library of recipes, customize your meal schedule, and drag-and-",
+
       testimonials: [
         {
           userAvatar: '@/assets/user1.jpg',
           userName: 'John Doe',
           userRole: 'Fitness Enthusiast',
-          testimonialText: 'I love using this meal planner app. It has made meal planning so much simpler and enjoyable. The variety of recipes and ingredients available is impressive. It has truly transformed the way I approach meal preparation. Highly recommended for anyone looking to improve their eating habits and culinary skills!',
+          testimonialText: 'I love using this meal planner app. It has made meal planning so much simpler and enjoyable. ' +
+              'The variety of recipes and ingredients available is impressive. It has truly transformed the way ' +
+              'I approach meal preparation. Highly recommended for anyone looking to improve their eating habits and culinary skills!',
         },
         {
           
           userName: 'Jane Smith',
           userRole: 'Food Blogger',
-          testimonialText: 'The meal recipes in this app are fantastic! I have tried so many and they never disappoint. The step-by-step instructions and clear ingredient lists make it easy to follow along and create delicious meals. This app has become my go-to resource for recipe inspiration and meal planning. Kudos to the developers for creating such a user-friendly and valuable tool!',
+          testimonialText: 'The meal recipes in this app are fantastic! I have tried so many and they never disappoint. ' +
+              'The step-by-step instructions and clear ingredient lists make it easy to follow along and create delicious meals. ' +
+              'This app has become my go-to resource for recipe inspiration and meal planning. ' +
+              'Kudos to the developers for creating such a user-friendly and valuable tool!',
         },
         {
           
           userName: 'Bob Johnson',
           userRole: 'Busy Professional',
-          testimonialText: 'As a busy professional, this app has saved me so much time in planning and preparing meals. The ability to customize meal plans and generate shopping lists has been a game-changer. The recipes are not only quick and easy to make, but they are also packed with flavor. I no longer have to stress about what to cook after a long day at work. This app has simplified my life and helped me maintain a healthy eating routine!',
-        }
-      ],
-    };
+          testimonialText: 'As a busy professional, this app has saved me so much time in planning and preparing meals. ' +
+              'The ability to customize meal plans and generate shopping lists has been a game-changer. ' +
+              'The recipes are not only quick and easy to make, but they are also packed with flavor. ' +
+              'I no longer have to stress about what to cook after a long day at work. ' +
+              'This app has simplified my life and helped me maintain a healthy eating routine!',
+        } //End object
+      ], //testimonials
+    }; //End Return Object
+  }, //End Data Property
+  methods: {
+    navigateTo(route) {
+      this.$router.push(route);
+    }
   },
-        
-    
+
+  components: {
+    FeatureCard,
+    TestimonialComp ,
+  },
 }
 </script>
 
