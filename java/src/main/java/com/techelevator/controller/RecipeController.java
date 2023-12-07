@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.RecipeDao;
 import com.techelevator.dao.RecipeIngredientDao;
+import com.techelevator.dao.UserDao;
 import com.techelevator.model.RecipeDto;
 import com.techelevator.model.RecipeIngredientDto;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +23,12 @@ public class RecipeController {
     private final RecipeDao recipeDao;
     private final RecipeIngredientDao recipeIngredientDao;
 
-    public RecipeController(RecipeDao recipeDao, RecipeIngredientDao recipeIngredientDao) {
+    private final UserDao userDao;
+
+    public RecipeController(RecipeDao recipeDao, RecipeIngredientDao recipeIngredientDao, UserDao userDao) {
         this.recipeDao = recipeDao;
         this.recipeIngredientDao = recipeIngredientDao;
+        this.userDao = userDao;
     }
 
 
@@ -60,10 +65,10 @@ public class RecipeController {
     }
 
     @RequestMapping(path = "recipes/{id}", method = RequestMethod.GET)
-    public RecipeIngredientDto fetchRecipeInfo(@Valid @PathVariable int id){
-        RecipeIngredientDto recipeIngredientDto = new RecipeIngredientDto();
+    public List<RecipeIngredientDto> fetchRecipeInfo(@Valid @PathVariable int id){
+        List<RecipeIngredientDto> recipeIngredientDtoList = new ArrayList<>();
         try {
-            recipeIngredientDto = recipeIngredientDao.getRecipeAndIngredientsFromId(id);
+            recipeIngredientDtoList = recipeIngredientDao.getRecipeAndIngredientsFromId(id);
         } catch (Exception e) {
             logger.error("Recipe Failure: ", e);
             System.out.printf("%s%n%s%n%s%n%s%n",
@@ -73,7 +78,7 @@ public class RecipeController {
                     "Parameters: " + id
             );
         }
-        return recipeIngredientDto;
+        return recipeIngredientDtoList;
     }
     @RequestMapping(path = "recipes/all", method = RequestMethod.GET)
     public List<RecipeIngredientDto> fetchAllRecipeInfo(){
@@ -96,4 +101,28 @@ public class RecipeController {
         counter++;
         return recipeIngredientList;
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(path = "user/recipes/save", method = RequestMethod.POST)
+    public void saveRecipe(Principal principal, @Valid @RequestBody RecipeDto recipeToSave){
+        int userId = userDao.getUserByUsername(principal.getName()).getId();
+        int recipeId = recipeDao.getRecipeID(recipeToSave);
+        recipeIngredientDao.addRecipetoUser(userId, recipeId);
+    }
+
+    @RequestMapping(path = "user/recipes", method = RequestMethod.GET)
+    public List<RecipeIngredientDto> getAllUserRecipes(Principal principal){
+        int userId = userDao.getUserByUsername(principal.getName()).getId();
+        return recipeIngredientDao.getRecipesByUserId(userId);
+    }
+
+//    @RequestMapping(path = "user", method = RequestMethod.GET)
+//    public List<String> getUserInfo(Principal principal){
+//        List<String> stringList = new ArrayList<>();
+//        stringList.add(principal.getName());
+//        int userId = userDao.getUserByUsername(principal.getName()).getId();
+//        stringList.add(userId +"");
+//        return stringList;
+//    }
+
 }

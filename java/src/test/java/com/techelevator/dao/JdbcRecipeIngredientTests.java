@@ -56,9 +56,9 @@ public class JdbcRecipeIngredientTests extends BaseDaoTests {
         jdbcRecipeIngredientDao.addRecipeIngredientConnection(RECIPE_INGREDIENT_1);
 
         int recipeID = jdbcRecipeDao.getRecipeID(RECIPE_1);
-        RecipeIngredientDto result = jdbcRecipeIngredientDao.getRecipeAndIngredientsFromId(recipeID);
+        List<RecipeIngredientDto> result = jdbcRecipeIngredientDao.getRecipeAndIngredientsFromId(recipeID);
         Assert.assertNotNull(result);
-        assertRecipeIngredientEquals(RECIPE_INGREDIENT_1, result);
+        assertRecipeIngredientEquals(RECIPE_INGREDIENT_1, result.get(0));
     }
 
     public void assertRecipeIngredientEquals(RecipeIngredientDto expected ,RecipeIngredientDto result){

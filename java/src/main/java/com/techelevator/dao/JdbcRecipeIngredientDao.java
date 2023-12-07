@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,8 +107,9 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
      * @param id
      * @return
      */
-    public RecipeIngredientDto getRecipeAndIngredientsFromId(int id){
+    public List<RecipeIngredientDto> getRecipeAndIngredientsFromId(int id){
         RecipeIngredientDto recipeIngredientDto = new RecipeIngredientDto();
+        List<RecipeIngredientDto> recipeFormatted = new ArrayList<>();
         RecipeDto recipe = new RecipeDto();
         List<IngredientDto> ingredients = new ArrayList<>();
         String sql = "SELECT ingredient_id FROM recipe_ingredient WHERE recipe_id = ?;";
@@ -120,6 +122,7 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
             }
             recipeIngredientDto.setRecipe(recipe);
             recipeIngredientDto.setIngredients(ingredients);
+            recipeFormatted.add(recipeIngredientDto);
         } catch (Exception e) {
             System.out.printf("%s%n%s%n%s%n%s%n",
                     "Class: " + this.getClass(),
@@ -128,10 +131,9 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
                     "Parameters: "
             );
         }
-        return recipeIngredientDto;
+        return recipeFormatted;
     }
 
-    //temp for demo JANK
     public List<RecipeIngredientDto> getAllRecipes(){
         List<Integer> recipeIdList = new ArrayList<>();
         List<RecipeIngredientDto> recipeIngredientDtoList = new ArrayList<>();
@@ -141,7 +143,33 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
             recipeIdList.add(results.getInt("recipe_id"));
         }
         for(Integer currentId : recipeIdList){
-            recipeIngredientDtoList.add(getRecipeAndIngredientsFromId(currentId));
+            recipeIngredientDtoList.add(getRecipeAndIngredientsFromId(currentId).get(0));
+        }
+        return recipeIngredientDtoList;
+    }
+
+    public void addRecipetoUser(int userId, int recipeId){
+        String sql = "INSERT INTO recipe_users(recipe_id, user_id) VALUES (?,?);";
+        try{
+            jdbcTemplate.update(sql,recipeId,userId);
+        } catch (Exception e) {
+            System.out.printf("%s%n%s%n%s%n%s%n",
+                    "Class: " + this.getClass(),
+                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
+                    "Exception: " + e,
+                    "Parameters: "
+            );
+        }
+    }
+    public List<RecipeIngredientDto> getRecipesByUserId(int userId){
+        List<RecipeIngredientDto> recipeIngredientDtoList = new ArrayList<>();
+        String sql = "SELECT recipe_id FROM recipe_users WHERE user_id = ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        while(results.next()){
+            int recipeId = results.getInt("recipe_id");
+            RecipeIngredientDto currentRecipe = getRecipeAndIngredientsFromId(recipeId).get(0);
+            recipeIngredientDtoList.add(currentRecipe);
         }
         return recipeIngredientDtoList;
     }
