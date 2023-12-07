@@ -8,6 +8,5 @@ public interface RecipeDao {
     int addRecipeReturnId(RecipeDto recipeDto);
     public int getRecipeID(RecipeDto recipeDto);
     public RecipeDto getRecipeFromId(int id);
-
-
+    public boolean checkUserRecipe(int userId, int recipeId);
 }

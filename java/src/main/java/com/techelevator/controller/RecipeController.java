@@ -3,12 +3,14 @@ package com.techelevator.controller;
 import com.techelevator.dao.RecipeDao;
 import com.techelevator.dao.RecipeIngredientDao;
 import com.techelevator.dao.UserDao;
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.RecipeDto;
 import com.techelevator.model.RecipeIngredientDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -69,10 +71,15 @@ public class RecipeController {
     }
 
     @RequestMapping(path = "recipes/{id}", method = RequestMethod.GET)
-    public List<RecipeIngredientDto> fetchRecipeInfo(@Valid @PathVariable int id){
+    public List<RecipeIngredientDto> fetchRecipeInfo(Principal principal, @Valid @PathVariable int id){
+        int userId = userDao.getUserByUsername(principal.getName()).getId();
         List<RecipeIngredientDto> recipeIngredientDtoList = new ArrayList<>();
         try {
-            recipeIngredientDtoList = recipeIngredientDao.getRecipeAndIngredientsFromId(id);
+            if(recipeDao.checkUserRecipe(userId, id)){
+                recipeIngredientDtoList = recipeIngredientDao.getRecipeAndIngredientsFromId(id);
+            } else {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
         } catch (Exception e) {
             logger.error("Recipe Failure: ", e);
             System.out.printf("%s%n%s%n%s%n%s%n",
@@ -81,40 +88,11 @@ public class RecipeController {
                     "Exception: " + e,
                     "Parameters: " + id
             );
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
         return recipeIngredientDtoList;
     }
 
-    //temp for demo
-    @RequestMapping(path = "recipes/all", method = RequestMethod.GET)
-    public List<RecipeIngredientDto> fetchAllRecipeInfo(){
-        System.out.println("Triggered");
-        List<RecipeIngredientDto> recipeIngredientList = new ArrayList<>();
-        try {
-             recipeIngredientList = recipeIngredientDao.getAllRecipes();
-        } catch (Exception e) {
-            logger.error("Recipe Failure: ", e);
-            System.out.printf("%s%n%s%n%s%n%s%n",
-                    "Class: " + this.getClass(),
-                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
-                    "Exception: " + e,
-                    "Parameters: "
-            );
-        }
-        int counter = 0;
-        System.out.println(recipeIngredientList.get(0));
-        System.out.println(counter);
-        counter++;
-        return recipeIngredientList;
-    }
-
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @RequestMapping(path = "user/recipes/save", method = RequestMethod.POST)
-//    public void saveRecipe(Principal principal, @Valid @RequestBody RecipeDto recipeToSave){
-//        int userId = userDao.getUserByUsername(principal.getName()).getId();
-//        int recipeId = recipeDao.getRecipeID(recipeToSave);
-//        recipeIngredientDao.addRecipetoUser(userId, recipeId);
-//    }
 
     @RequestMapping(path = "user/recipes", method = RequestMethod.GET)
     public List<RecipeIngredientDto> getAllUserRecipes(Principal principal){
@@ -122,13 +100,25 @@ public class RecipeController {
         return recipeIngredientDao.getRecipesByUserId(userId);
     }
 
-//    @RequestMapping(path = "user", method = RequestMethod.GET)
-//    public List<String> getUserInfo(Principal principal){
-//        List<String> stringList = new ArrayList<>();
-//        stringList.add(principal.getName());
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @RequestMapping(path = "recipes/edit", method = RequestMethod.PUT)
+//    public void editRecipe(Principal principal, @Valid @RequestBody RecipeIngredientDto recipeToEdit){
 //        int userId = userDao.getUserByUsername(principal.getName()).getId();
-//        stringList.add(userId +"");
-//        return stringList;
+//        int recipeId = recipeDao.getRecipeID(recipeToEdit.getRecipe());
+//        try {
+//            if(recipeDao.checkUserRecipe(userId, recipeId)){
+//                recipeIngredientDao.updateRecipeAndIngredient(recipeToEdit);
+//            } else {
+//                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+//            }
+//        } catch (Exception e) {
+//            logger.error("Recipe Failure: ", e);
+//            System.out.printf("%s%n%s%n%s%n%s%n",
+//                    "Class: " + this.getClass(),
+//                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
+//                    "Exception: " + e
+//            );
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+//        }
 //    }
-
 }

@@ -80,10 +80,10 @@ public class JdbcRecipeDao implements RecipeDao{
      * takes a recipeId
      * and returns a recipe object
      */
-    public RecipeDto getRecipeFromId(int id){
+    public RecipeDto getRecipeFromId(int recipeId){
         RecipeDto recipe = new RecipeDto();
         String sql = "SELECT recipe_name, recipe_instructions FROM recipe WHERE recipe_id = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, recipeId);
         while(results.next()){
             recipe = mapRowToRecipe(results);
         }
@@ -91,6 +91,22 @@ public class JdbcRecipeDao implements RecipeDao{
             throw new DaoException("Error receiving recipe info.");
         }
         return recipe;
+    }
+
+    public boolean checkUserRecipe(int userId, int recipeId){
+        int recipeCheck = 0;
+        String sql = "SELECT * FROM recipe\n" +
+                "JOIN recipe_users ON recipe_users.recipe_id = recipe.recipe_id\n" +
+                "WHERE recipe_users.user_id = ? AND recipe.recipe_id = ?;";
+
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId, recipeId);
+        while(result.next()){
+            recipeCheck = result.getInt("recipe_id");
+        }
+        if(recipeCheck == recipeId){
+            return true;
+        }
+        return false;
     }
 
     /**
