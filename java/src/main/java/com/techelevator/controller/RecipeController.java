@@ -54,21 +54,6 @@ public class RecipeController {
         }
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "recipes/modify", method = RequestMethod.POST)
-    public void modifyRecipe(@RequestBody RecipeDto recipeDto) {
-        try {
-            System.out.println(recipeDto);
-        } catch (Exception e) {
-            logger.error("Recipe Failure: ", e);
-            System.out.printf("%s%n%s%n%s%n%s%n",
-                    "Class: " + this.getClass(),
-                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
-                    "Exception: " + e,
-                    "Parameters: " + recipeDto.toString()
-            );
-        }
-    }
 
     @RequestMapping(path = "recipes/{id}", method = RequestMethod.GET)
     public List<RecipeIngredientDto> fetchRecipeInfo(Principal principal, @Valid @PathVariable int id){
@@ -100,25 +85,25 @@ public class RecipeController {
         return recipeIngredientDao.getRecipesByUserId(userId);
     }
 
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @RequestMapping(path = "recipes/edit", method = RequestMethod.PUT)
-//    public void editRecipe(Principal principal, @Valid @RequestBody RecipeIngredientDto recipeToEdit){
-//        int userId = userDao.getUserByUsername(principal.getName()).getId();
-//        int recipeId = recipeDao.getRecipeID(recipeToEdit.getRecipe());
-//        try {
-//            if(recipeDao.checkUserRecipe(userId, recipeId)){
-//                recipeIngredientDao.updateRecipeAndIngredient(recipeToEdit);
-//            } else {
-//                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-//            }
-//        } catch (Exception e) {
-//            logger.error("Recipe Failure: ", e);
-//            System.out.printf("%s%n%s%n%s%n%s%n",
-//                    "Class: " + this.getClass(),
-//                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
-//                    "Exception: " + e
-//            );
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-//        }
-//    }
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(path = "recipes/{id}/edit", method = RequestMethod.PUT)
+    public void editRecipe(Principal principal, @Valid @RequestBody RecipeIngredientDto recipeToEdit, @Valid @PathVariable int id){
+        int userId = userDao.getUserByUsername(principal.getName()).getId();
+        int recipeId = id;
+        try {
+            if(recipeDao.checkUserRecipe(userId, recipeId)){
+                recipeIngredientDao.updateRecipeAndIngredient(recipeToEdit, recipeId);
+            } else {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            logger.error("Recipe Failure: ", e);
+            System.out.printf("%s%n%s%n%s%n%s%n",
+                    "Class: " + this.getClass(),
+                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
+                    "Exception: " + e
+            );
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+    }
 }
