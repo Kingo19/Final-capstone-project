@@ -27,7 +27,7 @@ export default {
 
   methods: {
     getting() {
-         RecipeService.getAllRecipes().then(response => {
+         RecipeService.getAllRecipes(this.user).then(response => {
            this.singleRecipe = response.data.length === 1
            if(this.singleRecipe){
              this.singleRecipeObject = response.data[0]
