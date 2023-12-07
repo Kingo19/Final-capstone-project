@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import HomePage from '@/views/HomeView.vue';
-import IngredientsView from '@/views/IngredientsView.vue';
-import RecipieView from '@/views/RecipieView.vue'
-import addRecipe from "@/components/AddRecipe.vue";
-import RecipeDetailView from "@/views/RecipeDetailView.vue";
-import RecipeListView from "@/views/RecipeListView.vue";
-import LoginView from "@/views/LoginView.vue";
-import RegisterView from "@/views/RegisterView.vue"
+import HomePage from '../../../../../source/repos/steven-rebuck-student-code/team-november-final-capstone/vue/src/views/HomeView.vue';
+import IngredientsView from '../../../../../source/repos/steven-rebuck-student-code/team-november-final-capstone/vue/src/views/IngredientsView.vue';
+import RecipieView from '../../../../../source/repos/steven-rebuck-student-code/team-november-final-capstone/vue/src/views/RecipieView.vue'
+import addRecipe from "../components/AddRecipe.vue";
+import RecipeDetailView from "../../../../../source/repos/steven-rebuck-student-code/team-november-final-capstone/vue/src/views/RecipeDetailView.vue";
+import RecipeListView from "../../../../../source/repos/steven-rebuck-student-code/team-november-final-capstone/vue/src/views/RecipeListView.vue";
+import LoginView from "../../../../../source/repos/steven-rebuck-student-code/team-november-final-capstone/vue/src/views/LoginView.vue";
+import RegisterView from "../../../../../source/repos/steven-rebuck-student-code/team-november-final-capstone/vue/src/views/RegisterView.vue"
 
 
 
@@ -30,9 +30,11 @@ const routes = [
 
 ];
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+export function createRouter () {
+  return _createRouter({
+    history: createWebHistory(),
+    routes: routes
+  })
+}
 
 export default router;

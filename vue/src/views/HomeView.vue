@@ -1,7 +1,7 @@
 <template>
-<div class="home">
+  <div class="home">
     <header>
-      <div ><img src="../assets/logo.png" class="logo"></div>
+      <div ><img src="../../../../../../../Pictures/team-november-final-capstone-3f0c4ce0bfa6ff2405f01ba3c0a9141c3de0a1ca/vue/src/assets/logo.png" class="logo"></div>
 
       <nav>
         <a @click.prevent="navigateTo('/')">Home</a>
@@ -9,12 +9,12 @@
         <a @click.prevent="navigateTo('/recipes/add')">Recipes</a>
         <a @click.prevent="navigateTo('/login')">Login</a>
         <a @click.prevent="navigateTo('/all/recipe')">View Recipes </a>
-<!--        <a @click.prevent="navigateTo('/meal-plans')">Meal Plans</a>-->
+        <!--        <a @click.prevent="navigateTo('/meal-plans')">Meal Plans</a>-->
       </nav>
     </header>
 
 
-  <!-- BODY  ====  BODY  ===  BODY  === BODY-->
+    <!-- BODY  ====  BODY  ===  BODY  === BODY-->
 
     <section class="upper-body-text">
       <!-- <img src="@/assets/background-image.jpeg" alt="Appetizing Food Image" class='logo'> -->
@@ -38,7 +38,7 @@
     </section>
 
 
-  <!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER --><!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER -->
+    <!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER --><!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER -->
 
     <footer>
       <div class="contact-info">
@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import FeatureCard from '@/components/FeatureCard.vue';
-import TestimonialComp from '@/components/TestimonialComp.vue';
+import FeatureCard from '../../../../../../../Pictures/team-november-final-capstone-3f0c4ce0bfa6ff2405f01ba3c0a9141c3de0a1ca/vue/src/components/FeatureCard.vue';
+import TestimonialComp from '../../../../../../../Pictures/team-november-final-capstone-3f0c4ce0bfa6ff2405f01ba3c0a9141c3de0a1ca/vue/src/components/TestimonialComp.vue';
 
 export default {
   name: 'HomePage',
@@ -86,7 +86,7 @@ export default {
               'I approach meal preparation. Highly recommended for anyone looking to improve their eating habits and culinary skills!',
         },
         {
-          
+
           userName: 'Jane Smith',
           userRole: 'Food Blogger',
           testimonialText: 'The meal recipes in this app are fantastic! ' +
@@ -97,7 +97,7 @@ export default {
               'Kudos to the developers for creating such a user-friendly and valuable tool!',
         },
         {
-          
+
           userName: 'Bob Johnson',
           userRole: 'Busy Professional',
           testimonialText: 'As a busy professional, this app has saved me so much time in planning and preparing meals. ' +
@@ -135,7 +135,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-padding: 0.4rem 0;
+  padding: 0.4rem 0;
 }
 
 nav ul {
@@ -259,25 +259,25 @@ a:hover {
 }
 
 .logo{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
-  /* Testimonials section styles */
-  .testimonials {
-    margin: 2rem 0;
-  }
+/* Testimonials section styles */
+.testimonials {
+  margin: 2rem 0;
+}
 
-  .testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 40px;
-    margin-left:  70px;
-  }
-  .title{
-   margin-left: 50px;
-   
-  }
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 40px;
+  margin-left:  70px;
+}
+.title{
+  margin-left: 50px;
+
+}
 
 </style>
