@@ -7,6 +7,6 @@ export default {
     },
 
     async getAllRecipes() {
-        return axios.get('http://localhost:9000/recipes/all')
+        return axios.get('http://localhost:9000/user/recipes')
     }
 }
