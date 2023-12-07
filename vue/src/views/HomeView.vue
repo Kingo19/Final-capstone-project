@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <header>
-      <div ><img src="../../../../../../../Pictures/team-november-final-capstone-3f0c4ce0bfa6ff2405f01ba3c0a9141c3de0a1ca/vue/src/assets/logo.png" class="logo"></div>
+      <div><img
+          src="../assets/logo.png"
+          class="logo"></div>
 
       <nav>
         <a @click.prevent="navigateTo('/')">Home</a>
@@ -23,9 +25,9 @@
     </section>
 
     <section class="features">
-      <FeatureCard title="Add Ingredients" :description="Add_Ingredients" />
-      <FeatureCard title="Create Recipes" :description="Create_Recipes" />
-      <FeatureCard title="Plan Meals" :description="Plan_Meals" />
+      <FeatureCard title="Add Ingredients" :description="Add_Ingredients"/>
+      <FeatureCard title="Create Recipes" :description="Create_Recipes"/>
+      <FeatureCard title="Plan Meals" :description="Plan_Meals"/>
     </section>
 
     <section class="sign-up">
@@ -34,7 +36,7 @@
 
     <section class="testimonials">
       <h2 class="title">Testimonials</h2>
-      <TestimonialComp />
+      <TestimonialComp/>
     </section>
 
 
@@ -55,8 +57,10 @@
 </template>
 
 <script>
-import FeatureCard from '../../../../../../../Pictures/team-november-final-capstone-3f0c4ce0bfa6ff2405f01ba3c0a9141c3de0a1ca/vue/src/components/FeatureCard.vue';
-import TestimonialComp from '../../../../../../../Pictures/team-november-final-capstone-3f0c4ce0bfa6ff2405f01ba3c0a9141c3de0a1ca/vue/src/components/TestimonialComp.vue';
+import FeatureCard
+  from '../components/FeatureCard.vue';
+import TestimonialComp
+  from '../components/TestimonialComp.vue';
 
 export default {
   name: 'HomePage',
@@ -68,7 +72,7 @@ export default {
           "and organize them into categories for effortless meal planning and grocery shopping. " +
           "Simplify your cooking process and ensure you always have the ingredients you need.",
 
-      Create_Recipes:  "Create and store your own recipes for quick access. " +
+      Create_Recipes: "Create and store your own recipes for quick access. " +
           "With our user-friendly recipe editor, " +
           "you can input detailed instructions, ingredient lists, cooking times, and even add your own photos. " +
           "Never forget a recipe again and share your culinary creations with friends and family.",
@@ -116,7 +120,7 @@ export default {
   },
   components: {
     FeatureCard,
-    TestimonialComp ,
+    TestimonialComp,
   },
 }
 </script>
@@ -129,6 +133,7 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
 header {
   background-color: #333;
   color: #fff;
@@ -258,7 +263,7 @@ a:hover {
   font-weight: bold;
 }
 
-.logo{
+.logo {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -273,9 +278,10 @@ a:hover {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 40px;
-  margin-left:  70px;
+  margin-left: 70px;
 }
-.title{
+
+.title {
   margin-left: 50px;
 
 }

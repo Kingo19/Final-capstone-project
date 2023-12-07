@@ -16,41 +16,41 @@
           <div class="form-group">
             <label for="ingredientName">Ingredient Name :</label>
             <input
-              id="ingredientName"
-              v-model="newIngredient.name"
-              type="text"
-              placeholder="Enter ingredient name"
-              class="input-field"
+                id="ingredientName"
+                v-model="newIngredient.name"
+                type="text"
+                placeholder="Enter ingredient name"
+                class="input-field"
             />
           </div>
           <div class="form-group">
             <label for="quantity">Quantity:</label>
             <input
-              id="quantity"
-              v-model="newIngredient.quantity"
-              type="text"
-              placeholder="Enter quantity"
-              class="input-field"
+                id="quantity"
+                v-model="newIngredient.quantity"
+                type="text"
+                placeholder="Enter quantity"
+                class="input-field"
             />
           </div>
           <div class="form-group">
             <label for="category">Category :</label>
             <input
-              id="category"
-              v-model="newIngredient.category"
-              type="text"
-              placeholder="Enter category"
-              class="input-field"
+                id="category"
+                v-model="newIngredient.category"
+                type="text"
+                placeholder="Enter category"
+                class="input-field"
             />
           </div>
           <div class="form-group">
             <label for="expirationDate">Expiration Date :</label>
             <input
-              id="expirationDate"
-              v-model="newIngredient.expirationDate"
-              type="text"
-              placeholder="Enter expiration date"
-              class="input-field"
+                id="expirationDate"
+                v-model="newIngredient.expirationDate"
+                type="text"
+                placeholder="Enter expiration date"
+                class="input-field"
             />
           </div>
           <div class="form-group">
@@ -76,9 +76,9 @@ export default {
         expirationDate: "",
       },
       availableIngredients: [
-        { name: "Ingredient 1", quantity: "100g" },
-        { name: "Ingredient 2", quantity: "200g" },
-        { name: "Ingredient 3", quantity: "300g" },
+        {name: "Ingredient 1", quantity: "100g"},
+        {name: "Ingredient 2", quantity: "200g"},
+        {name: "Ingredient 3", quantity: "300g"},
       ],
     };
   },
@@ -92,10 +92,10 @@ export default {
     },
     isFormValid() {
       return (
-        this.newIngredient.name.trim() !== "" &&
-        this.newIngredient.quantity.trim() !== "" &&
-        this.newIngredient.category.trim() !== "" &&
-        this.newIngredient.expirationDate.trim() !== ""
+          this.newIngredient.name.trim() !== "" &&
+          this.newIngredient.quantity.trim() !== "" &&
+          this.newIngredient.category.trim() !== "" &&
+          this.newIngredient.expirationDate.trim() !== ""
       );
     },
   },

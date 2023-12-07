@@ -1,6 +1,6 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import CapstoneApp from './App.vue'
-import { createStore } from './store'
+import {createStore} from './store'
 import router from './router'
 import axios from 'axios'
 
@@ -17,8 +17,8 @@ let currentToken = localStorage.getItem('token');
 let currentUser = JSON.parse(localStorage.getItem('user'));
 
 if (currentToken) {
-  // Set token axios requests
-  axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
+    // Set token axios requests
+    axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
 }
 
 // Create the Vuex store passing in the stored credentials
