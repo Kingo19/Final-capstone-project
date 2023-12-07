@@ -6,7 +6,7 @@
 
 
 <script>
-import IngredientsPage from '../components/IngredientsComp.vue';
+import IngredientsPage from '../Unused vue/IngredientsComp.vue';
 export default {
   components: {
       IngredientsPage
