@@ -16,15 +16,15 @@
   };
   </script>
   
-  <style scoped>
- 
-  .feature-card {
-  background-color: #f7dada;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+<style scoped>
+
+.feature-card {
+background-color: #f7dada;
+padding: 20px;
+border-radius: 10px;
+text-align: center;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+margin-bottom: 20px;
 }
 
 .feature-card h2 {
@@ -38,5 +38,5 @@
   line-height: 1.5;
   color: #666;
 }
-  </style>
+</style>
   

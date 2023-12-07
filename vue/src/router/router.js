@@ -4,8 +4,8 @@ import HomePage from '@/views/HomeView.vue';
 import IngredientsView from '@/views/IngredientsView.vue';
 import RecipieView from '@/views/RecipieView.vue'
 import addRecipe from "@/components/AddRecipe.vue";
-import RecipeListPage from "@/views/RecipeListPage.vue";
-import RecipeDetailPage from "@/views/RecipeDetailPage.vue";
+import RecipeDetailView from "@/views/RecipeDetailView.vue";
+import RecipeListView from "@/views/RecipeListView.vue";
 
 
 
@@ -16,11 +16,11 @@ const routes = [
   { path: '/recipes/add', component: addRecipe },
   {
     path: "/all/recipes",
-    component: RecipeListPage,
+    component: RecipeListView,
   },
   {
     path: "/all/recipe",
-    component: RecipeDetailPage,
+    component: RecipeDetailView,
   },
 
 
