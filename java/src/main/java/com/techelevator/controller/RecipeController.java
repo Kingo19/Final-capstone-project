@@ -25,17 +25,7 @@ public class RecipeController {
         this.recipeDao = recipeDao;
         this.recipeIngredientDao = recipeIngredientDao;
     }
-// Original Reference Code
-    //All code works.
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @RequestMapping(path = "recipes/add", method = RequestMethod.POST)
-//    public void addRecipe(@RequestBody RecipeDto recipeDto){
-//        try {
-//            recipeDao.addRecipe(recipeDto);
-//        } catch (Exception e){
-//            System.out.println("Recipe Failure. " + e);
-//        }
-//    }
+
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "recipes/add", method = RequestMethod.POST)

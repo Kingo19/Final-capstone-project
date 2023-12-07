@@ -3,7 +3,17 @@ package com.techelevator.unused;
 public class UnusedRecipe {
     // Original Reference Code
     //All code works.
-
+// Original Reference Code
+    //All code works.
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @RequestMapping(path = "recipes/add", method = RequestMethod.POST)
+//    public void addRecipe(@RequestBody RecipeDto recipeDto){
+//        try {
+//            recipeDao.addRecipe(recipeDto);
+//        } catch (Exception e){
+//            System.out.println("Recipe Failure. " + e);
+//        }
+//    }
 //    @Override
 //    public int addRecipe(RecipeDto recipeDto) {
 //        int resultID = 0;
