@@ -48,4 +48,45 @@ public class UnusedController {
 //            System.out.println("Recipe Failure. " + e);
 //        }
 //    }
+
+    //temp for demo. move to unused
+//    @RequestMapping(path = "recipes/all", method = RequestMethod.GET)
+//    public List<RecipeIngredientDto> fetchAllRecipeInfo(){
+//        System.out.println("Triggered");
+//        List<RecipeIngredientDto> recipeIngredientList = new ArrayList<>();
+//        try {
+//             recipeIngredientList = recipeIngredientDao.getAllRecipes();
+//        } catch (Exception e) {
+//            logger.error("Recipe Failure: ", e);
+//            System.out.printf("%s%n%s%n%s%n%s%n",
+//                    "Class: " + this.getClass(),
+//                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
+//                    "Exception: " + e,
+//                    "Parameters: "
+//            );
+//        }
+//        int counter = 0;
+//        System.out.println(recipeIngredientList.get(0));
+//        System.out.println(counter);
+//        counter++;
+//        return recipeIngredientList;
+//    }
+
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @RequestMapping(path = "user/recipes/save", method = RequestMethod.POST)
+//    public void saveRecipe(Principal principal, @Valid @RequestBody RecipeDto recipeToSave){
+//        int userId = userDao.getUserByUsername(principal.getName()).getId();
+//        int recipeId = recipeDao.getRecipeID(recipeToSave);
+//        recipeIngredientDao.addRecipetoUser(userId, recipeId);
+//    }
+
+//    @RequestMapping(path = "user", method = RequestMethod.GET)
+//    public List<String> getUserInfo(Principal principal){
+//        List<String> stringList = new ArrayList<>();
+//        stringList.add(principal.getName());
+//        int userId = userDao.getUserByUsername(principal.getName()).getId();
+//        stringList.add(userId +"");
+//        return stringList;
+//    }
+
 }
