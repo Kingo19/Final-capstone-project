@@ -2,6 +2,7 @@
   <div id="test" class="test">
     <form id="form" @submit.prevent="submitForm">
 
+
       <!-- Recipe Name -->
       <div class="input-group">
         <label for="recipeName">Recipe Name</label>
@@ -35,7 +36,7 @@
         <button type="button" @click="removeIngredient(index)">Remove</button>
       </div>
       <div class="button-group">
-        <button type="submit" class="submit-button" :disabled="!isFormValid">Submit</button>
+        <button type="submit" class="submit-button">Submit</button>
       </div>
     </form>
 
@@ -51,6 +52,7 @@ import RecipeService from "../services/RecipeService";
 export default {
   data() {
     return {
+      formValid: false,
       recipe_name: "Name your recipe, we suggest something unique and easy to remember",
       Instructions: "How to prepare your amazing recipe. ",
       maxlen: 200,
@@ -73,6 +75,12 @@ export default {
 
     submitForm() {
       RecipeService.addRecipeAndIngredients(this.formData)
+      // if(this.formValid){
+      //   console.log("triggered")
+      //   RecipeService.addRecipeAndIngredients(this.formData)
+      // }else{
+      //   console.log("Not valid")
+      // }
     },
 
     addIngredient() {
@@ -100,9 +108,16 @@ export default {
     }, //Function end
   },
   computed: {
+
     isFormValid() {
-      return true;
-    }
+      let check = this.formData.recipe_name.length > 2 &&
+          this.formData.Instructions.length > 2 &&
+          this.ingredients.length > 1
+      if(check){
+        this.formValid = true
+      }
+    },
+
   }
 }
 </script>
@@ -170,14 +185,14 @@ select {
 }
 
 .submit-button {
-  background-color: #4CAF50; /* Green color for the submit button */
-  color: white;
-  padding: 12px 24px;
-  border: none;
+  //background-color: #4CAF50; /* Green color for the submit button */
+  //color: white;
+  //padding: 12px 24px;
+  //border: none;
   border-radius: 5px;
   font-size: 1.2em;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  //cursor: pointer;
+  //transition: background-color 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
