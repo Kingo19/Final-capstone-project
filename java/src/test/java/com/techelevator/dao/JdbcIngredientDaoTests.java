@@ -23,9 +23,10 @@ public class JdbcIngredientDaoTests extends BaseDaoTests{
     public void addReturnIngredient_returns_correct_Ingredient() {
         Ingredient testIngredient = new Ingredient();
         testIngredient.setIngredient_name("Chips");
+        testIngredient.setId(1);
         Ingredient results = ingredientDao.addReturnIngredient(INGREDIENT_DTO);
         //Commented out until we can figure out why test data isn't being reset.
-//        assertIngredientsEqual(testIngredient, results);
+        assertIngredientsEqual(testIngredient, results);
     }
 
     @Test
