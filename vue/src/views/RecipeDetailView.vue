@@ -1,19 +1,21 @@
 <template>
   <div>
     <!--      This is where you will loop over the response of data from the server to get each or every recipe-->
-    <RecipeDetailPage  v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto"/>
+    <RecipeDetailPage v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto"/>
   </div>
 </template>
 
 <script>
-import RecipeDetailPage from "@/components/RecipeDetailPage.vue";
-import RecipeService from "@/services/RecipeService";
+import RecipeDetailPage
+  from "../../../../../../../Pictures/team-november-final-capstone-3f0c4ce0bfa6ff2405f01ba3c0a9141c3de0a1ca/vue/src/components/RecipeDetailPage.vue";
+import RecipeService
+  from "../../../../../../../Pictures/team-november-final-capstone-3f0c4ce0bfa6ff2405f01ba3c0a9141c3de0a1ca/vue/src/services/RecipeService";
 
 export default {
   components: {
     RecipeDetailPage,
   },
-  data(){
+  data() {
     return {
       allRecipe: null,
       testrecipe: [
@@ -67,7 +69,7 @@ export default {
 
   },
 
-  methods:{
+  methods: {
     async getting() {
       try {
         let res = await RecipeService.getAllRecipes()

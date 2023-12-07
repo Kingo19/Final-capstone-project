@@ -1,7 +1,9 @@
 <template>
-<div class="home">
+  <div class="home">
     <header>
-      <div ><img src="../assets/logo.png" class="logo"></div>
+      <div><img
+          src="../assets/logo.png"
+          class="logo"></div>
 
       <nav>
         <a @click.prevent="navigateTo('/')">Home</a>
@@ -9,12 +11,12 @@
         <a @click.prevent="navigateTo('/recipes/add')">Recipes</a>
         <a @click.prevent="navigateTo('/login')">Login</a>
         <a @click.prevent="navigateTo('/all/recipe')">View Recipes </a>
-<!--        <a @click.prevent="navigateTo('/meal-plans')">Meal Plans</a>-->
+        <!--        <a @click.prevent="navigateTo('/meal-plans')">Meal Plans</a>-->
       </nav>
     </header>
 
 
-  <!-- BODY  ====  BODY  ===  BODY  === BODY-->
+    <!-- BODY  ====  BODY  ===  BODY  === BODY-->
 
     <section class="upper-body-text">
       <!-- <img src="@/assets/background-image.jpeg" alt="Appetizing Food Image" class='logo'> -->
@@ -23,9 +25,9 @@
     </section>
 
     <section class="features">
-      <FeatureCard title="Add Ingredients" :description="Add_Ingredients" />
-      <FeatureCard title="Create Recipes" :description="Create_Recipes" />
-      <FeatureCard title="Plan Meals" :description="Plan_Meals" />
+      <FeatureCard title="Add Ingredients" :description="Add_Ingredients"/>
+      <FeatureCard title="Create Recipes" :description="Create_Recipes"/>
+      <FeatureCard title="Plan Meals" :description="Plan_Meals"/>
     </section>
 
     <section class="sign-up">
@@ -34,11 +36,11 @@
 
     <section class="testimonials">
       <h2 class="title">Testimonials</h2>
-      <TestimonialComp />
+      <TestimonialComp/>
     </section>
 
 
-  <!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER --><!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER -->
+    <!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER --><!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER -->
 
     <footer>
       <div class="contact-info">
@@ -55,8 +57,10 @@
 </template>
 
 <script>
-import FeatureCard from '@/components/FeatureCard.vue';
-import TestimonialComp from '@/components/TestimonialComp.vue';
+import FeatureCard
+  from '../components/FeatureCard.vue';
+import TestimonialComp
+  from '../components/TestimonialComp.vue';
 
 export default {
   name: 'HomePage',
@@ -68,7 +72,7 @@ export default {
           "and organize them into categories for effortless meal planning and grocery shopping. " +
           "Simplify your cooking process and ensure you always have the ingredients you need.",
 
-      Create_Recipes:  "Create and store your own recipes for quick access. " +
+      Create_Recipes: "Create and store your own recipes for quick access. " +
           "With our user-friendly recipe editor, " +
           "you can input detailed instructions, ingredient lists, cooking times, and even add your own photos. " +
           "Never forget a recipe again and share your culinary creations with friends and family.",
@@ -86,7 +90,7 @@ export default {
               'I approach meal preparation. Highly recommended for anyone looking to improve their eating habits and culinary skills!',
         },
         {
-          
+
           userName: 'Jane Smith',
           userRole: 'Food Blogger',
           testimonialText: 'The meal recipes in this app are fantastic! ' +
@@ -97,7 +101,7 @@ export default {
               'Kudos to the developers for creating such a user-friendly and valuable tool!',
         },
         {
-          
+
           userName: 'Bob Johnson',
           userRole: 'Busy Professional',
           testimonialText: 'As a busy professional, this app has saved me so much time in planning and preparing meals. ' +
@@ -116,7 +120,7 @@ export default {
   },
   components: {
     FeatureCard,
-    TestimonialComp ,
+    TestimonialComp,
   },
 }
 </script>
@@ -129,13 +133,14 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
 header {
   background-color: #333;
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-padding: 0.4rem 0;
+  padding: 0.4rem 0;
 }
 
 nav ul {
@@ -258,26 +263,27 @@ a:hover {
   font-weight: bold;
 }
 
-.logo{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
-  /* Testimonials section styles */
-  .testimonials {
-    margin: 2rem 0;
-  }
+/* Testimonials section styles */
+.testimonials {
+  margin: 2rem 0;
+}
 
-  .testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 40px;
-    margin-left:  70px;
-  }
-  .title{
-   margin-left: 50px;
-   
-  }
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 40px;
+  margin-left: 70px;
+}
+
+.title {
+  margin-left: 50px;
+
+}
 
 </style>

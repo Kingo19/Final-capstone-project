@@ -1,42 +1,43 @@
 <template>
   <div id="test" class="test">
-  <form id="form" @submit.prevent="submitForm">
+    <form id="form" @submit.prevent="submitForm">
 
-    <!-- Recipe Name -->
-    <div class="input-group">
-      <label for="recipeName">Recipe Name</label>
-      <input type="text" id="recipeName" v-model="formData.recipe.recipe_name"
-             :aria-required="requiredFields.recipeName.toString()"
-             maxlength="200"
-             placeholder="Name your recipe, we suggest something unique and easy to remember">
-    </div>
-
-    <!-- Description -->
-    <div class="input-group textfield">
-      <label for="description">Description</label>
-      <textarea :maxlength="maxlen" id="description" v-model="formData.recipe.recipe_instructions"
-                :aria-required="requiredFields.instructions.toString()"
-                rows="4" cols="50"
-                placeholder="A brief description of the dish."></textarea>
-    </div>
-
-    <!-- Ingredients Section -->
-    <div class="input-group">
-      <h3>Ingredients test</h3>    <!-- Header -->
-      <div class="ingredient-group" v-for="(ingredient, index) in formData.ingredients" :key="index">
-        <input :id="'ingredientName' + index" type="text" v-model="ingredient.ingredient_name" list="ingredientNames" placeholder="Ingredient Name">
-        <!-- Datalist is for predictive text. Array is used named foodName from foodNameArray.js -->
-        <datalist id="ingredientNames">
-          <option class="innerIngredient" v-for="itemName in foodName" :value="itemName" :key="itemName"></option>
-        </datalist>
+      <!-- Recipe Name -->
+      <div class="input-group">
+        <label for="recipeName">Recipe Name</label>
+        <input type="text" id="recipeName" v-model="formData.recipe.recipe_name"
+               :aria-required="requiredFields.recipeName.toString()"
+               maxlength="200"
+               placeholder="Name your recipe, we suggest something unique and easy to remember">
       </div>
-      <button type="button" @click="addIngredient">Add Ingredient</button>
-      <button type="button" @click="removeIngredient(index)">Remove</button>
-    </div>
-    <div class="button-group">
-      <button type="submit" class="submit-button" :disabled="!isFormValid">Submit</button>
-    </div>
-  </form>
+
+      <!-- Description -->
+      <div class="input-group textfield">
+        <label for="description">Description</label>
+        <textarea :maxlength="maxlen" id="description" v-model="formData.recipe.recipe_instructions"
+                  :aria-required="requiredFields.instructions.toString()"
+                  rows="4" cols="50"
+                  placeholder="A brief description of the dish."></textarea>
+      </div>
+
+      <!-- Ingredients Section -->
+      <div class="input-group">
+        <h3>Ingredients test</h3>    <!-- Header -->
+        <div class="ingredient-group" v-for="(ingredient, index) in formData.ingredients" :key="index">
+          <input :id="'ingredientName' + index" type="text" v-model="ingredient.ingredient_name" list="ingredientNames"
+                 placeholder="Ingredient Name">
+          <!-- Datalist is for predictive text. Array is used named foodName from foodNameArray.js -->
+          <datalist id="ingredientNames">
+            <option class="innerIngredient" v-for="itemName in foodName" :value="itemName" :key="itemName"></option>
+          </datalist>
+        </div>
+        <button type="button" @click="addIngredient">Add Ingredient</button>
+        <button type="button" @click="removeIngredient(index)">Remove</button>
+      </div>
+      <div class="button-group">
+        <button type="submit" class="submit-button" :disabled="!isFormValid">Submit</button>
+      </div>
+    </form>
 
   </div>
 </template>
@@ -52,17 +53,17 @@ export default {
     return {
       recipe_name: "Name your recipe, we suggest something unique and easy to remember",
       Instructions: "How to prepare your amazing recipe. ",
-      maxlen:200,
+      maxlen: 200,
       requiredFields: {
         recipeName: true,
         instructions: true,
         ingredients: true,
       },
       foodName: foodarray.fullFoodNameArray,
-      formData:{
-        recipe:{
-          recipe_name:"",
-          recipe_instructions:"",
+      formData: {
+        recipe: {
+          recipe_name: "",
+          recipe_instructions: "",
         },
         ingredients: []
       },
@@ -75,7 +76,7 @@ export default {
     },
 
     addIngredient() {
-      this.formData.ingredients.push({ ingredient_name: ''});
+      this.formData.ingredients.push({ingredient_name: ''});
     },
     removeIngredient(index) {
       this.formData.ingredients.splice(index, 1);
@@ -84,12 +85,12 @@ export default {
     getArrayOfKeywords() {
       let keywords = []
       let tags = this.recipe.tagsKeywords.split(',');   // Split the initial string by commas
-      for(let each of tags){  //Looping over that array to find words with spaces
+      for (let each of tags) {  //Looping over that array to find words with spaces
         each = each.trim() //Trims the leading or trailing characters
         keywords.push(each)
-        if(each.includes(" ")){ //Finds the spaces between words
+        if (each.includes(" ")) { //Finds the spaces between words
           let temp = each.split(' ')
-          for(let words of temp){
+          for (let words of temp) {
             keywords.push(words.trim())
           } //end of forloop words
         } //end of if includes
@@ -157,6 +158,7 @@ input[type='text'], input[type='number'], select, textarea {
 input.nums {
   width: 20%;
 }
+
 select {
   cursor: pointer;
 }

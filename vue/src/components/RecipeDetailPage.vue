@@ -4,7 +4,7 @@
 
       <h1>{{ recipeDto.recipe.recipe_name }}</h1>
 
-<!--      Returns to homepage-->
+      <!--      Returns to homepage-->
       <router-link to="/" class="back-link">
         <span class="back-icon">&lt; Back to Recipes</span>
       </router-link>
@@ -13,13 +13,13 @@
     <div class="recipe-details">
       <img class="recipe-image"
            src="https://www.sandiegoprosthodontics.com/files/2018/09/Recipes-Banner.jpg"
-           alt="Recipe Image" />
+           alt="Recipe Image"/>
       <p class="instructions">{{ recipeDto.recipe.recipe_instructions }}</p>
 
       <div class="ingredient-list">
         <strong>Ingredients:</strong>
         <ul>
-            <li v-for="ingredient in recipeDto.ingredients" :key="ingredient">{{ ingredient.ingredient_name }}</li>
+          <li v-for="ingredient in recipeDto.ingredients" :key="ingredient">{{ ingredient.ingredient_name }}</li>
         </ul>
       </div>
 
@@ -30,7 +30,7 @@
 <script>
 export default {
   props: {
-    recipeDto:Object
+    recipeDto: Object
   },
 };
 </script>

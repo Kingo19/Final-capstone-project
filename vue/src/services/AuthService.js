@@ -2,12 +2,12 @@ import axios from 'axios';
 
 export default {
 
-  login(user) {
-    return axios.post('http://localhost:9000/login', user)
-  },
+    login(user) {
+        return axios.post('/login', user)
+    },
 
-  register(user) {
-    return axios.post('http://localhost:9000/register', user)
-  }
+    register(user) {
+        return axios.post('/register', user)
+    }
 
 }

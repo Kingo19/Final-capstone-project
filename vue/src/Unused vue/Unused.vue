@@ -165,8 +165,8 @@ export default {
       // },
     }
   },
-  methods:{
-    submitForm(){
+  methods: {
+    submitForm() {
       // let warning = "The following needs attention:"
       // let warn = false
       // for(let each in this.formData){
