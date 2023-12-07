@@ -35,7 +35,7 @@ public class RecipeController {
 
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "recipes/add", method = RequestMethod.POST)
+    @RequestMapping(path = "user/recipes/add", method = RequestMethod.POST)
     public void addRecipe(Principal principal, @Valid @RequestBody RecipeIngredientDto recipeIngredientDto) {
         int userId = userDao.getUserByUsername(principal.getName()).getId();
 
@@ -55,7 +55,7 @@ public class RecipeController {
     }
 
 
-    @RequestMapping(path = "recipes/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "user/recipes/{id}", method = RequestMethod.GET)
     public List<RecipeIngredientDto> fetchRecipeInfo(Principal principal, @Valid @PathVariable int id){
         int userId = userDao.getUserByUsername(principal.getName()).getId();
         List<RecipeIngredientDto> recipeIngredientDtoList = new ArrayList<>();
@@ -86,7 +86,7 @@ public class RecipeController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "recipes/{id}/edit", method = RequestMethod.PUT)
+    @RequestMapping(path = "user/recipes/{id}/edit", method = RequestMethod.PUT)
     public void editRecipe(Principal principal, @Valid @RequestBody RecipeIngredientDto recipeToEdit, @Valid @PathVariable int id){
         int userId = userDao.getUserByUsername(principal.getName()).getId();
         int recipeId = id;
