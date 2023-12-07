@@ -7,7 +7,7 @@
 
       <nav>
         <a @click.prevent="navigateTo('/')">Home</a>
-        <a @click.prevent="navigateTo('/recipes')"> Add Recipes</a>
+        <a @click.prevent="navigateTo('/recipes/add')"> Add Recipes</a>
         <a @click.prevent="navigateTo('/recipes/add')">Recipes</a>
         <a @click.prevent="navigateTo('/login')">Login</a>
         <a @click.prevent="navigateTo('/all/recipe')">View Recipes </a>
