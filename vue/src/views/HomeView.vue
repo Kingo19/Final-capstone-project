@@ -7,7 +7,7 @@
         <a @click.prevent="navigateTo('/')">Home</a>
         <a @click.prevent="navigateTo('/recipes')"> Add Recipes</a>
         <a @click.prevent="navigateTo('/recipes/add')">Recipes</a>
-<!--        <a @click.prevent="navigateTo('/ingredients')">Ingredients</a>-->
+        <a @click.prevent="navigateTo('/login')">Login</a>
         <a @click.prevent="navigateTo('/all/recipe')">View Recipes </a>
 <!--        <a @click.prevent="navigateTo('/meal-plans')">Meal Plans</a>-->
       </nav>
@@ -29,7 +29,7 @@
     </section>
 
     <section class="sign-up">
-      <router-link to="/signup" class="cta-button">Get Started</router-link>
+      <router-link to="/register" class="cta-button">Get Started</router-link>
     </section>
 
     <section class="testimonials">
