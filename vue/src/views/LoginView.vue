@@ -42,6 +42,7 @@ export default {
       authService
         .login(this.user)
         .then(response => {
+          debugger
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
@@ -50,6 +51,8 @@ export default {
         })
         .catch(error => {
           const response = error.response;
+
+          console.log(error)
 
           if (response.status === 401) {
             this.invalidCredentials = true;
