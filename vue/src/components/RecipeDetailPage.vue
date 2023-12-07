@@ -1,27 +1,28 @@
 <template>
   <div class="recipe-detail-container">
+    <div class="head-of-container">
 
-    <div class="header">
-      <h1>{{ recipeDto.recipe.recipeDto.recipe_name }}</h1>
+      <h1>{{ recipeDto.recipe.recipe_name }}</h1>
+
+<!--      Returns to homepage-->
       <router-link to="/" class="back-link">
         <span class="back-icon">&lt; Back to Recipes</span>
       </router-link>
     </div>
 
-    <button @click="getObject">BIG BUTTON</button>
-
     <div class="recipe-details">
       <img class="recipe-image"
            src="https://www.sandiegoprosthodontics.com/files/2018/09/Recipes-Banner.jpg"
            alt="Recipe Image" />
-      <p class="instructions">{{ recipeDto.recipe.recipeDto.recipe_instructions }}</p>
+      <p class="instructions">{{ recipeDto.recipe.recipe_instructions }}</p>
 
       <div class="ingredient-list">
         <strong>Ingredients:</strong>
         <ul>
-            <li v-for="ingredient in recipeDto.ingredients.IngredientDto" :key="ingredient">{{ ingredient.ingredient_name }}</li>
+            <li v-for="ingredient in recipeDto.ingredients" :key="ingredient">{{ ingredient.ingredient_name }}</li>
         </ul>
       </div>
+
     </div>
   </div>
 </template>
@@ -30,21 +31,7 @@
 export default {
   props: {
     recipeDto:Object
-//     recipeDto:{
-//       recipe: Object,
-//       ingredients:[],
-// }
   },
-  methods:{
-    getObject(){
-      console.log("get 1")
-      console.log(this.recipeDto)
-    }
-
-  },
-  computed:{
-
-  }
 };
 </script>
 
@@ -58,7 +45,7 @@ export default {
   border-radius: 8px; /* Add border-radius for a rounded appearance */
 }
 
-.header {
+.head-of-container {
   display: flex;
   justify-content: space-between;
   align-items: center;

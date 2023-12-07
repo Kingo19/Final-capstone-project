@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--      This is where you will loop over the response of data from the server to get each or every recipe-->
-    <RecipeDetailPage  v-for="recipeDto in getAll" :key="recipeDto" :recipeDto="recipeDto"/>
+    <RecipeDetailPage  v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto"/>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   },
   data(){
     return {
-      allRecipe: [],
+      allRecipe: null,
       testrecipe: [
         {
           "recipe_name": "Chocolate Cake",
@@ -66,17 +66,26 @@ export default {
     }
 
   },
-  created() {
-    console.log("Trigger")
-    this.allRecipe = RecipeService.getAllRecipes();
-    console.log(this.allRecipe[0])
-  },
-  computed:{
-    getAll(){
-      console.log(this.allRecipe[0])
-      return this.allRecipe
 
+  methods:{
+    async getting() {
+      try {
+        let res = await RecipeService.getAllRecipes()
+        this.allRecipe = res.data
+      } catch {
+        console.log("triggered catch")
+      }
     }
+
+  },
+  mounted() {
+    this.getting()
+
   }
+
 };
 </script>
+
+<style scoped>
+
+</style>

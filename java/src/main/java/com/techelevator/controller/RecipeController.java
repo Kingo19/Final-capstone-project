@@ -100,7 +100,10 @@ public class RecipeController {
                     "Parameters: "
             );
         }
-        System.out.println(recipeIngredientList.get(0).getRecipe());
+        int counter = 0;
+        System.out.println(recipeIngredientList.get(0));
+        System.out.println(counter);
+        counter++;
         return recipeIngredientList;
     }
 }

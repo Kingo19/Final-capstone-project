@@ -35,7 +35,6 @@
     <section class="testimonials">
       <h2 class="title">Testimonials</h2>
       <TestimonialComp />
-     
     </section>
 
 
@@ -55,9 +54,6 @@
   </div>
 </template>
 
-
-
-
 <script>
 import FeatureCard from '@/components/FeatureCard.vue';
 import TestimonialComp from '@/components/TestimonialComp.vue';
@@ -67,11 +63,13 @@ export default {
   data() {
     return {
 
-      Add_Ingredients: "Easily add and manage your favorite ingredients. Keep track of quantities, expiration dates, " +
+      Add_Ingredients: "Easily add and manage your favorite ingredients. " +
+          "Keep track of quantities, expiration dates, " +
           "and organize them into categories for effortless meal planning and grocery shopping. " +
           "Simplify your cooking process and ensure you always have the ingredients you need.",
 
-      Create_Recipes:  "Create and store your own recipes for quick access. With our user-friendly recipe editor, " +
+      Create_Recipes:  "Create and store your own recipes for quick access. " +
+          "With our user-friendly recipe editor, " +
           "you can input detailed instructions, ingredient lists, cooking times, and even add your own photos. " +
           "Never forget a recipe again and share your culinary creations with friends and family.",
 
@@ -91,8 +89,10 @@ export default {
           
           userName: 'Jane Smith',
           userRole: 'Food Blogger',
-          testimonialText: 'The meal recipes in this app are fantastic! I have tried so many and they never disappoint. ' +
-              'The step-by-step instructions and clear ingredient lists make it easy to follow along and create delicious meals. ' +
+          testimonialText: 'The meal recipes in this app are fantastic! ' +
+              'I have tried so many and they never disappoint. ' +
+              'The step-by-step instructions and clear ingredient lists ' +
+              'make it easy to follow along and create delicious meals. ' +
               'This app has become my go-to resource for recipe inspiration and meal planning. ' +
               'Kudos to the developers for creating such a user-friendly and valuable tool!',
         },
@@ -114,14 +114,12 @@ export default {
       this.$router.push(route);
     }
   },
-
   components: {
     FeatureCard,
     TestimonialComp ,
   },
 }
 </script>
-
 
 <style scoped>
 /* App-wide styles (styles.css) */
@@ -130,7 +128,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
- 
 }
 header {
   background-color: #333;

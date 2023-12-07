@@ -1,6 +1,6 @@
 <template>
   <div id="test" class="test">
-  <form id="forme" @submit.prevent="submitForm">
+  <form id="form" @submit.prevent="submitForm">
 
     <!-- Recipe Name -->
     <div class="input-group">
@@ -37,6 +37,7 @@
       <button type="submit" class="submit-button" :disabled="!isFormValid">Submit</button>
     </div>
   </form>
+
   </div>
 </template>
 
@@ -123,7 +124,6 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
   max-width: 600px; /* Adjust the width of the form. Perhaps modify to allow reactivity*/
   margin: 0 auto; /* Center the form horizontally */
   padding: 20px;
