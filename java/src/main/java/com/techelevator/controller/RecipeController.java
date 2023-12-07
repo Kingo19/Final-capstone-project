@@ -34,9 +34,13 @@ public class RecipeController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "recipes/add", method = RequestMethod.POST)
-    public void addRecipe(@RequestBody RecipeIngredientDto recipeIngredientDto) {
+    public void addRecipe(Principal principal, @Valid @RequestBody RecipeIngredientDto recipeIngredientDto) {
+        int userId = userDao.getUserByUsername(principal.getName()).getId();
+
         try {
             recipeIngredientDao.addRecipeIngredientConnection(recipeIngredientDto);
+            int recipeId = recipeDao.getRecipeID(recipeIngredientDto.getRecipe());
+            recipeIngredientDao.addRecipetoUser(userId, recipeId);
         } catch (Exception e) {
             logger.error("Recipe Failure: ", e);
             System.out.printf("%s%n%s%n%s%n%s%n",
@@ -80,6 +84,8 @@ public class RecipeController {
         }
         return recipeIngredientDtoList;
     }
+
+    //temp for demo
     @RequestMapping(path = "recipes/all", method = RequestMethod.GET)
     public List<RecipeIngredientDto> fetchAllRecipeInfo(){
         System.out.println("Triggered");
@@ -102,13 +108,13 @@ public class RecipeController {
         return recipeIngredientList;
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "user/recipes/save", method = RequestMethod.POST)
-    public void saveRecipe(Principal principal, @Valid @RequestBody RecipeDto recipeToSave){
-        int userId = userDao.getUserByUsername(principal.getName()).getId();
-        int recipeId = recipeDao.getRecipeID(recipeToSave);
-        recipeIngredientDao.addRecipetoUser(userId, recipeId);
-    }
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @RequestMapping(path = "user/recipes/save", method = RequestMethod.POST)
+//    public void saveRecipe(Principal principal, @Valid @RequestBody RecipeDto recipeToSave){
+//        int userId = userDao.getUserByUsername(principal.getName()).getId();
+//        int recipeId = recipeDao.getRecipeID(recipeToSave);
+//        recipeIngredientDao.addRecipetoUser(userId, recipeId);
+//    }
 
     @RequestMapping(path = "user/recipes", method = RequestMethod.GET)
     public List<RecipeIngredientDto> getAllUserRecipes(Principal principal){
