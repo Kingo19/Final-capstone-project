@@ -38,8 +38,11 @@ public class RecipeController {
     @RequestMapping(path = "user/recipes/add", method = RequestMethod.POST)
     public void addRecipe(Principal principal, @Valid @RequestBody RecipeIngredientDto recipeIngredientDto) {
         int userId = userDao.getUserByUsername(principal.getName()).getId();
-
+        List<RecipeIngredientDto> oldRecipe = recipeIngredientDao.getRecipeAndIngredientsFromName(recipeIngredientDto.getRecipe().getRecipe_name());
         try {
+            if(oldRecipe.get(0).getIngredients().size()>=1){
+                throw new DaoException("Recipe already exists.");
+            }
             recipeIngredientDao.addRecipeIngredientConnection(recipeIngredientDto);
             int recipeId = recipeDao.getRecipeID(recipeIngredientDto.getRecipe());
             recipeIngredientDao.addRecipetoUser(userId, recipeId);
@@ -55,13 +58,13 @@ public class RecipeController {
     }
 
 
-    @RequestMapping(path = "user/recipes/{id}", method = RequestMethod.GET)
-    public List<RecipeIngredientDto> fetchRecipeInfo(Principal principal, @Valid @PathVariable int id){
+    @RequestMapping(path = "user/recipes/{recipeName}", method = RequestMethod.GET)
+    public List<RecipeIngredientDto> fetchRecipeInfo(Principal principal, @Valid @PathVariable String recipeName){
         int userId = userDao.getUserByUsername(principal.getName()).getId();
         List<RecipeIngredientDto> recipeIngredientDtoList = new ArrayList<>();
         try {
-            if(recipeDao.checkUserRecipe(userId, id)){
-                recipeIngredientDtoList = recipeIngredientDao.getRecipeAndIngredientsFromId(id);
+            if(recipeDao.checkUserRecipe(userId, recipeName)){
+                recipeIngredientDtoList = recipeIngredientDao.getRecipeAndIngredientsFromName(recipeName);
             } else {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
             }
@@ -71,13 +74,12 @@ public class RecipeController {
                     "Class: " + this.getClass(),
                     "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
                     "Exception: " + e,
-                    "Parameters: " + id
+                    "Parameters: " + recipeName
             );
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
         return recipeIngredientDtoList;
     }
-
 
     @RequestMapping(path = "user/recipes", method = RequestMethod.GET)
     public List<RecipeIngredientDto> getAllUserRecipes(Principal principal){
@@ -86,13 +88,13 @@ public class RecipeController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "user/recipes/{id}/edit", method = RequestMethod.PUT)
-    public void editRecipe(Principal principal, @Valid @RequestBody RecipeIngredientDto recipeToEdit, @Valid @PathVariable int id){
+    @RequestMapping(path = "user/recipes/{recipeName}/edit", method = RequestMethod.PUT)
+    public void editRecipe(Principal principal, @Valid @RequestBody RecipeIngredientDto recipeToEdit, @Valid @PathVariable String recipeName){
         int userId = userDao.getUserByUsername(principal.getName()).getId();
-        int recipeId = id;
         try {
-            if(recipeDao.checkUserRecipe(userId, recipeId)){
-                recipeIngredientDao.updateRecipeAndIngredient(recipeToEdit, recipeId);
+            if(recipeDao.checkUserRecipe(userId, recipeName)){
+                recipeIngredientDao.getRecipeAndIngredientsFromName(recipeName);
+                recipeIngredientDao.updateRecipeAndIngredient(recipeToEdit, recipeName);
             } else {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
             }

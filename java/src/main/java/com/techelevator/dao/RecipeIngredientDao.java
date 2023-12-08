@@ -13,8 +13,9 @@ public interface RecipeIngredientDao {
 
     public void addRecipeIngredientConnection(RecipeIngredientDto rID);
     public List<RecipeIngredientDto> getRecipeAndIngredientsFromId(int recipeId);
+    public List<RecipeIngredientDto> getRecipeAndIngredientsFromName(String recipeName);
 //    public List<RecipeIngredientDto> getAllRecipes();
     public void addRecipetoUser(int userId, int recipeId);
     public List<RecipeIngredientDto> getRecipesByUserId(int userId);
-    public String updateRecipeAndIngredient(RecipeIngredientDto recipeIngredientDto, int id);
+    public String updateRecipeAndIngredient(RecipeIngredientDto recipeIngredientDto, String recipeName);
 }

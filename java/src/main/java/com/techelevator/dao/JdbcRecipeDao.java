@@ -93,17 +93,18 @@ public class JdbcRecipeDao implements RecipeDao{
         return recipe;
     }
 
-    public boolean checkUserRecipe(int userId, int recipeId){
-        int recipeCheck = 0;
-        String sql = "SELECT * FROM recipe\n" +
-                "JOIN recipe_users ON recipe_users.recipe_id = recipe.recipe_id\n" +
-                "WHERE recipe_users.user_id = ? AND recipe.recipe_id = ?;";
 
-        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId, recipeId);
+    public boolean checkUserRecipe(int userId, String recipeName){
+        String recipeCheck = "";
+        String sql = "SELECT recipe.recipe_name FROM recipe\n" +
+                "JOIN recipe_users ON recipe_users.recipe_id = recipe.recipe_id\n" +
+                "WHERE recipe_users.user_id = ? AND recipe.recipe_name = ?;";
+
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId, recipeName);
         while(result.next()){
-            recipeCheck = result.getInt("recipe_id");
+            recipeCheck = result.getString("recipe_name");
         }
-        if(recipeCheck == recipeId){
+        if(recipeCheck.equals(recipeName)){
             return true;
         }
         return false;
