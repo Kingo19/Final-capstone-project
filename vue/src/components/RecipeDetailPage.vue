@@ -2,12 +2,17 @@
   <div class="recipe-detail-container">
     <div class="head-of-container">
 
-      <h1>{{ recipeDto.recipe.recipe_name }}</h1>
+      <h1 v-if="!modifyRecipe">{{ recipeDto.recipe.recipe_name }}</h1>
 
       <!--      Returns to homepage-->
-      <router-link to="/" class="back-link">
-        <span class="back-icon">&lt; Back to Recipes</span>
-      </router-link>
+<!--      <router-link to="/recipes/modify" class="back-link" :modify="recipeDto">-->
+<!--        <span class="back-icon">Modify Recipe</span>-->
+<!--      </router-link>-->
+            <button @click="mod" v-if="!modifyRecipe">Modify Recipe</button>
+            <modify-recipe v-if="modifyRecipe" :modify="recipeDto"/>
+<!--            <router-view to="/recipes/modify" class="back-link" :modify="recipeDto">-->
+<!--              <span class="back-icon">Modify Recipe</span>-->
+<!--            </router-view>-->
     </div>
 
     <div class="recipe-details">
@@ -28,10 +33,24 @@
 </template>
 
 <script>
+import ModifyRecipe from "@/components/ModifyRecipe.vue";
+
 export default {
+  components: {ModifyRecipe},
   props: {
     recipeDto: Object
   },
+  data(){
+    return{
+      modifyRecipe:false,
+    }
+  },
+  methods:{
+    mod(){
+      this.modifyRecipe = true
+    }
+
+  }
 };
 </script>
 

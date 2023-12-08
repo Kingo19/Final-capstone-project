@@ -4,19 +4,19 @@
       <!-- Recipe Name -->
       <div class="input-group">
         <label for="recipeName">Recipe Name</label>
-        <input type="text" id="recipeName" v-model="formData.recipe.recipe_name"
+        <input type="text" id="recipeName" v-model="modify.recipe.recipe_name"
                :aria-required="requiredFields.recipeName.toString()"
                maxlength="200"
-               placeholder="Name your recipe, we suggest something unique and easy to remember">
+               :placeholder="modify.recipe.recipe_name">
       </div>
 
       <!-- Description -->
       <div class="input-group textfield">
         <label for="description">Description</label>
-        <textarea :maxlength="maxlen" id="description" v-model="formData.recipe.recipe_instructions"
+        <textarea :maxlength="maxlen" id="description" v-model="modify.recipe.recipe_instructions"
                   :aria-required="requiredFields.instructions.toString()"
                   rows="4" cols="50"
-                  placeholder="A brief description of the dish."></textarea>
+                  :placeholder="modify.recipe.recipe_instructions"></textarea>
       </div>
 
       <!-- Ingredients List -->
@@ -24,7 +24,7 @@
         <h3>Ingredients</h3>
         <div class="ingredient-group">
           <input id="ingredientName" type="text" v-model="item.ingredient_name"
-                 list="ingredientNames" placeholder="Ingredient Name">
+                 list="ingredientNames" :placeholder="item.ingredient_name">
           <datalist id="ingredientNames">
             <option class="innerIngredient" v-for="itemName in foodName" :value="itemName"></option>
           </datalist>
@@ -34,7 +34,7 @@
 
       <!-- Ingredients Items -->
       <div class="ingredient-list">
-        <div class="ingredient-item" v-for="(ingredient, index) in formData.ingredients" :key="index">
+        <div class="ingredient-item" v-for="(ingredient, index) in modify.ingredients" :key="index">
           <p>{{ ingredient.ingredient_name }}</p>
           <button type="button" @click="removeIngredient(index)">Remove</button>
         </div>
@@ -42,24 +42,18 @@
 
       <!-- Submit Button -->
       <div class="button-group">
-        <button type="submit" class="submit-button">Submit</button>
+        <button type="submit" class="submit-button">Modify</button>
       </div>
     </form>
   </div>
-
-  <button @click="fillArray">test</button>
 </template>
 
 <script>
 import foodarray from "@/resources/foodNameArray";
 import RecipeService from "../services/RecipeService";
-import {isSFCObject} from "eslint-plugin-vue/lib/utils";
 
 export default {
-  props:{
-    array:Object
-  },
-
+  props:["modify"],
   data() {
     return {
       formValid: false,

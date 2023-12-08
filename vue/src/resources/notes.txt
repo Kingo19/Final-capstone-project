@@ -176,3 +176,12 @@ Snacks
                     }
                   ]
 
+
+    // {
+    //     path: '/recipes/modify',
+    //     name: "modifyRecipe",
+    //     component: modifyRecipe,
+    //     meta: {
+    //         requiresAuth: false
+    //     }
+    // }
