@@ -103,7 +103,8 @@ public class RecipeController {
             System.out.printf("%s%n%s%n%s%n%s%n",
                     "Class: " + this.getClass(),
                     "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
-                    "Exception: " + e
+                    "Exception: " + e,
+                    "Argument"
             );
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
