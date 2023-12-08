@@ -8,8 +8,7 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import RecipeListView from '../views/RecipeListView.vue';
 import RecipeDetailView from '../views/RecipeDetailView.vue';
-import AddRecipe from '../Unused vue/AddRecipeOld.vue'
-import AddRecipe2 from "@/components/AddRecipe.vue";
+import AddRecipe from "@/components/AddRecipe.vue";
 import modifyRecipe from "@/components/ModifyRecipe.vue";
 import test from "@/components/test.vue";
 

@@ -41,9 +41,9 @@
       </div>
 
       <!-- Submit Button -->
-      <div class="button-group">
-        <button type="submit" class="submit-button">Modify</button>
-      </div>
+<!--      <div class="button-group">-->
+<!--        <button type="submit" class="submit-button">Modify</button>-->
+<!--      </div>-->
     </form>
   </div>
 </template>
