@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app-container">
-    <form id="form" @submi.prevent="submitForm" class="recipe-form">
+    <form id="form" @submit.prevent="submitForm" class="recipe-form">
       <!-- Recipe Name -->
       <div class="input-group">
         <label for="recipeName">Recipe Name</label>
@@ -46,13 +46,20 @@
       </div>
     </form>
   </div>
+
+  <button @click="fillArray">test</button>
 </template>
 
 <script>
 import foodarray from "@/resources/foodNameArray";
 import RecipeService from "../services/RecipeService";
+import {isSFCObject} from "eslint-plugin-vue/lib/utils";
 
 export default {
+  props:{
+    array:Object
+  },
+
   data() {
     return {
       formValid: false,
@@ -76,7 +83,15 @@ export default {
     }
   },
   methods: {
+
+    fillArray(){
+      for(let each in array){
+        this.formData.ingredients.push(sorry[each])
+      }
+      console.log(this.formData.ingredients)
+    },
     submitForm() {
+      console.log(this.formData)
       RecipeService.addRecipeAndIngredients(this.formData);
       // console.log("submitted")
       // if (this.checkIfFormIsValid) {
