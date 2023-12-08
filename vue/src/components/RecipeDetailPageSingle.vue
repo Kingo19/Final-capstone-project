@@ -1,37 +1,52 @@
 <template>
   <div class="recipe-detail-container">
+
+  <div v-if="!modifyRecipe" class="original-recipe">
     <div class="head-of-container">
-
-      <h1>{{ recipeDto.recipe.recipe_name }}</h1>
-
-      <!--      Returns to homepage-->
-      <router-link to="/" class="back-link">
-        <span class="back-icon">&lt; Back to Recipes</span>
-      </router-link>
+      <h1 v-if="!modifyRecipe">{{ recipeDto.recipe.recipe_name }}</h1>
     </div>
-
     <div class="recipe-details">
       <img class="recipe-image"
            src="https://www.sandiegoprosthodontics.com/files/2018/09/Recipes-Banner.jpg"
            alt="Recipe Image"/>
       <p class="instructions">{{ recipeDto.recipe.recipe_instructions }}</p>
-
       <div class="ingredient-list">
         <strong>Ingredients:</strong>
         <ul>
           <li v-for="ingredient in recipeDto.ingredients" :key="ingredient">{{ ingredient.ingredient_name }}</li>
         </ul>
       </div>
-
     </div>
+  </div>
+
+    <button @click="mod" v-if="!modifyRecipe">Modify Recipe</button>
+
+    <div>
+      <modify-recipe v-if="modifyRecipe" :modify="recipeDto"/>
+    </div>
+
   </div>
 </template>
 
 <script>
+import ModifyRecipe from "@/components/ModifyRecipe.vue";
+
 export default {
+  components: {ModifyRecipe},
   props: {
     recipeDto: Object
   },
+  data(){
+    return{
+      modifyRecipe:false,
+    }
+  },
+  methods:{
+    mod(){
+      this.modifyRecipe = true
+    }
+
+  }
 };
 </script>
 

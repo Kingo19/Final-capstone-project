@@ -22,7 +22,6 @@ export default {
       allRecipe: null,
       singleRecipeObject:null,
     }
-
   },
 
   methods: {
