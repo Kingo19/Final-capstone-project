@@ -8,7 +8,7 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import RecipeListView from '../views/RecipeListView.vue';
 import RecipeDetailView from '../views/RecipeDetailView.vue';
-import AddRecipe from '../components/AddRecipe.vue'
+import AddRecipe from '../components/AddRecipe.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
