@@ -1,8 +1,6 @@
 <template>
-  <div id="test" class="test">
-    <form id="form" @submit.prevent="submitForm">
-
-
+  <div id="app" class="app-container">
+    <form id="form" @submit.prevent="submitForm" class="recipe-form">
       <!-- Recipe Name -->
       <div class="input-group">
         <label for="recipeName">Recipe Name</label>
@@ -21,33 +19,40 @@
                   placeholder="A brief description of the dish."></textarea>
       </div>
 
-      <!-- Ingredients Section -->
+      <!-- Ingredients List -->
       <div class="input-group">
-        <h3>Ingredients test</h3>    <!-- Header -->
-        <div class="ingredient-group" v-for="(ingredient, index) in formData.ingredients" :key="index">
-          <input :id="'ingredientName' + index" type="text" v-model="ingredient.ingredient_name" list="ingredientNames"
-                 placeholder="Ingredient Name">
-          <!-- Datalist is for predictive text. Array is used named foodName from foodNameArray.js -->
+        <h3>Ingredients</h3>
+        <div class="ingredient-group">
+          <input id="ingredientName" type="text" v-model="item.ingredient_name"
+                 list="ingredientNames" placeholder="Ingredient Name">
           <datalist id="ingredientNames">
-            <option class="innerIngredient" v-for="itemName in foodName" :value="itemName" :key="itemName"></option>
+            <option class="innerIngredient" v-for="itemName in foodName" :value="itemName"></option>
           </datalist>
+          <button type="button" @click="addIngredient">Add Ingredient</button>
         </div>
-        <button type="button" @click="addIngredient">Add Ingredient</button>
-        <button type="button" @click="removeIngredient(index)">Remove</button>
       </div>
+
+      <!-- Ingredients Items -->
+      <div class="ingredient-list">
+        <div class="ingredient-item" v-for="(ingredient, index) in formData.ingredients" :key="index">
+          <p>{{ ingredient.ingredient_name }}</p>
+          <button type="button" @click="removeIngredient(index)">Remove</button>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
       <div class="button-group">
         <button type="submit" class="submit-button">Submit</button>
       </div>
     </form>
-
   </div>
+
+  <button @click="fillArray">test</button>
 </template>
 
 <script>
-
 import foodarray from "@/resources/foodNameArray";
 import RecipeService from "../services/RecipeService";
-
 
 export default {
   data() {
@@ -56,6 +61,7 @@ export default {
       recipe_name: "Name your recipe, we suggest something unique and easy to remember",
       Instructions: "How to prepare your amazing recipe. ",
       maxlen: 200,
+      item: { ingredient_name: '' },
       requiredFields: {
         recipeName: true,
         instructions: true,
@@ -73,78 +79,65 @@ export default {
   },
   methods: {
 
+    fillArray(){
+      for(let each in array){
+        this.formData.ingredients.push(sorry[each])
+      }
+      console.log(this.formData.ingredients)
+    },
     submitForm() {
-      RecipeService.addRecipeAndIngredients(this.formData)
-      // if(this.formValid){
-      //   console.log("triggered")
-      //   RecipeService.addRecipeAndIngredients(this.formData)
-      // }else{
-      //   console.log("Not valid")
+      console.log(this.formData)
+      RecipeService.addRecipeAndIngredients(this.formData);
+      // console.log("submitted")
+      // if (this.checkIfFormIsValid) {
+      //   console.log("trigger")
+      //   RecipeService.addRecipeAndIngredients(this.formData);
+      // } else {
+      //   alert("Please fill in all required fields.");
       // }
     },
-
     addIngredient() {
-      this.formData.ingredients.push({ingredient_name: ''});
+      if (this.item.ingredient_name) {
+        this.formData.ingredients.push({ ...this.item });
+        this.item = { ingredient_name: '' };
+      } else {
+        alert("Ingredient name cannot be empty.");
+      }
     },
     removeIngredient(index) {
       this.formData.ingredients.splice(index, 1);
     },
-
-    getArrayOfKeywords() {
-      let keywords = []
-      let tags = this.recipe.tagsKeywords.split(',');   // Split the initial string by commas
-      for (let each of tags) {  //Looping over that array to find words with spaces
-        each = each.trim() //Trims the leading or trailing characters
-        keywords.push(each)
-        if (each.includes(" ")) { //Finds the spaces between words
-          let temp = each.split(' ')
-          for (let words of temp) {
-            keywords.push(words.trim())
-          } //end of forloop words
-        } //end of if includes
-      } // end of main - each - for loop
-      console.log(keywords)
-      return keywords;
-    }, //Function end
   },
   computed: {
-
-    isFormValid() {
-      let check = this.formData.recipe_name.length > 2 &&
-          this.formData.Instructions.length > 2 &&
-          this.ingredients.length > 1
-      if(check){
-        this.formValid = true
-      }
+    checkIfFormIsValid() {
+      return this.formData.recipe.recipe_name &&
+          this.formData.recipe.recipe_instructions &&
+          this.formData.ingredients.length > 0;
     },
-
   }
 }
 </script>
 
-
 <style scoped>
+
 
 @font-face {
   font-family: "MV Boli";
   src: url("../resources/mvboli.ttf");
 }
 
-#test {
+.app-container {
+  font-family: "MV Boli";
   background-color: rgb(239 234 231);
+  min-height: 100vh;
+  padding: 20px;
 }
 
-form {
-  font-family: "MV Boli";
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 600px; /* Adjust the width of the form. Perhaps modify to allow reactivity*/
-  margin: 0 auto; /* Center the form horizontally */
+.recipe-form {
+  background-color: #fff8dc;
+  border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow around the form */
-  background-color: #fff; /* Background color for the form. Starting color #fff*/
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .input-group {
@@ -157,25 +150,34 @@ label {
   font-size: 1.2em;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #333; /* Darker label color for better readability */
+  color: #333;
 }
 
-input[type='text'], input[type='number'], select, textarea {
+input[type='text'], textarea {
   width: 100%;
   padding: 5px;
   border: 2px solid #ccc;
   border-radius: 5px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   font-size: 1em;
   color: #333;
 }
 
-input.nums {
-  width: 20%;
+.ingredient-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-select {
-  cursor: pointer;
+.ingredient-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredient-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .button-group {
@@ -185,30 +187,18 @@ select {
 }
 
 .submit-button {
-  //background-color: #4CAF50; /* Green color for the submit button */
-  //color: white;
-  //padding: 12px 24px;
-  //border: none;
   border-radius: 5px;
   font-size: 1.2em;
-  //cursor: pointer;
-  //transition: background-color 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .submit-button:hover {
-  background-color: #45A049; /* Darker shade on hover */
-}
-
-.ingredient-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+  background-color: #45A049;
 }
 
 @media (max-width: 768px) {
-  form {
-    max-width: 90%; /* Smaller width on smaller screens */
+  .recipe-form {
+    max-width: 90%;
   }
 }
 </style>
