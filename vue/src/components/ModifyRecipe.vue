@@ -56,6 +56,7 @@ export default {
   props:["modify"],
   data() {
     return {
+      originalName: "",
       formValid: false,
       recipe_name: "Name your recipe, we suggest something unique and easy to remember",
       Instructions: "How to prepare your amazing recipe. ",
@@ -78,22 +79,9 @@ export default {
   },
   methods: {
 
-    fillArray(){
-      for(let each in array){
-        this.formData.ingredients.push(sorry[each])
-      }
-      console.log(this.formData.ingredients)
-    },
     submitForm() {
       console.log(this.formData)
       RecipeService.addRecipeAndIngredients(this.formData);
-      // console.log("submitted")
-      // if (this.checkIfFormIsValid) {
-      //   console.log("trigger")
-      //   RecipeService.addRecipeAndIngredients(this.formData);
-      // } else {
-      //   alert("Please fill in all required fields.");
-      // }
     },
     addIngredient() {
       if (this.item.ingredient_name) {
@@ -113,6 +101,7 @@ export default {
           this.formData.recipe.recipe_instructions &&
           this.formData.ingredients.length > 0;
     },
+
   }
 }
 </script>
