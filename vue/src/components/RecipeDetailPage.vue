@@ -3,21 +3,29 @@
 
 
     <div v-if="!modifyRecipe" class="original-recipe">
+
       <div class="head-of-container">
         <h1>{{ recipeDto.recipe.recipe_name }}</h1>
       </div>
+
       <button @click="mod" v-if="!modifyRecipe">Modify Recipe</button>
+
+
       <div class="recipe-details">
         <img class="recipe-image"
              src="https://www.sandiegoprosthodontics.com/files/2018/09/Recipes-Banner.jpg"
              alt="Recipe Image"/>
+
         <p class="instructions">{{ recipeDto.recipe.recipe_instructions }}</p>
+
         <div class="ingredient-list">
           <strong>Ingredients:</strong>
           <ul>
             <li v-for="ingredient in recipeDto.ingredients" :key="ingredient">{{ ingredient.ingredient_name }}</li>
           </ul>
         </div>
+
+
       </div>
     </div>>
 
@@ -65,9 +73,10 @@
             </div>
           </div>
 
-              <div class="button-group">
-                <button type="submit" class="submit-button">Submit</button>
-              </div>
+            <div class="button-group">
+              <button type="submit" class="submit-button">Submit</button>
+            </div>
+
         </form>
   </div>
 
@@ -125,7 +134,10 @@ export default {
       }
       RecipeService.modifyRecipeAndIngredients(this.originalName, this.recipeDto);
       this.mod()
+      this.originalName = this.recipeDto.recipe.recipe_name
+      this.$router.push("/all/recipe")
     },
+
     addIngredient() {
       if (this.item.ingredient_name) {
         this.recipeDto.ingredients.push({ ...this.item });
@@ -134,10 +146,12 @@ export default {
         alert("Ingredient name cannot be empty.");
       }
     },
+
     removeIngredient(index) {
       this.recipeDto.ingredients.splice(index, 1);
     },
   },
+
   computed: {
     checkIfFormIsValid() {
       return this.formData.recipe.recipe_name &&
@@ -149,7 +163,6 @@ export default {
     this.originalName = this.recipeDto.recipe.recipe_name
   }
 };
-
 
 </script>
 
