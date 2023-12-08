@@ -207,9 +207,11 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         String recipeNewName = recipeIngredientDto.getRecipe().getRecipe_name();
         String recipeInstruction = recipeIngredientDto.getRecipe().getRecipe_instructions();
         String sql = "UPDATE recipe SET recipe_name = ?, recipe_instructions = ? WHERE recipe_name = ?;";
+        RecipeDto newRecipeWithName = new RecipeDto();
+        newRecipeWithName.setRecipe_name(recipeName);
 
         try{
-            int recipeId = jdbcRecipeDao.getRecipeID(recipeIngredientDto.getRecipe());
+            int recipeId = jdbcRecipeDao.getRecipeID(newRecipeWithName);
             deletePreviousIngredients(recipeId);
             jdbcTemplate.update(sql, recipeNewName, recipeInstruction, recipeName);
             recipeId = jdbcRecipeDao.getRecipeID(recipeIngredientDto.getRecipe());
