@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app-container">
-    <form id="form" @submit.prevent="submitForm" class="recipe-form">
+    <form id="form" @submit="submitForm" class="recipe-form">
       <!-- Recipe Name -->
       <div class="input-group">
         <label for="recipeName">Recipe Name</label>
@@ -88,13 +88,7 @@ export default {
     submitForm() {
       console.log(this.formData)
       RecipeService.addRecipeAndIngredients(this.formData);
-      // console.log("submitted")
-      // if (this.checkIfFormIsValid) {
-      //   console.log("trigger")
-      //   RecipeService.addRecipeAndIngredients(this.formData);
-      // } else {
-      //   alert("Please fill in all required fields.");
-      // }
+      this.$router.push(["/"])
     },
     addIngredient() {
       if (this.item.ingredient_name) {
