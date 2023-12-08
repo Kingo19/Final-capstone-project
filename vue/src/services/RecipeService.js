@@ -8,5 +8,11 @@ export default {
 
     async getAllRecipes(user) {
         return axios.get('http://localhost:9000/user/recipes', user)
-    }
+    },
+
+    modifyRecipeAndIngredients(orgname, passin) {
+        console.log(passin.recipe.recipe_name)
+        let recipeName = passin.recipe.recipe_name
+        axios.put(  `http://localhost:9000/user/recipes/${orgname}/edit`, passin)
+    },
 }
