@@ -133,6 +133,34 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         }
         return recipeFormatted;
     }
+    public List<RecipeIngredientDto> getRecipeAndIngredientsFromName(String recipeName){
+        RecipeIngredientDto recipeIngredientDto = new RecipeIngredientDto();
+        List<RecipeIngredientDto> recipeFormatted = new ArrayList<>();
+        RecipeDto recipe = new RecipeDto();
+        List<IngredientDto> ingredients = new ArrayList<>();
+        String sql = "SELECT recipe_instructions, ingredient_id FROM recipe\n" +
+                "JOIN recipe_ingredient ON recipe.recipe_id = recipe_ingredient.recipe_id\n" +
+                "WHERE recipe.recipe_name = ?;";
+        try{
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, recipeName);
+            while(result.next()){
+                recipe.setRecipe_name(recipeName);
+                recipe.setRecipe_instructions(result.getString("recipe_instructions"));
+                ingredients.add(jdbcIngredientDao.getIngredientFromId(result.getInt("ingredient_id")));
+            }
+            recipeIngredientDto.setRecipe(recipe);
+            recipeIngredientDto.setIngredients(ingredients);
+            recipeFormatted.add(recipeIngredientDto);
+        } catch (Exception e) {
+            System.out.printf("%s%n%s%n%s%n%s%n",
+                    "Class: " + this.getClass(),
+                    "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
+                    "Exception: " + e,
+                    "Parameters: "
+            );
+        }
+        return recipeFormatted;
+    }
 
     public List<RecipeIngredientDto> getAllRecipes(){
         List<Integer> recipeIdList = new ArrayList<>();
@@ -174,16 +202,17 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         return recipeIngredientDtoList;
     }
 
-    public String updateRecipeAndIngredient(RecipeIngredientDto recipeIngredientDto, int id){
+    public String updateRecipeAndIngredient(RecipeIngredientDto recipeIngredientDto, String recipeName){
         List<IngredientDto> ingredientList = recipeIngredientDto.getIngredients();
-        String recipeName = recipeIngredientDto.getRecipe().getRecipe_name();
+        String recipeNewName = recipeIngredientDto.getRecipe().getRecipe_name();
         String recipeInstruction = recipeIngredientDto.getRecipe().getRecipe_instructions();
-        int recipeId = id;
-        String sql = "UPDATE recipe SET recipe_name = ?, recipe_instructions = ? WHERE recipe_id = ?;";
+        String sql = "UPDATE recipe SET recipe_name = ?, recipe_instructions = ? WHERE recipe_name = ?;";
 
         try{
+            int recipeId = jdbcRecipeDao.getRecipeID(recipeIngredientDto.getRecipe());
             deletePreviousIngredients(recipeId);
-            jdbcTemplate.update(sql, recipeName, recipeInstruction, recipeId);
+            jdbcTemplate.update(sql, recipeNewName, recipeInstruction, recipeName);
+            recipeId = jdbcRecipeDao.getRecipeID(recipeIngredientDto.getRecipe());
             addToRecipeIngredient(ingredientList, recipeId);
         } catch (Exception e) {
             System.out.printf("%s%n%s%n%s%n%s%n",

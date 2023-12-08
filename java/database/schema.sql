@@ -44,4 +44,32 @@ CREATE TABLE recipe_users (
     CONSTRAINT FK_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+CREATE TABLE meal (
+	meal_id SERIAL,
+  	meal_name varchar (50) NOT NULL,
+  	user_id int NOT NULL,
+  	CONSTRAINT PK_meal PRIMARY KEY (meal_id),
+  	CONSTRAINT FK_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE meal_recipe (
+  	meal_id int NOT NULL,
+  	recipe_id int NOT NULL,
+  	CONSTRAINT FK_meal_id FOREIGN KEY (meal_id) REFERENCES meal(meal_id),
+  	CONSTRAINT FK_recipe_id FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id)
+);
+CREATE TABLE plan (
+  	plan_id SERIAL,
+  	user_id int NOT NULL,
+  	plan_date DATE NOT NULL,
+  	CONSTRAINT PK_plans PRIMARY KEY (plan_id)
+);
+
+CREATE TABLE plan_meal (
+  	plan_id int NOT NULL,
+  	meal_id int NOT NULL,
+	CONSTRAINT FK_plan_id FOREIGN KEY (plan_id) REFERENCES plan(plan_id),
+	CONSTRAINT FK_meal_id FOREIGN KEY (meal_id) REFERENCES meal(meal_id)
+);
+
 COMMIT TRANSACTION;
