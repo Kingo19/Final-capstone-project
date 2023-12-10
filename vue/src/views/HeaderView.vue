@@ -22,10 +22,10 @@
 
 import recipeService from "@/services/RecipeService";
 
-export default{
-  data(){
-    return{
-      isLoggedIn:false
+export default {
+  data() {
+    return {
+      isLoggedIn: false
     }
   },
   methods: {
@@ -33,15 +33,12 @@ export default{
       this.$router.push(route);
     },
 
-  computed:{
-    checkLoggedInUser(){
-      let logged_in = this.$store.getters.isAuthenticated
-      if(logged_in && !this.isLoggedIn){
-        this.isLoggedInGetRecipeNames()
-      }
-      return logged_in
+    computed: {
+      checkLoggedInUser() {
+        return this.$store.getters.isAuthenticated
+      },
     },
-  },
+  }
 }
 
 </script>
