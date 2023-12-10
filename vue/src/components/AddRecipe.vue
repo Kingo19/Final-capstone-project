@@ -11,7 +11,7 @@
                :max="maxLenInput"
                placeholder="Name your recipe, we suggest something unique and easy to remember">
         <datalist id="recipeName">
-          <option class="innerIngredient" v-for="itemName in this.$store.state.getUserRecipeNames()" :key="itemName" :value="itemName"></option>
+          <option class="innerIngredient" v-for="itemName in recipeNamesToCheck" :key="itemName" :value="itemName"></option>
         </datalist>
       </div>
 
@@ -66,6 +66,7 @@ import recipeService from "@/services/RecipeService";
 export default {
   data() {
     return {
+      recipeNamesToCheck: [],
       formValid: false,
       recipe_name: "Name your recipe, we suggest something unique and easy to remember",
       Instructions: "How to prepare your amazing recipe. ",
@@ -116,13 +117,9 @@ export default {
           this.formData.ingredients.length > 0;
     },
   },
+
   created(){
-    let returnedArrayOfNames =  recipeService.getUserRecipeNames()
-    if(returnedArrayOfNames > 1){
-      for (const name in returnedArrayOfNames){
-        this.$store.userRecipeNames(returnedArrayOfNames[name])
-      }
-    }
+    this.recipeNamesToCheck = recipeService.getUserRecipeNames()
   },
 
 }
