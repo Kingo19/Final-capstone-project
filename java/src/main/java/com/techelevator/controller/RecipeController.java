@@ -89,10 +89,8 @@ public class RecipeController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "user/recipes/{recipeName}/edit", method = RequestMethod.PUT)
-    public void editRecipe(Principal principal, @RequestBody RecipeIngredientDto recipeToEdit, @PathVariable String recipeName){
+    public void editRecipe(Principal principal, @Valid @RequestBody RecipeIngredientDto recipeToEdit, @Valid @PathVariable String recipeName){
         int userId = userDao.getUserByUsername(principal.getName()).getId();
-        System.out.println("triggered in server");
-        System.out.println(recipeToEdit);
         try {
             if(recipeDao.checkUserRecipe(userId, recipeName)){
                 recipeIngredientDao.getRecipeAndIngredientsFromName(recipeName);
@@ -105,7 +103,8 @@ public class RecipeController {
             System.out.printf("%s%n%s%n%s%n%s%n",
                     "Class: " + this.getClass(),
                     "Method: " + new Throwable().getStackTrace()[0].getMethodName(),
-                    "Exception: " + e
+                    "Exception: " + e,
+                    "Argument"
             );
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
