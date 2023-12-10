@@ -15,4 +15,9 @@ export default {
         let recipeName = passin.recipe.recipe_name
         axios.put(  `http://localhost:9000/user/recipes/${orgname}/edit`, passin)
     },
+
+    getUserRecipeNames(){
+      let url = 'http://localhost:9000/user/recipes/names'
+        return axios.get(url)
+    }
 }

@@ -5,16 +5,23 @@
       <div class="input-group">
         <label for="recipeName">Recipe Name</label>
         <input type="text" id="recipeName" v-model="formData.recipe.recipe_name"
+               list="recipeNames"
                :aria-required="requiredFields.recipeName.toString()"
-               maxlength="200"
+               required
+               :max="maxLenInput"
                placeholder="Name your recipe, we suggest something unique and easy to remember">
+        <datalist id="recipeName">
+          <option class="innerIngredient" v-for="itemName in this.$store.state.getUserRecipeNames()" :key="itemName" :value="itemName"></option>
+        </datalist>
       </div>
 
       <!-- Description -->
       <div class="input-group textfield">
-        <label for="description">Description</label>
-        <textarea :maxlength="maxlen" id="description" v-model="formData.recipe.recipe_instructions"
+        <label for="description">Instructions</label>
+        <textarea :maxlength="maxLenTextArea"
+                  id="description" v-model="formData.recipe.recipe_instructions"
                   :aria-required="requiredFields.instructions.toString()"
+                  required
                   rows="4" cols="50"
                   placeholder="A brief description of the dish."></textarea>
       </div>
@@ -24,9 +31,10 @@
         <h3>Ingredients</h3>
         <div class="ingredient-group">
           <input id="ingredientName" type="text" v-model="item.ingredient_name"
-                 list="ingredientNames" placeholder="Ingredient Name">
+                 list="ingredientNames"
+                 placeholder="Ingredient Name">
           <datalist id="ingredientNames">
-            <option class="innerIngredient" v-for="itemName in foodName" :value="itemName"></option>
+            <option class="innerIngredient" v-for="itemName in foodName" :key="itemName" :value="itemName"></option>
           </datalist>
           <button type="button" @click="addIngredient">Add Ingredient</button>
         </div>
@@ -53,6 +61,7 @@
 <script>
 import foodarray from "@/resources/foodNameArray";
 import RecipeService from "../services/RecipeService";
+import recipeService from "@/services/RecipeService";
 
 export default {
   data() {
@@ -60,7 +69,8 @@ export default {
       formValid: false,
       recipe_name: "Name your recipe, we suggest something unique and easy to remember",
       Instructions: "How to prepare your amazing recipe. ",
-      maxlen: 200,
+      maxLenInput: 255,
+      maxLenTextArea: 1999,
       item: { ingredient_name: '' },
       requiredFields: {
         recipeName: true,
@@ -79,16 +89,12 @@ export default {
   },
   methods: {
 
-    fillArray(){
-      for(let each in array){
-        this.formData.ingredients.push(sorry[each])
-      }
-      console.log(this.formData.ingredients)
-    },
     submitForm() {
-      console.log(this.formData)
-      RecipeService.addRecipeAndIngredients(this.formData);
-      this.$router.push(["/"])
+      if(this.formData.ingredients < 1){
+        alert("You need to add at least one ingredient. ")
+      }{
+        RecipeService.addRecipeAndIngredients(this.formData);
+      }
     },
     addIngredient() {
       if (this.item.ingredient_name) {
@@ -102,13 +108,23 @@ export default {
       this.formData.ingredients.splice(index, 1);
     },
   },
+
   computed: {
     checkIfFormIsValid() {
       return this.formData.recipe.recipe_name &&
           this.formData.recipe.recipe_instructions &&
           this.formData.ingredients.length > 0;
     },
-  }
+  },
+  created(){
+    let returnedArrayOfNames =  recipeService.getUserRecipeNames()
+    if(returnedArrayOfNames > 1){
+      for (const name in returnedArrayOfNames){
+        this.$store.userRecipeNames(returnedArrayOfNames[name])
+      }
+    }
+  },
+
 }
 </script>
 
