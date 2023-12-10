@@ -32,13 +32,13 @@ export default {
     navigateTo(route) {
       this.$router.push(route);
     },
+  },
 
-    computed: {
-      checkLoggedInUser() {
-        return this.$store.getters.isAuthenticated
-      },
-    },
-  }
+  computed: {
+    checkLoggedInUser(){
+      return this.$store.getters.isAuthenticated
+    }
+  },
 }
 
 </script>
