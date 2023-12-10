@@ -11,8 +11,8 @@
     </nav>
 
     <nav v-if="checkLoggedInUser">
-      <a @click.prevent="navigateTo('/recipes/add')"> Add Recipes</a>
-      <a @click.prevent="navigateTo('/all/recipe')">View Recipes</a>
+      <a @click.prevent="navigateTo('/recipes/add')">Add Recipes</a>
+      <a @click.prevent="navigateTo('/all/recipe')">View My Recipes</a>
       <a @click.prevent="navigateTo('/logout')">Logout</a>
     </nav>
   </header>
@@ -20,9 +20,12 @@
 
 <script>
 
+import recipeService from "@/services/RecipeService";
+
 export default{
   data(){
     return{
+      isLoggedIn:false
     }
   },
   methods: {
@@ -30,12 +33,15 @@ export default{
       this.$router.push(route);
     },
 
-  },
   computed:{
     checkLoggedInUser(){
-      return this.$store.getters.isAuthenticated
-    }
-  }
+      let logged_in = this.$store.getters.isAuthenticated
+      if(logged_in && !this.isLoggedIn){
+        this.isLoggedInGetRecipeNames()
+      }
+      return logged_in
+    },
+  },
 }
 
 </script>
