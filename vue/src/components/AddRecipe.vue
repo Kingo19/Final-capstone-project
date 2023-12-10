@@ -1,19 +1,25 @@
 <template>
   <div id="app" class="app-container">
     <form id="form" @submit.prevent="submitForm" class="recipe-form">
+
+      <h1>{{ this.recipeNamesToCheck }}</h1>
       <!-- Recipe Name -->
-      <div class="input-group">
-        <label for="recipeName">Recipe Name</label>
+    <div class="input-group">
+      <h3>Recipe Name</h3>
+      <div class="recipe-group">
         <input type="text" id="recipeName" v-model="formData.recipe.recipe_name"
                list="recipeNames"
                :aria-required="requiredFields.recipeName.toString()"
-               required
+               :required="checkRequiredNames"
                :max="maxLenInput"
                placeholder="Name your recipe, we suggest something unique and easy to remember">
-        <datalist id="recipeName">
-          <option class="innerIngredient" v-for="itemName in recipeNamesToCheck" :key="itemName" :value="itemName"></option>
+        <datalist id="recipeNames">
+          <option class="innerRecipeNames" v-for="itemRecipeName in this.recipeNamesToCheck"
+                  :key="itemRecipeName"
+                  :value="itemRecipeName" ></option>
         </datalist>
       </div>
+    </div>
 
       <!-- Description -->
       <div class="input-group textfield">
@@ -53,18 +59,18 @@
         <button type="submit" class="submit-button">Submit</button>
       </div>
     </form>
+    <button @click="getArrayOfNames"></button>
   </div>
 </template>
 
 <script>
 import foodarray from "@/resources/foodNameArray";
 import RecipeService from "../services/RecipeService";
-import recipeService from "@/services/RecipeService";
 
 export default {
   data() {
     return {
-      recipeNamesToCheck: [],
+      recipeNamesToCheck: null,
       formValid: false,
       recipe_name: "Name your recipe, we suggest something unique and easy to remember",
       Instructions: "How to prepare your amazing recipe. ",
@@ -89,14 +95,12 @@ export default {
   methods: {
 
     submitForm() {
-      console.log("this is triggered")
-      console.log(this.formData)
       RecipeService.addRecipeAndIngredients(this.formData);
     },
     addIngredient() {
       if (this.item.ingredient_name) {
-        this.formData.ingredients.push({ ...this.item });
-        this.item = { ingredient_name: '' };
+        this.formData.ingredients.push({...this.item});
+        this.item = {ingredient_name: ''};
       } else {
         alert("Ingredient name cannot be empty.");
       }
@@ -104,6 +108,19 @@ export default {
     removeIngredient(index) {
       this.formData.ingredients.splice(index, 1);
     },
+    namesArrayCheck() {
+      console.log("testing")
+      RecipeService.getUserRecipeNames().then(cu => {
+        this.recipeNamesToCheck = cu.data;
+        console.log(this.recipeNamesToCheck)
+      })
+    },
+
+    getArrayOfNames(){
+      console.log("getArrayOfNames")
+      console.log(this.recipeNamesToCheck)
+    }
+
   },
 
   computed: {
@@ -112,11 +129,15 @@ export default {
           this.formData.recipe.recipe_instructions &&
           this.formData.ingredients.length > 0;
     },
-  },
 
-  created(){
-    this.recipeNamesToCheck = recipeService.getUserRecipeNames()
+    checkRequiredNames(){
+      return this.recipeNamesToCheck.includes(this.formData.recipe.recipe_name) &&
+          this.formData.recipe.recipe_name.length > 1 && !this.formData.recipe.recipe_name.isEmpty;
+    }
   },
+  mounted() {
+    this.namesArrayCheck()
+  }
 
 }
 </script>

@@ -262,5 +262,18 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         }
         return recipeNames;
     }
+
+    public List<String> getUserRecipeNames2(int userId){
+        List<String> recipeNames = new ArrayList<>();
+        String sql = "SELECT recipe_name FROM recipe\n" +
+                "join recipe_users as ru on ru.recipe_id = recipe.recipe_id\n" +
+                "WHERE user_id = ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        while(results.next()){
+            recipeNames.add(results.getString("recipe_name"));
+        }
+        return recipeNames;
+    }
 }
 
