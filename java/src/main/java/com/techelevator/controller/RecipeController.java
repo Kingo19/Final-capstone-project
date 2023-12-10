@@ -109,4 +109,10 @@ public class RecipeController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
+
+    @RequestMapping(path = "user/recipes/names",method = RequestMethod.GET)
+    public List<String> getUserRecipeNames(Principal principal){
+        int userId = userDao.getUserByUsername(principal.getName()).getId();
+        return recipeIngredientDao.getUserRecipeNames(userId);
+    }
 }

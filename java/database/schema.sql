@@ -25,7 +25,7 @@ CREATE TABLE users (
 CREATE TABLE recipe (
 	recipe_id SERIAL NOT NULL,
 	recipe_name varchar(256) NOT NULL UNIQUE,
-	recipe_instructions varchar(400) NOT NULL,
+	recipe_instructions varchar(2000) NOT NULL,
 	constraint PK_recipe PRIMARY KEY (recipe_id)
 );
 
