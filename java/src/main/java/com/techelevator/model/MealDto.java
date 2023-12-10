@@ -1,8 +1,11 @@
 package com.techelevator.model;
 
+import java.util.List;
+
 public class MealDto {
     private int userId;
     private String mealName;
+    private List<String> recipeNames;
     public MealDto(int userId, String mealName) {
         this.userId = userId;
         this.mealName = mealName;
