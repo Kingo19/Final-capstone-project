@@ -11,7 +11,7 @@
     </nav>
 
     <nav v-if="checkLoggedInUser">
-      <a @click.prevent="navigateTo('/recipes/add')"> Add Recipes</a>>
+      <a @click.prevent="navigateTo('/recipes/add')"> Add Recipes</a>
       <a @click.prevent="navigateTo('/all/recipe')">View Recipes</a>
       <a @click.prevent="navigateTo('/logout')">Logout</a>
     </nav>
