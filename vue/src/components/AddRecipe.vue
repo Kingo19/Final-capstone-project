@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app-container">
-    <form id="form" @submit="submitForm" class="recipe-form">
+    <form id="form" @submit.prevent="submitForm" class="recipe-form">
       <!-- Recipe Name -->
       <div class="input-group">
         <label for="recipeName">Recipe Name</label>
@@ -54,8 +54,6 @@
       </div>
     </form>
   </div>
-
-  <button @click="fillArray">test</button>
 </template>
 
 <script>
@@ -91,11 +89,9 @@ export default {
   methods: {
 
     submitForm() {
-      if(this.formData.ingredients < 1){
-        alert("You need to add at least one ingredient. ")
-      }{
-        RecipeService.addRecipeAndIngredients(this.formData);
-      }
+      console.log("this is triggered")
+      console.log(this.formData)
+      RecipeService.addRecipeAndIngredients(this.formData);
     },
     addIngredient() {
       if (this.item.ingredient_name) {
