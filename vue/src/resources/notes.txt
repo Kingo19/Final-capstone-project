@@ -185,3 +185,11 @@ Snacks
     //         requiresAuth: false
     //     }
     // }
+Create recipe
+Create Meal plan
+Create Meal
+View my recipes
+View my meal plans
+View my meals
+Grocery list
+Log out
