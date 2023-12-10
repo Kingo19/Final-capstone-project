@@ -1,8 +1,6 @@
 <template>
   <div id="app" class="app-container">
     <form id="form" @submit.prevent="submitForm" class="recipe-form">
-
-      <h1>{{ this.recipeNamesToCheck }}</h1>
       <!-- Recipe Name -->
     <div class="input-group">
       <h3>Recipe Name</h3>
@@ -10,14 +8,15 @@
         <input type="text" id="recipeName" v-model="formData.recipe.recipe_name"
                list="recipeNames"
                :aria-required="requiredFields.recipeName.toString()"
-               :required="checkRequiredNames"
+               required
                :max="maxLenInput"
-               placeholder="Name your recipe, we suggest something unique and easy to remember">
+               placeholder="Name your recipe, please enter a unique recipe name">
         <datalist id="recipeNames">
           <option class="innerRecipeNames" v-for="itemRecipeName in this.recipeNamesToCheck"
                   :key="itemRecipeName"
                   :value="itemRecipeName" ></option>
         </datalist>
+        <h2 id="problem1" v-if="isNameInDatabase">{{ badNamePrompt }}</h2>
       </div>
     </div>
 
@@ -70,7 +69,8 @@ import RecipeService from "../services/RecipeService";
 export default {
   data() {
     return {
-      recipeNamesToCheck: null,
+      badNamePrompt:"You have entered a name already in our database. Please try again",
+      recipeNamesToCheck: [],
       formValid: false,
       recipe_name: "Name your recipe, we suggest something unique and easy to remember",
       Instructions: "How to prepare your amazing recipe. ",
@@ -95,7 +95,11 @@ export default {
   methods: {
 
     submitForm() {
-      RecipeService.addRecipeAndIngredients(this.formData);
+      if(!this.checkRequiredNames){
+        alert("You have entered a recipe name already in our database. Please try again.")
+      }else{
+        RecipeService.addRecipeAndIngredients(this.formData);
+      }
     },
     addIngredient() {
       if (this.item.ingredient_name) {
@@ -109,7 +113,6 @@ export default {
       this.formData.ingredients.splice(index, 1);
     },
     namesArrayCheck() {
-      console.log("testing")
       RecipeService.getUserRecipeNames().then(cu => {
         this.recipeNamesToCheck = cu.data;
         console.log(this.recipeNamesToCheck)
@@ -131,8 +134,12 @@ export default {
     },
 
     checkRequiredNames(){
-      return this.recipeNamesToCheck.includes(this.formData.recipe.recipe_name) &&
-          this.formData.recipe.recipe_name.length > 1 && !this.formData.recipe.recipe_name.isEmpty;
+        return !this.isNameInDatabase() &&
+            this.formData.recipe.recipe_name.length > 1;
+    },
+
+    isNameInDatabase(){
+      return this.recipeNamesToCheck.includes(this.formData.recipe.recipe_name)
     }
   },
   mounted() {
@@ -143,6 +150,10 @@ export default {
 </script>
 
 <style scoped>
+
+#problem1{
+  color:red;
+}
 
 
 @font-face {

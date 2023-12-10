@@ -263,6 +263,9 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         return recipeNames;
     }
 
+
+    //Added due to other method not working for getting recipe_names by user
+
     public List<String> getUserRecipeNames2(int userId){
         List<String> recipeNames = new ArrayList<>();
         String sql = "SELECT recipe_name FROM recipe\n" +
