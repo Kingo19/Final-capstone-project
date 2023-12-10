@@ -25,6 +25,11 @@ export function createStore(currentToken, currentUser) {
                 axios.defaults.headers.common = {};
             }
         },
+        getters: {
+            isAuthenticated: state => {
+                return !!state.token && Object.keys(state.user).length > 0;
+            }
+        }
     });
     return store;
 }

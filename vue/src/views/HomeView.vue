@@ -1,21 +1,5 @@
 <template>
   <div class="home">
-    <header>
-      <div><img
-          src="../assets/logo.png"
-          class="logo"></div>
-
-      <nav>
-        <a @click.prevent="navigateTo('/')">Home</a>
-        <a @click.prevent="navigateTo('/recipes/add')"> Add Recipes</a>
-        <a @click.prevent="navigateTo('/recipes/add')">Recipes</a>
-        <a @click.prevent="navigateTo('/login')">Login</a>
-        <a @click.prevent="navigateTo('/all/recipe')">View Recipes </a>
-        <!--        <a @click.prevent="navigateTo('/meal-plans')">Meal Plans</a>-->
-      </nav>
-    </header>
-
-
     <!-- BODY  ====  BODY  ===  BODY  === BODY-->
 
     <section class="upper-body-text">
@@ -113,11 +97,6 @@ export default {
       ], //testimonials
     }; //End Return Object
   }, //End Data Property
-  methods: {
-    navigateTo(route) {
-      this.$router.push(route);
-    }
-  },
   components: {
     FeatureCard,
     TestimonialComp,
@@ -125,7 +104,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 /* App-wide styles (styles.css) */
 body {
   font-family: 'Arial', sans-serif;
@@ -133,6 +112,7 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
 
 header {
   background-color: #333;
@@ -156,6 +136,7 @@ nav a {
   text-decoration: none;
   color: #fff;
 }
+
 
 /* Hero section styles */
 .upper-body-text {
@@ -246,7 +227,6 @@ footer {
   text-decoration: none;
   color: #fff;
 }
-
 
 a {
   cursor: pointer;
