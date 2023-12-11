@@ -38,5 +38,20 @@ INSERT INTO recipe_ingredient (recipe_id, ingredient_id) VALUES
 (3, 4), -- Grilled Cheese Sandwich includes Butter
 (3, 7); -- Grilled Cheese Sandwich includes Cheese
 
+INSERT INTO type (type_name) VALUES
+('Breakfast'),
+('Lunch'),
+('Dinner'),
+('Appetizer'),
+('Salad'),
+('Main-course'),
+('Side-dish'),
+('Baked-goods'),
+('Dessert'),
+('Snack'),
+('Soup'),
+('Holiday'),
+('Vegetarian Dishes');
+
 
 COMMIT TRANSACTION;
