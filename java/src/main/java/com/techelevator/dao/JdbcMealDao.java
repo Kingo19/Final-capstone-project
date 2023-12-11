@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JdbcMealDao implements MealDao {
-    // Inject the JdbcTemplate
     private final JdbcTemplate jdbcTemplate;
 
     public JdbcMealDao(JdbcTemplate jdbcTemplate) {

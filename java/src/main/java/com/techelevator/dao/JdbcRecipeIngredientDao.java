@@ -1,24 +1,17 @@
 package com.techelevator.dao;
 
-import com.techelevator.exception.DaoException;
 import com.techelevator.model.Ingredient;
 import com.techelevator.model.IngredientDto;
 import com.techelevator.model.RecipeDto;
 import com.techelevator.model.RecipeIngredientDto;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.jdbc.BadSqlGrammarException;
-import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.ErrorManager;
 
 @Component
 public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
@@ -30,8 +23,7 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
 
     public JdbcRecipeIngredientDao(DataSource dataSource,
                                    JdbcIngredientDao jdbcIngredientDao,
-                                   JdbcRecipeDao jdbcRecipeDao,
-                                   UserDao userDao) {
+                                   JdbcRecipeDao jdbcRecipeDao) {
         jdbcTemplate = new JdbcTemplate(dataSource);
         this.jdbcIngredientDao = jdbcIngredientDao;
         this.jdbcRecipeDao = jdbcRecipeDao;
