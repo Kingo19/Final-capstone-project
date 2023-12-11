@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app-container">
-    <form id="form" @submit.prevent="submitForm" class="recipe-form">
+    <form id="form" v-on:submit="submitForm" class="recipe-form">
       <!-- Recipe Name -->
     <div class="input-group">
       <h3>Recipe Name</h3>
