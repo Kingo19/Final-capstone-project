@@ -192,7 +192,7 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         return recipeIngredientDtoList;
     }
 
-    public void addRecipetoUser(int userId, int recipeId){
+    public void addRecipeToUser(int userId, int recipeId){
         String sql = "INSERT INTO recipe_users(recipe_id, user_id) VALUES (?,?);";
         try{
             jdbcTemplate.update(sql,recipeId,userId);

@@ -1,26 +1,101 @@
 package com.techelevator.dao;
 
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.Meal;
 import com.techelevator.model.RecipeIngredientDto;
 import com.techelevator.model.MealDto;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
 public class JdbcMealDao implements MealDao {
     private final JdbcTemplate jdbcTemplate;
+    private final JdbcRecipeIngredientDao jdbcRecipeIngredientDao;
+    private final JdbcRecipeDao jdbcRecipeDao;
 
-    public JdbcMealDao(JdbcTemplate jdbcTemplate) {
+    public JdbcMealDao(JdbcTemplate jdbcTemplate, JdbcRecipeIngredientDao jdbcRecipeIngredientDao, JdbcRecipeDao jdbcRecipeDao) {
         this.jdbcTemplate = jdbcTemplate;
+        this.jdbcRecipeIngredientDao = jdbcRecipeIngredientDao;
+        this.jdbcRecipeDao = jdbcRecipeDao;
     }
 
     @Override
-    public int createMeal(MealDto meal) {
-        String sql = "INSERT INTO meal (meal_name) VALUES (?) RETURNING meal_id;";
-        return jdbcTemplate.queryForObject(sql, new Object[]{meal.getMealName()}, Integer.class);
+    public Meal createMeal(MealDto mealDto, int userId) {
+        Meal meal = mealDtoToMeal(mealDto);
+        String sql = "INSERT INTO meal(meal_name) VALUES (?) RETURNING meal_id;";
+
+        int mealId = jdbcTemplate.queryForObject(sql, int.class, meal.getMealName());
+        meal.setMealId(mealId);
+        insertIntoMealType(meal);
+        insertIntoMealRecipe(meal);
+        insertIntoUserMeal(meal, userId);
+        return meal;
     }
 
+    public Meal mealDtoToMeal(MealDto mealDto){
+        Meal meal = new Meal();
+        List<RecipeIngredientDto> recipeList = new ArrayList<>();
+        for(String currentName : mealDto.getRecipeNames()){
+            recipeList.add(jdbcRecipeIngredientDao.getRecipeAndIngredientsFromName(currentName).get(0));
+        }
+        meal.setMealName(mealDto.getMealName());
+        meal.setRecipeInfo(recipeList);
+        meal.setType(mealDto.getType());
+        return meal;
+    }
+    public void insertIntoMealType(Meal meal){
+        String sql = "INSERT INTO meal_type(meal_id,type_id) VALUES (?,?);";
+        int typeId = getTypeIdByName(meal.getType());
 
+        jdbcTemplate.update(sql,meal.getMealId(), typeId);
+    }
+    public int getTypeIdByName(String typeName){
+        String sql = "SELECT type_id FROM type WHERE type_name = ?;";
+        int typeId = 0;
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, typeName);
+        while(result.next()){
+            typeId = result.getInt("type_id");
+        }
+        if(typeId == 0){
+            throw new DaoException("Type does not exist.");
+        }
+        return typeId;
+    }
+    public void insertIntoMealRecipe(Meal meal){
+        String sql = "INSERT INTO meal_recipe(meal_id,recipe_id) VALUES (?,?);";
+        for(RecipeIngredientDto currentRecipe : meal.getRecipeInfo()){
+            int recipeId = jdbcRecipeDao.getRecipeID(currentRecipe.getRecipe());
+            jdbcTemplate.update(sql, meal.getMealId(), recipeId);
+        }
+    }
+    public void insertIntoUserMeal(Meal meal, int userId){
+        String sql = "INSERT INTO user_meal(user_id,meal_id) VALUES (?,?);";
+        jdbcTemplate.update(sql,userId,meal.getMealId());
+    }
+
+    public Meal getMealByMealID(int mealId, int userId){
+        Meal meal = new Meal();
+        List<RecipeIngredientDto> recipeList = new ArrayList<>();
+        String sql = "SELECT meal_name,recipe_id,type_name FROM meal\n" +
+                "JOIN meal_recipe ON meal_recipe.meal_id = meal.meal_id\n" +
+                "JOIN meal_type ON meal_type.meal_id = meal.meal_id\n" +
+                "JOIN \"type\" ON \"type\".type_id = meal_type.type_id\n" +
+                "JOIN user_meal ON user_meal.meal_id = meal.meal_id\n" +
+                "WHERE meal.meal_id = ? AND user_meal.user_id = ?;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql,mealId, userId);
+        while(result.next()){
+            meal.setMealId(mealId);
+            meal.setType(result.getString("type_name"));
+            meal.setMealName(result.getString("meal_name"));
+            recipeList.add(jdbcRecipeIngredientDao.getRecipeAndIngredientsFromId(result.getInt("recipe_id")).get(0));
+        }
+        meal.setRecipeInfo(recipeList);
+        return meal;
+    }
 }
 

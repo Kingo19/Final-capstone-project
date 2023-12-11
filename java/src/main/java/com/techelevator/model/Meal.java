@@ -3,24 +3,19 @@ package com.techelevator.model;
 import java.util.List;
 
 public class Meal {
-    private int userId;
     private int mealId;
     private String mealName;
-    private List<RecipeIngredient> recipeInfo;
+    private List<RecipeIngredientDto> recipeInfo;
+    private String type;
 
-    public Meal(int userId, int mealId, String mealName, List<String> recipeNames) {
-        this.userId = userId;
+    public Meal(int mealId, String mealName, List<RecipeIngredientDto> recipeInfo,String type) {
         this.mealId = mealId;
         this.mealName = mealName;
         this.recipeInfo = recipeInfo;
     }
 
-    public int getUserId() {
-        return userId;
-    }
+    public Meal() {
 
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public int getMealId() {
@@ -39,11 +34,18 @@ public class Meal {
         this.mealName = mealName;
     }
 
-    public List<RecipeIngredient> getRecipeInfo() {
+    public List<RecipeIngredientDto> getRecipeInfo() {
         return recipeInfo;
     }
 
-    public void setRecipeInfo(List<RecipeIngredient> recipeInfo) {
+    public void setRecipeInfo(List<RecipeIngredientDto> recipeInfo) {
         this.recipeInfo = recipeInfo;
+    }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

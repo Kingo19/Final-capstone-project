@@ -1,5 +1,3 @@
-BEGIN TRANSACTION;
-
 BEGIN;
 
 
@@ -11,7 +9,7 @@ DROP TABLE IF EXISTS recipe_users CASCADE;
 DROP TABLE IF EXISTS recipe_ingredient CASCADE;
 
 DROP TABLE IF EXISTS type CASCADE;
-DROP TABLE IF EXISTS plan CASCADE;
+DROP TABLE IF EXISTS meal_plan CASCADE;
 DROP TABLE IF EXISTS meal CASCADE;
 DROP TABLE IF EXISTS ingredient CASCADE;
 DROP TABLE IF EXISTS recipe CASCADE;
@@ -45,12 +43,13 @@ CREATE TABLE meal (
 );
 
 
-CREATE TABLE plan (
-    plan_id SERIAL PRIMARY KEY,
-    plan_name varchar(100) NOT NULL UNIQUE,
-    user_id int NOT NULL REFERENCES users(user_id),
-    plan_date DATE NOT NULL
-);
+--CREATE TABLE meal_plan (
+--  	meal_plan_id serial NOT NULL,
+--  	user_id int NOT NULL,
+--  	meal_plan_name varchar(80),
+--  	CONSTRAINT pk_meal_plan_id PRIMARY KEY(meal_plan_id),
+--  	CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
+--  );
 
 
 CREATE TABLE type (
@@ -77,18 +76,36 @@ CREATE TABLE meal_recipe (
     recipe_id int NOT NULL REFERENCES recipe(recipe_id)
 );
 
-
-CREATE TABLE plan_meal (
-    plan_id int NOT NULL REFERENCES plan(plan_id),
-    meal_id int NOT NULL REFERENCES meal(meal_id),
-    meal_time varchar(50) NOT NULL,
-    PRIMARY KEY (plan_id, meal_id, meal_time)
-);
-
-
 CREATE TABLE meal_type (
     meal_id int NOT NULL REFERENCES meal(meal_id),
     type_id int NOT NULL REFERENCES type(type_id)
 );
 
+CREATE TABLE user_meal (
+    meal_id int NOT NULL REFERENCES meal(meal_id),
+    user_id int NOT NULL REFERENCES users(user_id)
+);
+
+CREATE TABLE weekday (
+    weekday_id serial NOT NULL,
+    weekday varchar(15) NOT NULL,
+    CONSTRAINT pk_weekday_id PRIMARY KEY(weekday_id)
+);
+
+CREATE TABLE daily_plan (
+daily_plan_name varchar(50) NOT NULL,
+daily_plan_id serial NOT NULL,
+--meal_plan_id int NOT NULL,
+weekday_id int NOT NULL,
+CONSTRAINT pk_daily_plan_id PRIMARY KEY (daily_plan_id),
+--CONSTRAINT fk_meal_plan_id FOREIGN KEY (meal_plan_id) REFERENCES meal_plan(meal_plan_id),
+CONSTRAINT fk_weekday_id FOREIGN KEY (weekday_id) REFERENCES weekday(weekday_id)
+);
+
+CREATE TABLE daily_plan_meals (
+	daily_plan_id int NOT NULL,
+	meal_id int NOT NULL,
+	CONSTRAINT fk_daily_plan_id FOREIGN KEY (daily_plan_id) REFERENCES daily_plan(daily_plan_id),
+	CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meal(meal_id)
+);
 COMMIT TRANSACTION;
