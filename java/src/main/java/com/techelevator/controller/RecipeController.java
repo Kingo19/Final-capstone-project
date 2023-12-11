@@ -45,7 +45,7 @@ public class RecipeController {
             }
             recipeIngredientDao.addRecipeIngredientConnection(recipeIngredientDto);
             int recipeId = recipeDao.getRecipeID(recipeIngredientDto.getRecipe());
-            recipeIngredientDao.addRecipetoUser(userId, recipeId);
+            recipeIngredientDao.addRecipeToUser(userId, recipeId);
         } catch (Exception e) {
             logger.error("Recipe Failure: ", e);
             System.out.printf("%s%n%s%n%s%n%s%n",
@@ -113,7 +113,7 @@ public class RecipeController {
     @RequestMapping(path = "user/recipes/names",method = RequestMethod.GET)
     public List<String> getUserRecipeNames(Principal principal){
         int userId = userDao.getUserByUsername(principal.getName()).getId();
-        List<String> names = recipeIngredientDao.getUserRecipeNames2(userId);
+        List<String> names = recipeIngredientDao.getUserRecipeNames(userId);
         System.out.println(names);
         return names;
     }

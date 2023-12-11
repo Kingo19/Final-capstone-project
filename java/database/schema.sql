@@ -55,14 +55,9 @@ CREATE TABLE recipe_users (
 CREATE TABLE meal (
 	meal_id SERIAL,
   	meal_name varchar (50) NOT NULL,
-  	CONSTRAINT PK_meal PRIMARY KEY (meal_id)
-);
-
-CREATE TABLE user_meal (
-    meal_id int NOT NULL,
-    user_id int NOT NULL,
-    CONSTRAINT FK_meal_id FOREIGN KEY (meal_id) REFERENCES meal(meal_id),
-    CONSTRAINT FK_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
+  	user_id int NOT NULL,
+  	CONSTRAINT PK_meal PRIMARY KEY (meal_id),
+  	CONSTRAINT FK_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE meal_recipe (

@@ -274,23 +274,9 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         }
     }
 
-    public List<String> getUserRecipeNames(int userId){
-        List<String> recipeNames = new ArrayList<>();
-        String sql = "SELECT recipe_id FROM recipe_users WHERE user_id = ?;";
-
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-        while(results.next()){
-            int recipeId = results.getInt("recipe_id");
-            RecipeIngredientDto currentRecipe = getRecipeAndIngredientsFromId(recipeId).get(0);
-            recipeNames.add(currentRecipe.getRecipe().getRecipe_name());
-        }
-        return recipeNames;
-    }
-
-
     //Added due to other method not working for getting recipe_names by user
 
-    public List<String> getUserRecipeNames2(int userId){
+    public List<String> getUserRecipeNames(int userId){
         List<String> recipeNames = new ArrayList<>();
         String sql = "SELECT recipe_name FROM recipe\n" +
                 "join recipe_users as ru on ru.recipe_id = recipe.recipe_id\n" +
