@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.Ingredient;
 import com.techelevator.model.IngredientDto;
 import com.techelevator.model.RecipeDto;
@@ -14,7 +15,10 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.ErrorManager;
 
 @Component
 public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
@@ -24,11 +28,31 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
 
     private JdbcRecipeDao jdbcRecipeDao;
 
-    public JdbcRecipeIngredientDao(DataSource dataSource, JdbcIngredientDao jdbcIngredientDao, JdbcRecipeDao jdbcRecipeDao) {
+    public JdbcRecipeIngredientDao(DataSource dataSource,
+                                   JdbcIngredientDao jdbcIngredientDao,
+                                   JdbcRecipeDao jdbcRecipeDao,
+                                   UserDao userDao) {
         jdbcTemplate = new JdbcTemplate(dataSource);
         this.jdbcIngredientDao = jdbcIngredientDao;
         this.jdbcRecipeDao = jdbcRecipeDao;
     }
+
+    // Helper method to log errors
+    /**
+     * Logs an error with details about the class, method, exception, and parameters involved.
+     * @param methodName Name of the method where the error occurred.
+     * @param e The exception thrown.
+     * @param params Parameters of the method where the error occurred.
+     */
+    private void logError(String methodName, Exception e, Object... params) {
+        System.out.printf("%s%n%s%n%s%n%s%n",
+                "Class: " + this.getClass(),
+                "Method: " + methodName,
+                "Exception: " + e,
+                "Parameters: " + Arrays.toString(params)
+        );
+    }
+
 
 
     /**
@@ -278,5 +302,9 @@ public class JdbcRecipeIngredientDao implements RecipeIngredientDao{
         }
         return recipeNames;
     }
+
+    
+
+
 }
 
