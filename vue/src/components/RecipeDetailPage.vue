@@ -11,7 +11,7 @@
       <button @click="mod" v-if="!modifyRecipe">Modify Recipe</button>
 
 
-      <div class="recipe-details">
+      <div class="recipe-details">  
         <img class="recipe-image"
              src="https://www.sandiegoprosthodontics.com/files/2018/09/Recipes-Banner.jpg"
              alt="Recipe Image"/>

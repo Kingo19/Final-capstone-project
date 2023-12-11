@@ -1,19 +1,24 @@
 <template>
   <div id="app" class="app-container">
-    <form id="form" @submit="submitForm" class="recipe-form">
+    <form id="form" v-on:submit="submitForm" class="recipe-form">
       <!-- Recipe Name -->
-      <div class="input-group">
-        <label for="recipeName">Recipe Name</label>
+    <div class="input-group">
+      <h3>Recipe Name</h3>
+      <div class="recipe-group">
         <input type="text" id="recipeName" v-model="formData.recipe.recipe_name"
                list="recipeNames"
                :aria-required="requiredFields.recipeName.toString()"
                required
                :max="maxLenInput"
-               placeholder="Name your recipe, we suggest something unique and easy to remember">
-        <datalist id="recipeName">
-          <option class="innerIngredient" v-for="itemName in recipeNamesToCheck" :key="itemName" :value="itemName"></option>
+               placeholder="Name your recipe, please enter a unique recipe name">
+        <datalist id="recipeNames">
+          <option class="innerRecipeNames" v-for="itemRecipeName in this.recipeNamesToCheck"
+                  :key="itemRecipeName"
+                  :value="itemRecipeName" ></option>
         </datalist>
+        <h2 id="problem1" v-if="isNameInDatabase">{{ badNamePrompt }}</h2>
       </div>
+    </div>
 
       <!-- Description -->
       <div class="input-group textfield">
@@ -53,19 +58,18 @@
         <button type="submit" class="submit-button">Submit</button>
       </div>
     </form>
+    <button @click="getArrayOfNames"></button>
   </div>
-
-  <button @click="fillArray">test</button>
 </template>
 
 <script>
 import foodarray from "@/resources/foodNameArray";
 import RecipeService from "../services/RecipeService";
-import recipeService from "@/services/RecipeService";
 
 export default {
   data() {
     return {
+      badNamePrompt:"You have entered a name already in our database. Please try again",
       recipeNamesToCheck: [],
       formValid: false,
       recipe_name: "Name your recipe, we suggest something unique and easy to remember",
@@ -91,16 +95,16 @@ export default {
   methods: {
 
     submitForm() {
-      if(this.formData.ingredients < 1){
-        alert("You need to add at least one ingredient. ")
-      }{
+      if(!this.checkRequiredNames){
+        alert("You have entered a recipe name already in our database. Please try again.")
+      }else{
         RecipeService.addRecipeAndIngredients(this.formData);
       }
     },
     addIngredient() {
       if (this.item.ingredient_name) {
-        this.formData.ingredients.push({ ...this.item });
-        this.item = { ingredient_name: '' };
+        this.formData.ingredients.push({...this.item});
+        this.item = {ingredient_name: ''};
       } else {
         alert("Ingredient name cannot be empty.");
       }
@@ -108,6 +112,18 @@ export default {
     removeIngredient(index) {
       this.formData.ingredients.splice(index, 1);
     },
+    namesArrayCheck() {
+      RecipeService.getUserRecipeNames().then(cu => {
+        this.recipeNamesToCheck = cu.data;
+        console.log(this.recipeNamesToCheck)
+      })
+    },
+
+    getArrayOfNames(){
+      console.log("getArrayOfNames")
+      console.log(this.recipeNamesToCheck)
+    }
+
   },
 
   computed: {
@@ -116,16 +132,28 @@ export default {
           this.formData.recipe.recipe_instructions &&
           this.formData.ingredients.length > 0;
     },
-  },
 
-  created(){
-    this.recipeNamesToCheck = recipeService.getUserRecipeNames()
+    checkRequiredNames(){
+        return !this.isNameInDatabase() &&
+            this.formData.recipe.recipe_name.length > 1;
+    },
+
+    isNameInDatabase(){
+      return this.recipeNamesToCheck.includes(this.formData.recipe.recipe_name)
+    }
   },
+  mounted() {
+    this.namesArrayCheck()
+  }
 
 }
 </script>
 
 <style scoped>
+
+#problem1{
+  color:red;
+}
 
 
 @font-face {

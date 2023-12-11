@@ -19,4 +19,5 @@ public interface RecipeIngredientDao {
     public List<RecipeIngredientDto> getRecipesByUserId(int userId);
     public String updateRecipeAndIngredient(RecipeIngredientDto recipeIngredientDto, String recipeName);
     public List<String> getUserRecipeNames(int userId);
+    public List<String> getUserRecipeNames2(int userId);
 }

@@ -1,0 +1,348 @@
+
+    //by_User_id
+
+    //===========================================================
+    //Steven's Extra Method's
+    //Extra method's provided as need.
+    //Methods are here to help if you need them.
+    //-----------------------------------------------------------
+
+    // User methods
+    public UserDto getUserById(int userId) {
+        String sql = "SELECT * FROM users WHERE user_id = ?;";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(UserDto.class));
+        } catch (Exception e) {
+            logError("getUserById", e, userId);
+            throw new DaoException("Error retrieving user by ID", e);
+        }
+    }
+
+    // Recipe methods
+    public RecipeDto getRecipeByUserId(int userId) {
+        // Assuming a user can have multiple recipes, this method will return the first one found.
+        String sql = "SELECT r.* FROM recipe r JOIN recipe_users ru ON r.recipe_id = ru.recipe_id " +
+                "WHERE ru.user_id = ? LIMIT 1;";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(RecipeDto.class));
+        } catch (Exception e) {
+            logError("getRecipeByUserId", e, userId);
+            throw new DaoException("Error retrieving recipe by user ID", e);
+        }
+    }
+
+    public RecipeDto getRecipeByUserId(int userId) {
+        // Assuming a user can have multiple recipes, this method will return the first one found.
+        String sql = "SELECT r.* FROM recipe r JOIN recipe_users ru ON r.recipe_id = ru.recipe_id " +
+                "WHERE ru.user_id = ? LIMIT 1;";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(RecipeDto.class));
+        } catch (Exception e) {
+            logError("getRecipeByUserId", e, userId);
+            throw new DaoException("Error retrieving recipe by user ID", e);
+        }
+    }
+
+
+    // Ingredient methods
+    public IngredientDto getIngredientByUserId(int userId) {
+        // It retrieves a single ingredient associated with a user's recipe.
+        String sql = "SELECT i.* FROM ingredient i " +
+                "JOIN recipe_ingredient ri ON i.ingredient_id = ri.ingredient_id " +
+                "JOIN recipe_users ru ON ri.recipe_id = ru.recipe_id " +
+                "WHERE ru.user_id = ? LIMIT 1;";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(IngredientDto.class));
+        } catch (Exception e) {
+            logError("getIngredientByUserId", e, userId);
+            throw new DaoException("Error retrieving ingredient by user ID", e);
+        }
+    }
+
+    public IngredientDto getMultipleIngredientByUserId(int userId) {
+        // It retrieves a single ingredient associated with a user's recipe.
+        String sql = "SELECT i.* FROM ingredient i " +
+                "JOIN recipe_ingredient ri ON i.ingredient_id = ri.ingredient_id JOIN " +
+                "recipe_users ru ON ri.recipe_id = ru.recipe_id WHERE ru.user_id = ? LIMIT 1;";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(IngredientDto.class));
+        } catch (Exception e) {
+            logError("getIngredientByUserId", e, userId);
+            throw new DaoException("Error retrieving ingredient by user ID", e);
+        }
+    }
+
+    // Meal methods
+    public MealDto getMealByUserId(int userId) {
+        String sql = "SELECT m.* FROM meal m JOIN user_meal um ON m.meal_id = um.meal_id WHERE um.user_id = ? LIMIT 1;";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(MealDto.class));
+        } catch (Exception e) {
+            logError("getMealByUserId", e, userId);
+            throw new DaoException("Error retrieving meal by user ID", e);
+        }
+    }
+
+    // Plan methods
+    public PlanDto getPlanByUserId(int userId) {
+        String sql = "SELECT * FROM plan WHERE user_id = ? LIMIT 1;";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(PlanDto.class));
+        } catch (Exception e) {
+            logError("getPlanByUserId", e, userId);
+            throw new DaoException("Error retrieving plan by user ID", e);
+        }
+    }
+
+    // Type methods
+    public TypeDto getTypeByUserId(int userId) {
+        String sql = "SELECT t.* FROM type t JOIN meal_type mt ON t.type_id = mt.type_id JOIN user_meal um ON mt.meal_id = um.meal_id WHERE um.user_id = ? LIMIT 1;";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(TypeDto.class));
+        } catch (Exception e) {
+            logError("getTypeByUserId", e, userId);
+            throw new DaoException("Error retrieving type by user ID", e);
+        }
+    }
+
+    // Helper method to log errors
+    private void logError(String methodName, Exception e, Object... params) {
+        System.out.printf("%s%n%s%n%s%n%s%n",
+                "Class: " + this.getClass(),
+                "Method: " + methodName,
+                "Exception: " + e,
+                "Parameters: " + Arrays.toString(params)
+        );
+    }
+
+    /**
+     * Retrieves all recipe ingredients for a given user.
+     * This includes fetching all recipes and their respective ingredients associated with the user ID.
+     *
+     * @param userId The user ID for whom the recipe ingredients are to be fetched.
+     * @return A list of RecipeIngredientDto objects.
+     * @throws DaoException If there is an error while fetching data from the database.
+     */
+    public List<RecipeIngredientDto> getAllRecipeIngredientsByUserId(int userId) {
+        String sql = "SELECT r.*, i.* FROM recipe r " +
+                "JOIN recipe_users ru ON r.recipe_id = ru.recipe_id " +
+                "JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id " +
+                "JOIN ingredient i ON ri.ingredient_id = i.ingredient_id " +
+                "WHERE ru.user_id = ?;";
+
+        try {
+            return jdbcTemplate.query(sql, new ResultSetExtractor<List<RecipeIngredientDto>>() {
+                @Override
+                public List<RecipeIngredientDto> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                    Map<Integer, RecipeIngredientDto> recipeMap = new HashMap<>();
+
+                    while (rs.next()) {
+                        int recipeId = rs.getInt("recipe_id");
+                        RecipeIngredientDto recipeIngredientDto = recipeMap.getOrDefault(recipeId, new RecipeIngredientDto());
+                        RecipeDto recipe = recipeIngredientDto.getRecipe();
+                        if (recipe == null) {
+                            recipe = new RecipeDto(rs.getString("recipe_name"), rs.getString("recipe_instructions"));
+                            recipeIngredientDto.setRecipe(recipe);
+                        }
+
+                        List<IngredientDto> ingredients = recipeIngredientDto.getIngredients();
+                        if (ingredients == null) {
+                            ingredients = new ArrayList<>();
+                            recipeIngredientDto.setIngredients(ingredients);
+                        }
+                        ingredients.add(new IngredientDto(rs.getString("ingredient_name")));
+
+                        recipeMap.put(recipeId, recipeIngredientDto);
+                    }
+                    return new ArrayList<>(recipeMap.values());
+                }
+            }, userId);
+        } catch (Exception e) {
+            logError("getAllRecipeIngredientsByUserId", e, userId);
+            throw new DaoException("Error retrieving all recipe ingredients by user ID", e);
+        }
+    }
+
+    /**
+     * Retrieves a user by their ID.
+     *
+     * @param userId The user ID to look up.
+     * @return A UserDto representing the user found in the database.
+     * @throws DaoException If an error occurs during database access.
+     */
+    public UserDto getUserById(int userId) {
+        String sql = "SELECT * FROM users WHERE user_id = ?;";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(UserDto.class));
+        } catch (Exception e) {
+            logError("getUserById", e, userId);
+            throw new DaoException("Error retrieving user by ID", e);
+        }
+    }
+
+    private void logError(String methodName, Exception e, Object... params) {
+        ErrorManager logger;
+        logger.error(String.format("Class: %s, Method: %s, Exception: %s, Parameters: %s",
+                this.getClass().getSimpleName(),
+                methodName,
+                e,
+                Arrays.toString(params)));
+    }
+
+
+    And add necessary imports for any new code elements like `Map`, `HashMap`, `List`, `ArrayList`, `ResultSet`, `SQLException`, `DataAccessException`, `ResultSetExtractor`, etc.
+
+            Here's how you would create a method that returns all `RecipeIngredientDto` objects for a given `user_id` from the database. I've also annotated the method with appropriate JavaDoc. Additionally, below is the corrected version of one of the previously implemented methods with JavaDoc for consistency.
+
+```java
+    /**
+     * Retrieves all recipe ingredients for a given user.
+     * This includes fetching all recipes and their respective ingredients associated with the user ID.
+     *
+     * @param userId The user ID for whom the recipe ingredients are to be fetched.
+     * @return A list of RecipeIngredientDto objects.
+     * @throws DaoException If there is an error while fetching data from the database.
+     */
+    public List<RecipeIngredientDto> getAllRecipeIngredientsByUserId(int userId) {
+        String sql = "SELECT r.*, i.* FROM recipe r " +
+                "JOIN recipe_users ru ON r.recipe_id = ru.recipe_id " +
+                "JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id " +
+                "JOIN ingredient i ON ri.ingredient_id = i.ingredient_id " +
+                "WHERE ru.user_id = ?;";
+
+        try {
+            return jdbcTemplate.query(sql, new ResultSetExtractor<List<RecipeIngredientDto>>() {
+                @Override
+                public List<RecipeIngredientDto> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                    Map<Integer, RecipeIngredientDto> recipeMap = new HashMap<>();
+
+                    while (rs.next()) {
+                        int recipeId = rs.getInt("recipe_id");
+                        RecipeIngredientDto recipeIngredientDto = recipeMap.getOrDefault(recipeId, new RecipeIngredientDto());
+                        RecipeDto recipe = recipeIngredientDto.getRecipe();
+                        if (recipe == null) {
+                            recipe = new RecipeDto(rs.getString("recipe_name"), rs.getString("recipe_instructions"));
+                            recipeIngredientDto.setRecipe(recipe);
+                        }
+
+                        List<IngredientDto> ingredients = recipeIngredientDto.getIngredients();
+                        if (ingredients == null) {
+                            ingredients = new ArrayList<>();
+                            recipeIngredientDto.setIngredients(ingredients);
+                        }
+                        ingredients.add(new IngredientDto(rs.getString("ingredient_name")));
+
+                        recipeMap.put(recipeId, recipeIngredientDto);
+                    }
+                    return new ArrayList<>(recipeMap.values());
+                }
+            }, userId);
+        } catch (Exception e) {
+            logError("getAllRecipeIngredientsByUserId", e, userId);
+            throw new DaoException("Error retrieving all recipe ingredients by user ID", e);
+        }
+    }
+
+    /**
+     * Retrieves a user by their ID.
+     *
+     * @param userId The user ID to look up.
+     * @return A UserDto representing the user found in the database.
+     * @throws DaoException If an error occurs during database access.
+     */
+    public UserDto getUserById(int userId) {
+        String sql = "SELECT * FROM users WHERE user_id = ?;";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(UserDto.class));
+        } catch (Exception e) {
+            logError("getUserById", e, userId);
+            throw new DaoException("Error retrieving user by ID", e);
+        }
+    }
+
+
+**For Users**
+
+// Read User by ID
+```java
+// Retrieves user details by user ID
+String sql = "SELECT user_id, username, role FROM users WHERE user_id = ?;";
+// Use with jdbcTemplate.queryForObject to get a single User object
+```
+
+// Update User by ID
+```java
+// Updates a user's username and role by ID
+String sql = "UPDATE users SET username = ?, role = ? WHERE user_id = ?;";
+// Use with jdbcTemplate.update to execute update operation
+```
+
+**For Recipes**
+
+// Create Recipe
+```java
+// Inserts a new recipe into the recipe table
+String sql = "INSERT INTO recipe (recipe_name, recipe_instructions) VALUES (?, ?);";
+// Use with jdbcTemplate.update to execute insert operation
+```
+
+// Read Recipe by User ID
+```java
+// Retrieves all recipes associated with a user ID
+String sql = "SELECT r.recipe_id, r.recipe_name, r.recipe_instructions FROM recipe r " +
+             "INNER JOIN recipe_users ru ON r.recipe_id = ru.recipe_id WHERE ru.user_id = ?;";
+// Use with jdbcTemplate.query for multiple RecipeDto objects
+```
+
+// Update Recipe by Recipe ID
+```java
+// Updates a recipe's name and instructions by recipe ID
+String sql = "UPDATE recipe SET recipe_name = ?, recipe_instructions = ? WHERE recipe_id = ?;";
+// Use with jdbcTemplate.update to execute update operation
+```
+
+// Delete Recipe by Recipe ID
+```java
+// Deletes a recipe by recipe ID
+String sql = "DELETE FROM recipe WHERE recipe_id = ?;";
+// Use with jdbcTemplate.update to execute delete operation
+```
+
+**For Ingredients**
+
+// Create Ingredient
+```java
+// Inserts a new ingredient into the ingredient table
+String sql = "INSERT INTO ingredient (ingredient_name) VALUES (?);";
+// Use with jdbcTemplate.update to execute insert operation
+```
+
+// Read Ingredient by Ingredient ID
+```java
+// Retrieves an ingredient by ingredient ID
+String sql = "SELECT ingredient_id, ingredient_name FROM ingredient WHERE ingredient_id = ?;";
+// Use with jdbcTemplate.queryForObject to get a single Ingredient object
+```
+
+// Update Ingredient by Ingredient ID
+```java
+// Updates an ingredient's name by ingredient ID
+String sql = "UPDATE ingredient SET ingredient_name = ? WHERE ingredient_id = ?;";
+// Use with jdbcTemplate.update to execute update operation
+```
+
+// Delete Ingredient by Ingredient ID
+```java
+// Deletes an ingredient by ingredient ID
+String sql = "DELETE FROM ingredient WHERE ingredient_id = ?;";
+// Use with jdbcTemplate.update to execute delete operation
+```
+
+**For Meal**
+
+// Create Meal
+```java
+// Inserts a new meal into the meal table
+String sql = "INSERT INTO meal (meal_name) VALUES (?);";
+// Use with jdbcTemplate.update to execute insert operation
+```
