@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -38,4 +39,11 @@ public class MealController {
         int userId = userDao.getUserByUsername(principal.getName()).getId();
         return mealDao.getMealByMealID(id, userId);
     }
+
+    @RequestMapping(path = "user/meals", method = RequestMethod.GET)
+    public List<Meal> getUserMeal(Principal principal){
+        int userId = userDao.getUserByUsername(principal.getName()).getId();
+        return mealDao.getAllUserMeals(userId);
+    }
+
 }

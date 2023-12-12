@@ -53,5 +53,4 @@ INSERT INTO type (type_name) VALUES
 ('Holiday'),
 ('Vegetarian Dishes');
 
-
 COMMIT TRANSACTION;

@@ -99,6 +99,25 @@ public class JdbcMealDao implements MealDao {
         meal.setRecipeInfo(recipeList);
         return meal;
     }
+    public List<Meal> getAllUserMeals(int userId){
+        List<Meal> mealList = new ArrayList<>();
+        List<Integer> idList = new ArrayList<>();
+        String sql = "SELECT meal.meal_id FROM meal\n" +
+                "JOIN user_meal ON user_meal.meal_id = meal.meal_id\n" +
+                "WHERE user_id = ?;";
+        try{
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
+            while(result.next()){
+                idList.add(result.getInt("meal_id"));
+            }
+            for(int currentId : idList){
+                mealList.add(getMealByMealID(currentId,userId));
+            }
+        } catch (Exception e){
+            System.out.println("Error, " + e);
+        }
+        return mealList;
+    }
 
 
     @Override

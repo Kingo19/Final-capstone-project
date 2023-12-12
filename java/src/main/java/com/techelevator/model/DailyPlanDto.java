@@ -4,12 +4,13 @@ import java.util.List;
 
 public class DailyPlanDto {
     private String planName;
-    private String weekday;
+    private String date;
+    //private String weekday;
     private List<String> mealIds;
 
-    public DailyPlanDto(String planName, String weekday, List<String> mealIds) {
+    public DailyPlanDto(String planName, String date, List<String> mealIds) {
         this.planName = planName;
-        this.weekday = weekday;
+        this.date = date;
         this.mealIds = mealIds;
     }
 
@@ -21,19 +22,19 @@ public class DailyPlanDto {
         this.planName = planName;
     }
 
-    public String getWeekday() {
-        return weekday;
-    }
-
-    public void setWeekday(String weekday) {
-        this.weekday = weekday;
-    }
-
     public List<String> getMealIds() {
         return mealIds;
     }
 
     public void setMealIds(List<String> mealIds) {
         this.mealIds = mealIds;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
