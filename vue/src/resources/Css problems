@@ -1,3 +1,6 @@
+==Test1
+
+
 Very close box on the right is a bit short and no tabs.
 
 <template>
@@ -95,6 +98,9 @@ export default {
 SEP
 =====
 
+==Test2
+
+
 Very close box on the right is a bit short and no tabs.
 
 <template>
@@ -189,6 +195,9 @@ export default {
 =====
 SEP
 =====
+
+==Test3
+
 Much better for single page layout, needs alignment
 
 
@@ -290,6 +299,9 @@ export default {
 =====
 SEP
 =====
+
+==Test4
+
 Even pictures and nice layout, will modify but should be good for single page layout
 
 <template>
@@ -411,6 +423,8 @@ export default {
 SEP
 =====
 
+==Test5
+
 
 nicish pop up but needs work
 
@@ -530,6 +544,8 @@ export default {
 =====
 SEP
 =====
+
+==Test6
 
 Better home page feel, way better
 

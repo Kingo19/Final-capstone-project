@@ -1,16 +1,19 @@
 <template>
   <div>
-    <RecipeDetailPage v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto"/>
+<!--    <RecipeDetailPage v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto"/>-->
+    <test-details-page v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto"></test-details-page>
   </div>
 </template>
 
 <script>
-import RecipeDetailPage from "../components/RecipeDetailPage.vue";
+/*import RecipeDetailPage from "../components/RecipeDetailPage.vue";*/
 import RecipeService from "../services/RecipeService";
+import TestDetailsPage from "@/components/testDetailsPage.vue";
 
 export default {
   components: {
-    RecipeDetailPage,
+    TestDetailsPage,
+/*    RecipeDetailPage,*/
   },
   data() {
     return {

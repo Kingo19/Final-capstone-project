@@ -105,37 +105,13 @@ export default {
 </script>
 
 <style>
-/* App-wide styles (styles.css) */
+  /* App-wide styles (styles.css) */
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;
 }
-
-
-header {
-  background-color: #333;
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.4rem 0;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-}
-
-nav li {
-  margin-right: 20px;
-}
-
-nav a {
-  text-decoration: none;
-  color: #fff;
-}
-
 
 /* Hero section styles */
 .upper-body-text {
@@ -227,27 +203,6 @@ footer {
   color: #fff;
 }
 
-a {
-  cursor: pointer;
-  background: none;
-  border: none;
-  color: #007BFF; /* Adjust the color to your preference */
-  text-decoration: underline;
-  font-size: 1rem;
-  margin-right: 20px;
-}
-
-a:hover {
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.logo {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-
 /* Testimonials section styles */
 .testimonials {
   margin: 2rem 0;
@@ -262,7 +217,7 @@ a:hover {
 
 .title {
   margin-left: 50px;
-
 }
+
 
 </style>

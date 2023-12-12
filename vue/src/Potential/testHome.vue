@@ -6,7 +6,7 @@
 
 
 <script>
-import cardRecipe from "@/Potential/cardRecipe.vue";
+import cardRecipe from "@/components/test4.vue";
 
 
 export default {
