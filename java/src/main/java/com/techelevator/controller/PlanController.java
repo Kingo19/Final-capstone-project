@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -24,7 +25,7 @@ public class PlanController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "user/plans/add", method = RequestMethod.GET)
+    @RequestMapping(path = "user/plans/add", method = RequestMethod.POST)
     public DailyPlan addDailyPlan(Principal principal, @Valid @RequestBody DailyPlanDto dailyPlanDto){
         int userId = userDao.getUserByUsername(principal.getName()).getId();
         return dailyPlanDao.createDailyPlan(dailyPlanDto, userId);
@@ -33,5 +34,10 @@ public class PlanController {
     public DailyPlan getPlanById(Principal principal, @PathVariable String date){
         int userId = userDao.getUserByUsername(principal.getName()).getId();
         return dailyPlanDao.getPlanByDate(date, userId);
+    }
+    @RequestMapping(path = "user/plans", method = RequestMethod.GET)
+    public List<DailyPlan> getUserPlans(Principal principal){
+        int userId = userDao.getUserByUsername(principal.getName()).getId();
+        return dailyPlanDao.getAllUserPlans(userId);
     }
 }

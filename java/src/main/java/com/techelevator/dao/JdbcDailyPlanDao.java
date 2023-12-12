@@ -61,7 +61,7 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
     public DailyPlan getPlanByDate(String date, int userId){
         DailyPlan plan = new DailyPlan();
         List<Meal> mealList = new ArrayList<>();
-        String sql = "SELECT * FROM daily_plan\n" +
+        String sql = "SELECT daily_plan_name, daily_plan.daily_plan_id, meal_id FROM daily_plan\n" +
                 "JOIN daily_plan_meals ON daily_plan_meals.daily_plan_id = daily_plan.daily_plan_id\n" +
                 "WHERE daily_plan.dayofplan = ? AND daily_plan.user_id = ?;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, Date.valueOf(date), userId);
@@ -74,5 +74,37 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
         plan.setUserId(userId);
         plan.setPlanMeals(mealList);
         return plan;
+    }
+
+    public DailyPlan getPlanById(int planId, int userId){
+        DailyPlan plan = new DailyPlan();
+        List<Meal> mealList = new ArrayList<>();
+        String sql = "SELECT daily_plan_name, daily_plan.dayofplan, meal_id FROM daily_plan\n" +
+                "JOIN daily_plan_meals ON daily_plan_meals.daily_plan_id = daily_plan.daily_plan_id\n" +
+                "WHERE daily_plan.daily_plan_id = ? AND daily_plan.user_id = ?;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, planId, userId);
+        while(result.next()){
+            plan.setPlanName(result.getString("daily_plan_name"));
+            plan.setDateOfPlan(result.getDate("dayofplan").toLocalDate());
+            mealList.add(jdbcMealDao.getMealByMealID(result.getInt("meal_id"), userId));
+        }
+        plan.setPlanId(planId);
+        plan.setUserId(userId);
+        plan.setPlanMeals(mealList);
+        return plan;
+    }
+
+    public List<DailyPlan> getAllUserPlans(int userId){
+        List<DailyPlan> planList = new ArrayList<>();
+        List<Integer> idsList = new ArrayList<>();
+        String sql = "SELECT daily_plan_id FROM daily_plan WHERE user_id = ?;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
+        while(result.next()){
+            idsList.add(result.getInt("daily_plan_id"));
+        }
+        for(Integer currentId : idsList){
+            planList.add(getPlanById(currentId, userId));
+        }
+        return planList;
     }
 }
