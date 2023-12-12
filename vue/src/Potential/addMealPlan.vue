@@ -3,28 +3,33 @@
     <form id="mealPlanForm" @submit.prevent="submitMealPlan" class="meal-plan-form">
       <!-- Meal Plan Name -->
       <div class="input-group">
-        <label for="mealName">Meal Name</label>
-        <input type="text" id="mealName" v-model="mealPlanData.plan_name"
-               required
-               :maxlength="maxLenInput"
-               placeholder="Enter meal plan name">
+        <label for="mealName">Meal Plan Name</label>
+        <input type="text" id="mealName" v-model="mealPlanData.plan_name" required :maxlength="maxLenInput"
+          placeholder="Enter meal plan name">
       </div>
-      <option v-for="(eachType, num) in types" :key="num"  :value="eachType">{{ eachType }}</option>
+      <!-- Previous Code Displaying Meal Type Options -->
+
+      <!-- <option v-for="(eachType, num) in types" :key="num" :value="eachType">{{ eachType }}</option> -->
+
       <!-- Meal Type -->
       <div class="input-group">
-        <label for="mealType">Meal Type</label>
-        <select id="mealType" v-model="mealPlanData.type">
+        <label for="mealType">Meal Plan Date</label>
+        <!-- Previous Code -->
+
+        <!-- <select id="mealType" v-model="mealPlanData.type">
           <option v-for="(eachType, num) in types" :key="num"  :value="eachType">{{ eachType }}</option>
-        </select>
+        </select> -->
+        
+        <!-- Basic input for adding a Meal Plan Date. Needs styling -->
+
+        <input type="date" id="mealPlanDate" name="mealPlanDate" v-model="mealPlanData.mealPlanDate">
       </div>
 
       <!-- Meal Names -->
       <div class="input-group">
         <label for="mealNames">Meal Names</label>
-        <textarea id="mealNames" v-model="mealPlanData.mealNames"
-                  required
-                  rows="3" cols="50"
-                  placeholder="Enter meal names, separated by commas"></textarea>
+        <textarea id="mealNames" v-model="mealPlanData.mealNames" required rows="3" cols="50"
+          placeholder="Enter meal names, separated by commas"></textarea>
       </div>
 
       <!-- Submit Button -->
@@ -43,24 +48,9 @@ export default {
       mealPlanData: {
         plan_name: "",
         mealNames: "",
-        type: ""
-      },
-      types:[
-        "Breakfast",
-        "Brunch",
-        "Lunch",
-        "Dinner",
-        "Appetizer",
-        "Salad",
-        "Main-course",
-        "Side-dish",
-        "Baked-goods",
-        "Dessert",
-        "Snack",
-        "Soup",
-        "Holiday",
-        "Vegetarian"
-      ]
+        mealPlanDate: Date
+      }
+      
 
     }
   },
@@ -102,7 +92,9 @@ label {
   color: #333;
 }
 
-input[type='text'], textarea, select {
+input[type='text'],
+textarea,
+select {
   width: 100%;
   padding: 5px;
   border: 2px solid #ccc;
@@ -137,5 +129,4 @@ input[type='text'], textarea, select {
     max-width: 90%;
   }
 }
-
 </style>

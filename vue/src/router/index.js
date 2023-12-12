@@ -9,7 +9,6 @@ import RegisterView from '../views/RegisterView.vue';
 import RecipeListView from '../views/RecipeListView.vue';
 import RecipeDetailView from '../views/RecipeDetailView.vue';
 import AddRecipe from "@/components/AddRecipe.vue";
-import modifyRecipe from "@/components/ModifyRecipe.vue";
 import addMealPlan from "@/Potential/addMealPlan.vue";
 import addMeal from "@/components/addMeal.vue";
 import test1 from "@/components/test1.vue";
@@ -172,6 +171,14 @@ const routes = [
         path: '/addMeal',
         name: "addMeal",
         component: addMeal,
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/addMealPlan',
+        name: "addMealPlan",
+        component: addMealPlan,
         meta: {
             requiresAuth: false
         }
