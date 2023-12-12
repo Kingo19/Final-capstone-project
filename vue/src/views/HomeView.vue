@@ -117,7 +117,7 @@ body {
 .upper-body-text {
   position: relative;
   text-align: center;
-  color: #333;
+  color: #ffffff;
 }
 
 .upper-body-text img {

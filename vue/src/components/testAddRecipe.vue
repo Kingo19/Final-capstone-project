@@ -145,24 +145,35 @@ export default {
 </script>
 
 <style scoped>
-
 #problem1{
   color:red;
 }
 
+#app {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
 .app-container {
-/*  background-color: rgb(239 234 231);*/
+  /*  background-color: rgb(239 234 231);*/
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: calc(33% - 20px); /* Adjusts card width */
   margin: 10px;
 }
 
 .recipe-form {
+/*  background-color: #fff8dc;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
   background-color: #fff8dc;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 60%; /* Adjust the width as per your requirement */
+  max-width: 800px; /* Set a max-width to ensure it doesn't get too wide on larger screens */
+  margin: auto; /* This will center the form if it's smaller than the parent container */
 }
 
 .input-group {
@@ -217,13 +228,13 @@ input[type='text'], textarea {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.submit-button:hover {
+/*.submit-button:hover {
   background-color: #45A049;
-}
+}*/
 
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
   .recipe-form {
     max-width: 90%;
   }
-}
+}*/
 </style>
