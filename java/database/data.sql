@@ -53,19 +53,4 @@ INSERT INTO type (type_name) VALUES
 ('Holiday'),
 ('Vegetarian Dishes');
 
---INSERT INTO weekday (weekday) VALUES ('Sunday');
---
---INSERT INTO weekday (weekday) VALUES ('Monday');
---
---INSERT INTO weekday (weekday) VALUES ('Tuesday');
---
---INSERT INTO weekday (weekday) VALUES ('Wednesday');
---
---INSERT INTO weekday (weekday) VALUES ('Thursday');
---
---INSERT INTO weekday (weekday) VALUES ('Friday');
---
---INSERT INTO weekday (weekday) VALUES ('Saturday');
-
-
 COMMIT TRANSACTION;

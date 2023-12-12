@@ -8,13 +8,6 @@ public class DailyPlanDto {
     //private String weekday;
     private List<String> mealIds;
 
-//    public DailyPlanDto(String planName, String date, List<String> mealIds) {
-//        this.planName = planName;
-//        this.date = weekday;
-//        this.mealIds = mealIds;
-//    }
-
-
     public DailyPlanDto(String planName, String date, List<String> mealIds) {
         this.planName = planName;
         this.date = date;
@@ -28,14 +21,6 @@ public class DailyPlanDto {
     public void setPlanName(String planName) {
         this.planName = planName;
     }
-
-//    public String getWeekday() {
-//        return weekday;
-//    }
-//
-//    public void setWeekday(String weekday) {
-//        this.weekday = weekday;
-//    }
 
     public List<String> getMealIds() {
         return mealIds;

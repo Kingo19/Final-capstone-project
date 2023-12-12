@@ -51,16 +51,6 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
         return dailyPlan;
     }
 
-//    public int getWeekdayId(String weekdayName){
-//        String sql = "SELECT weekday_id FROM weekday WHERE weekday = ?;";
-//        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, weekdayName);
-//        int weekdayId = 0;
-//        while(result.next()){
-//            weekdayId = result.getInt("weekday_id");
-//        }
-//        return weekdayId;
-//    }
-
     public void insertIntoDailyPlanMeals(DailyPlan dailyPlan){
         String sql = "INSERT INTO daily_plan_meals(daily_plan_id,meal_id) VALUES (?,?);";
         for(Meal currentMeal : dailyPlan.getPlanMeals()){
@@ -68,21 +58,21 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
         }
     }
 
-//    public DailyPlan getPlanByDate(String date, int userId){
-//        DailyPlan plan = new DailyPlan();
-//        List<Meal> mealList = new ArrayList<>();
-//        String sql = "SELECT * FROM daily_plan\n" +
-//                "JOIN daily_plan_meals ON daily_plan_meals.daily_plan_id = daily_plan.daily_plan_id\n" +
-//                "WHERE daily_plan.dayofplan = '?' AND daily_plan.user_id = ?;";
-//        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, date, userId);
-//        while(result.next()){
-//            plan.setPlanName(result.getString("daily_plan_name"));
-//            plan.setPlanId(result.getInt("daily_plan_id"));
-//            mealList.add(jdbcMealDao.getMealByMealID(result.getInt("meal_id"), userId));
-//        }
-//        plan.setDateOfPlan(LocalDate.parse(date));
-//        plan.setUserId(userId);
-//        plan.setPlanMeals(mealList);
-//        return plan;
-//    }
+    public DailyPlan getPlanByDate(String date, int userId){
+        DailyPlan plan = new DailyPlan();
+        List<Meal> mealList = new ArrayList<>();
+        String sql = "SELECT * FROM daily_plan\n" +
+                "JOIN daily_plan_meals ON daily_plan_meals.daily_plan_id = daily_plan.daily_plan_id\n" +
+                "WHERE daily_plan.dayofplan = ? AND daily_plan.user_id = ?;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, Date.valueOf(date), userId);
+        while(result.next()){
+            plan.setPlanName(result.getString("daily_plan_name"));
+            plan.setPlanId(result.getInt("daily_plan_id"));
+            mealList.add(jdbcMealDao.getMealByMealID(result.getInt("meal_id"), userId));
+        }
+        plan.setDateOfPlan(LocalDate.parse(date));
+        plan.setUserId(userId);
+        plan.setPlanMeals(mealList);
+        return plan;
+    }
 }

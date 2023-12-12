@@ -90,22 +90,15 @@ CREATE TABLE user_meal (
     user_id int NOT NULL REFERENCES users(user_id)
 );
 
---CREATE TABLE weekday (
---    weekday_id serial NOT NULL,
---    weekday varchar(15) NOT NULL,
---    CONSTRAINT pk_weekday_id PRIMARY KEY(weekday_id)
---);
 
 CREATE TABLE daily_plan (
 daily_plan_name varchar(50) NOT NULL,
 daily_plan_id serial NOT NULL,
 --meal_plan_id int NOT NULL,
---weekday_id int NOT NULL,
 dayOfPlan date NOT NULL,
 user_id int NOT NULL,
 CONSTRAINT pk_daily_plan_id PRIMARY KEY (daily_plan_id),
 --CONSTRAINT fk_meal_plan_id FOREIGN KEY (meal_plan_id) REFERENCES meal_plan(meal_plan_id),
---CONSTRAINT fk_weekday_id FOREIGN KEY (weekday_id) REFERENCES weekday(weekday_id),
 CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 

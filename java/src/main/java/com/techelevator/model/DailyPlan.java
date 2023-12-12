@@ -7,18 +7,11 @@ import java.util.List;
 
 public class DailyPlan {
     private int planId;
-//    private String weekdayName;
     private String planName;
     private List<Meal> planMeals;
     private int userId;
     private LocalDate dateOfPlan;
-//    public DailyPlan(int planId, String weekdayName, String planName, List<Meal> planMeals,int userId) {
-//        this.planId = planId;
-//        this.weekdayName = weekdayName;
-//        this.planName = planName;
-//        this.planMeals = planMeals;
-//        this.userId = userId;
-//    }
+
 
 
     public DailyPlan(int planId, String planName, List<Meal> planMeals, int userId, LocalDate dateOfPlan) {
@@ -39,14 +32,6 @@ public class DailyPlan {
     public void setPlanId(int planId) {
         this.planId = planId;
     }
-
-//    public String getWeekdayName() {
-//        return weekdayName;
-//    }
-//
-//    public void setWeekdayName(String weekdayName) {
-//        this.weekdayName = weekdayName;
-//    }
 
     public String getPlanName() {
         return planName;
