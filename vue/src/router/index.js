@@ -84,7 +84,7 @@ const routes = [
     {
         path: '/recipes/add',
         name: "addRecipe",
-        component: AddRecipe,
+        component: testAddRecipe,
         meta: {
             requiresAuth: false
         }
