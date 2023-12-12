@@ -25,13 +25,13 @@
 
     <!--    ===============================================================-->
 
-      <div id="app" class="app-container">
+    <div v-if="modifyRecipe"  id="app" class="app-container">
         <form id="form" v-on:submit.prevent="submitForm" class="recipe-form">
           <!-- Recipe Name -->
           <div class="input-group">
             <h3>Recipe Name</h3>
             <div class="recipe-group">
-              <input type="text" id="recipeName" v-model="formData.recipe.recipe_name"
+              <input type="text" id="recipeName" v-model="recipeDto.recipe.recipe_name"
                      list="recipeNames"
                      :aria-required="requiredFields.recipeName.toString()"
                      required
@@ -50,7 +50,7 @@
           <div class="input-group textfield">
             <label for="description">Instructions</label>
             <textarea :maxlength="maxLenTextArea"
-                      id="description" v-model="formData.recipe.recipe_instructions"
+                      id="description" v-model="recipeDto.recipe.recipe_instructions"
                       :aria-required="requiredFields.instructions.toString()"
                       required
                       rows="4" cols="50"
@@ -71,9 +71,10 @@
             </div>
           </div>
 
+
           <!-- Ingredients Items -->
           <div class="ingredient-list">
-            <div class="ingredient-item" v-for="(ingredient, index) in formData.ingredients" :key="index">
+            <div class="ingredient-item" v-for="(ingredient, index) in recipeDto.ingredients" :key="index">
               <p>{{ ingredient.ingredient_name }}</p>
               <button type="button" @click="removeIngredient(index)">Remove</button>
             </div>
@@ -101,6 +102,7 @@ export default {
   },
   data(){
     return{
+      modifiedProp:{},
       badNamePrompt:"You have entered a name already in our database. Please try again",
       recipeNamesToCheck: [],
       maxLenInput: 255,
@@ -183,10 +185,17 @@ export default {
           this.formData.recipe.recipe_instructions &&
           this.formData.ingredients.length > 0;
     },
+
+    isNameInDatabase(){
+      return this.recipeNamesToCheck.includes(this.formData.recipe.recipe_name)
+    }
+
   },
 
   created() {
     this.originalName = this.recipeDto.recipe.recipe_name
+/*    for(var k in firstObject) secondObject[k]=firstObject[k];*/
+    this.modifiedProp = Object.assign({}, this.recipeDto)
   }
 };
 
@@ -282,7 +291,7 @@ h1 {
   /*  background-color: rgb(239 234 231);*/
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: calc(33% - 20px); /* Adjusts card width */
+/*  width: calc(33% - 20px); !* Adjusts card width *!*/
   margin: 10px;
 }
 
