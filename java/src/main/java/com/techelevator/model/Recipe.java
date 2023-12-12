@@ -10,6 +10,7 @@ public class Recipe {
         this.recipeName = recipeName;
         this.recipeInstructions = recipeInstructions;
     }
+
     public int getRecipeId() {
         return recipeId;
     }

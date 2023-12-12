@@ -1,7 +1,5 @@
 <template>
   <div class="recipe-detail-container">
-
-
     <div v-if="!modifyRecipe" class="original-recipe">
 
       <div class="head-of-container">

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.ErrorManager;
 
 
 @Component
@@ -38,6 +39,7 @@ public class JdbcMealDao implements MealDao {
     }
 
     public Meal mealDtoToMeal(MealDto mealDto){
+        System.out.println(mealDto);
         Meal meal = new Meal();
         List<RecipeIngredientDto> recipeList = new ArrayList<>();
         for(String currentName : mealDto.getRecipeNames()){
@@ -95,6 +97,42 @@ public class JdbcMealDao implements MealDao {
             recipeList.add(jdbcRecipeIngredientDao.getRecipeAndIngredientsFromId(result.getInt("recipe_id")).get(0));
         }
         meal.setRecipeInfo(recipeList);
+        return meal;
+    }
+
+
+    @Override
+    public Meal createMealSVersion(MealDto mealDto, int userId) {
+        Meal meal = mealDtoToMealSVersion(mealDto);
+        String sqlMeal = "INSERT INTO meal(meal_name) VALUES (?) RETURNING meal_id;";
+        try {
+            int mealId = jdbcTemplate.queryForObject(sqlMeal, Integer.class, meal.getMealName());
+            meal.setMealId(mealId);
+            insertIntoMealType(meal);
+            insertIntoMealRecipe(meal);
+            insertIntoUserMeal(meal, userId);
+        } catch (Exception e) {
+            // Handle exceptions and log errors
+            throw new DaoException("Error creating meal", e);
+        }
+        return meal;
+    }
+
+    private Meal mealDtoToMealSVersion(MealDto mealDto) {
+        System.out.println(mealDto);
+        Meal meal = new Meal();
+        meal.setMealName(mealDto.getMealName());
+        meal.setType(mealDto.getType());
+        List<RecipeIngredientDto> recipeDtos = new ArrayList<>();
+        for(String recipeName : mealDto.getRecipeNames()) {
+            List<RecipeIngredientDto> recipeList = jdbcRecipeIngredientDao.getRecipeAndIngredientsFromName(recipeName);
+                for(RecipeIngredientDto each: recipeList){
+                    if (each != null) {
+                        recipeDtos.add(each);
+                    }
+                }
+        }
+        meal.setRecipeInfo(recipeDtos);
         return meal;
     }
 }

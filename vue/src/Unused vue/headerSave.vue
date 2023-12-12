@@ -44,6 +44,52 @@ export default {
 </script>
 
 <style scoped>
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;
+}
+
+
+
+
+header {
+  width: 100%;
+  background-color: rgba(0, 0, 0, .2);
+}
+
+
+header ul {
+  text-align: center;
+  padding: 0; /* Added to remove default padding */
+  margin: 0; /* Added to remove default margin */
+}
+
+
+header ul li {
+  list-style: none;
+  display: inline-block;
+}
+
+
+header ul li a {
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 20px; /* Corrected '2epx' to '20px' */
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 2px;
+  font-weight: 600;
+  padding: 25px;
+  transition: all ease 0.5s; /* Corrected 'e.5s' to '0.5s' */
+}
+
+
+header ul li a:hover {
+  background-color: #211b4385;
+}
 
 
 </style>

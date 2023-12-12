@@ -1,15 +1,11 @@
 <template>
   <div class="recipe-detail-container">
-
-
     <div v-if="!modifyRecipe" class="original-recipe">
-
       <div class="head-of-container">
         <h1>{{ recipeDto.recipe.recipe_name }}</h1>
       </div>
 
       <button @click="mod" v-if="!modifyRecipe">Modify Recipe</button>
-
 
       <div class="recipe-details">  
         <img class="recipe-image"
@@ -24,10 +20,8 @@
             <li v-for="ingredient in recipeDto.ingredients" :key="ingredient">{{ ingredient.ingredient_name }}</li>
           </ul>
         </div>
-
-
       </div>
-    </div>>
+    </div>
 
 <!--    ===============================================================-->
 

@@ -11,4 +11,6 @@ public interface MealDao {
     public Meal createMeal(MealDto mealDto, int userId);
     public Meal mealDtoToMeal(MealDto mealDto);
     public Meal getMealByMealID(int mealId, int userId);
+
+    public Meal createMealSVersion(MealDto mealDto, int userId);
 }

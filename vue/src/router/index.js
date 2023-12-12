@@ -10,7 +10,10 @@ import RecipeListView from '../views/RecipeListView.vue';
 import RecipeDetailView from '../views/RecipeDetailView.vue';
 import AddRecipe from "@/components/AddRecipe.vue";
 import modifyRecipe from "@/components/ModifyRecipe.vue";
-import test from "@/components/test.vue";
+import addMealPlan from "@/Potential/addMealPlan.vue";
+import addMeal from "@/Potential/addMeal.vue";
+import cardRecipe from "@/Potential/cardRecipe.vue";
+import testHome from "@/Potential/testHome.vue";
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -77,6 +80,7 @@ const routes = [
             requiresAuth: false
         }
     },
+
 ];
 
 // Create the router
