@@ -35,7 +35,8 @@
   .main-footer {
     position: relative;
     text-align: center;
-    padding: 75px 0px 0px;
+    padding: 20px 0px 0px;
+    margin-top: 300px;
     background-position: center bottom;
     background-repeat: no-repeat;
     background: white;
