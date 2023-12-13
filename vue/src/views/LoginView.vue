@@ -79,9 +79,8 @@ export default {
 <style scoped>
 .login-container {
   background: url('https://gico.io/spcica/images/resource/login.jpg') top right/contain no-repeat;
-  background-position: right 2px top 2px;
   height: 100vh;
-  margin: 20px 20px 20px 0;
+  margin: 20px 80px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;

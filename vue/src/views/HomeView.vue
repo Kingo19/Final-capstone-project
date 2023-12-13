@@ -26,17 +26,6 @@
 
     <!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER --><!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER -->
 
-    <footer>
-      <div class="contact-info">
-        <p>Contact us: contact@example.com</p>
-      </div>
-      <div class="footer-menu">
-        <a @click.prevent="navigateTo('/about')" class="footer-link">About Us</a>
-        <a @click.prevent="navigateTo('/privacy')" class="footer-link">Privacy Policy</a>
-        <a @click.prevent="navigateTo('/terms')" class="footer-link">Terms of Service</a>
-      </div>
-    </footer>
-
   </div>
 </template>
 
