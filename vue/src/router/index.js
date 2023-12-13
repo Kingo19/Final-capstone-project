@@ -203,6 +203,14 @@ const routes = [
             requiresAuth: false
         }
     },
+    {
+        path: '/addMealPlan',
+        name: "addMealPlan",
+        component: addMealPlan,
+        meta: {
+            requiresAuth: false
+        }
+    }
 
 
 

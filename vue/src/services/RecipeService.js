@@ -28,5 +28,9 @@ export default {
         return axios.post('http://localhost:9000/user/meals/add', objToSend )
     },
 
+    getUserMeals(){
+        return axios.get('http://localhost:9000/user/meals' )
+    }
+
 
 }

@@ -13,7 +13,7 @@
 
       <!-- Meal Type -->
       <div class="input-group">
-        <label for="mealType">Meal Plan Date</label>
+        <label for="mealType">Please select the sunday of your weekly plan</label>
         <!-- Previous Code -->
 
         <!-- <select id="mealType" v-model="mealPlanData.type">
@@ -24,6 +24,7 @@
 
         <input type="date" id="mealPlanDate" name="mealPlanDate" v-model="mealPlanData.mealPlanDate">
       </div>
+      
 
       <!-- Meal Names -->
       <div class="input-group">
@@ -36,30 +37,52 @@
       <div class="button-group">
         <button type="submit" class="submit-button">Submit Meal Plan</button>
       </div>
+      <div>
+        <p v-if="!isSunday">Please Select A Sunday!</p>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
+import RecipeService from "@/services/RecipeService";
+
 export default {
   data() {
     return {
+      user: this.$store.state.user,
+      UserMeals: [],
       maxLenInput: 255,
+      isSunday: true,
       mealPlanData: {
         plan_name: "",
         mealNames: "",
-        mealPlanDate: Date
+        mealPlanDate: ""
       }
-      
-
     }
   },
   methods: {
     submitMealPlan() {
       // Add logic to submit meal plan data
-      console.log(this.mealPlanData);
+      let MealPlanDateCheck = new Date(this.mealPlanData.mealPlanDate)
+      console.log(MealPlanDateCheck)
+      this.isSunday = MealPlanDateCheck.getDay() === 6
+      if(this.isSunday) {
+
+        console.log(this.mealPlanData);
+      }
       // Call a service to POST the data to your endpoint
+    },
+    retrieveUserMeals(){
+      RecipeService.getUserMeals().then(cu => {
+        this.UserMeals = cu.data
+      });
+      console.log(this.UserMeals)
     }
+
+  },
+  mounted() {
+    this.retrieveUserMeals()
   }
 }
 </script>
