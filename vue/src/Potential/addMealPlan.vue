@@ -16,13 +16,20 @@
 
       <!-- Meal List -->
       <div class="input-group">
-        <h3>Add a recipe to your meal</h3>
+        <h3>Add a meal to your plan</h3>
         <div class="meal-group">
         <label for="userMeals"></label>
-        <select :disabled="userMeals.length === 0" id="recipeName">
-          <option class="recipe-item" v-for="(meal, index) in userMeals" :key="index">{{ meal.mealName }}</option>
+        <select :disabled="userMeals.length === 0" id="mealName" v-model="item.mealName">
+          <option class="meal-item" v-for="(meal, index) in userMeals" :key="index">{{ meal.mealName }}</option>
         </select>
         <button type="button" @click="addMeal">Add Meal</button>
+        </div>
+      </div>
+      <!-- Remove Button -->
+      <div class="top-level-remove-div">
+        <div class="show-list-added-items-or-remove"  v-for="(name, index) in userMealNames" :key="index">
+          <p>{{ name }}</p>
+          <button type="button" @click="removeMeal(index)">Remove</button>
         </div>
       </div>
 
@@ -45,6 +52,8 @@ export default {
     return {
       user: this.$store.state.user,
       userMeals: [],
+      userMealNames: [],
+      item: {mealName: ''},
       maxLenInput: 255,
       isSunday: true,
       mealPlanData: {
@@ -68,23 +77,31 @@ export default {
     },
     retrieveUserMeals(){
       RecipeService.getUserMeals().then(cu => {
-        console.log(cu)
          this.userMeals = cu.data
       });
-      console.log(this.userMeals)
     },
     addMeal(index) {
-      let removeFromArray = this.recipeNamesToCheck
+      let selectedMeal = this.userMeals.find(value => {
+        return value.mealName === this.item.mealName
+      })
+      console.log(selectedMeal)
+      
+      this.userMealNames.push(selectedMeal.mealName)
+      this.mealPlanData.userMealIds.push(selectedMeal.mealId)
+
+
+      let removeFromArray = this.userMeals
       let removedElement = removeFromArray[index]
       removeFromArray.splice(index, 1);
 
+      console.log(this.item.mealName)
+      
       
     },
-    removeRecipe(index) {
-      let removeFromArray = this.mealData.recipeNames
+    removeMeal(index) {
+      let removeFromArray = this.mealPlanData.mealIds
       let removedElement = removeFromArray[index]
       removeFromArray.splice(index, 1);
-      this.recipeNamesToCheck.push(removedElement.recipeName);
     },
 
   },
