@@ -6,7 +6,7 @@
 
 <script>
 import RecipeListPage
-  from "../Unused vue/RecipeListPage.vue";
+  from "./RecipeListPage.vue";
 
 export default {
   components: {

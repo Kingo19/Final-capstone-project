@@ -9,7 +9,7 @@
 import RecipeService from "../services/RecipeService";
 import TestDetailsPage from "@/components/testDetailsPage.vue";
 import TestSelectedRecipe from "@/components/testSelectedRecipe.vue";
-import SmallRecipeCards from "@/components/smallRecipeCards.vue";
+import SmallRecipeCards from "@/components/AllRecipeSmallRecipeCards.vue";
 export default {
   components: {
     SmallRecipeCards,
