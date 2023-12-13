@@ -8,58 +8,100 @@
       </div>
 
       <div class="form-input-group">
+        <label for="fname"></label>
+        <input
+          type="text"
+          id="fname"
+          placeholder="Firstname"
+          required
+          autofocus
+        />
+      </div>
+
+      <div class="form-input-group">
+        <label for="lname"></label>
+        <input type="text" id="lname" placeholder="Lastname" required />
+      </div>
+
+      <div class="form-input-group">
+        <label for="email"></label>
+        <input type="email" id="email" placeholder="example@gmail.com" required />
+      </div>
+
+      <div class="form-input-group">
         <label for="username"><i class="fas fa-user"></i></label>
-        <input type="text" id="username" v-model="user.username" placeholder="Username" required autofocus/>
+        <input
+          type="text"
+          id="username"
+          v-model="user.username"
+          placeholder="Username"
+          required
+          autofocus
+        />
       </div>
 
       <div class="form-input-group">
         <label for="password"><i class="fas fa-lock"></i></label>
-        <input type="password" id="password" v-model="user.password" placeholder="Password" required/>
+        <input
+          type="password"
+          id="password"
+          v-model="user.password"
+          placeholder="Password"
+          required
+        />
       </div>
 
       <div class="form-input-group">
         <label for="confirmPassword"><i class="fas fa-lock"></i></label>
-        <input type="password" id="confirmPassword" v-model="user.confirmPassword" placeholder="Confirm Password" required/>
+        <input
+          type="password"
+          id="confirmPassword"
+          v-model="user.confirmPassword"
+          placeholder="Confirm Password"
+          required
+        />
       </div>
 
       <button type="submit" class="submit-button">Create Account</button>
 
       <p>
-        <router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link>
+        <router-link v-bind:to="{ name: 'login' }"
+          >Already have an account? Log in.</router-link
+        >
       </p>
     </form>
   </div>
 </template>
 
 <script>
-import authService from '../services/AuthService';
+import authService from "../services/AuthService";
 
 export default {
   data() {
     return {
       user: {
-        username: '',
-        password: '',
-        confirmPassword: '',
-        role: 'user',
+        username: "",
+        password: "",
+        confirmPassword: "",
+        role: "user",
       },
       registrationErrors: false,
-      registrationErrorMsg: 'There were problems registering this user.',
+      registrationErrorMsg: "There were problems registering this user.",
     };
   },
   methods: {
     register() {
       if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
-        this.registrationErrorMsg = 'Password & Confirm Password do not match.';
+        this.registrationErrorMsg = "Password & Confirm Password do not match.";
       } else {
         authService
           .register(this.user)
           .then((response) => {
             if (response.status == 201) {
               this.$router.push({
-                path: '/login',
-                query: { registration: 'success' },
+                path: "/login",
+                query: { registration: "success" },
               });
             }
           })
@@ -67,14 +109,14 @@ export default {
             const response = error.response;
             this.registrationErrors = true;
             if (response.status === 400) {
-              this.registrationErrorMsg = 'Bad Request: Validation Errors';
+              this.registrationErrorMsg = "Bad Request: Validation Errors";
             }
           });
       }
     },
     clearErrors() {
       this.registrationErrors = false;
-      this.registrationErrorMsg = 'There were problems registering this user.';
+      this.registrationErrorMsg = "There were problems registering this user.";
     },
   },
 };
@@ -87,17 +129,18 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url('https://noahhelps.org/wp-content/uploads/2021/03/March_Meal-Prep-1030x515.jpeg') center/cover;
+  background: url("https://noahhelps.org/wp-content/uploads/2021/03/March_Meal-Prep-1030x515.jpeg")
+    center/cover;
 }
 
 .signup-container::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)); 
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
 }
 
 form {
@@ -106,7 +149,7 @@ form {
   border-radius: 10px;
   box-shadow: 0px 0px 15px rgba(4, 121, 0, 0.2);
   width: 600px;
-  height: 430px;
+  height: 500px;
   opacity: 0;
   animation: fadeIn 0.5s forwards, slideIn 0.5s forwards;
   z-index: 1;
@@ -130,7 +173,7 @@ form {
   }
 }
 h1 {
-  font-family: 'YourChosenFont', sans-serif; /* Replace 'YourChosenFont' with the selected font name */
+  font-family: "YourChosenFont", sans-serif; /* Replace 'YourChosenFont' with the selected font name */
   font-size: 2rem; /* Adjust the font size as needed */
   color: #333;
   font-weight: bold; /* Make the heading bold */

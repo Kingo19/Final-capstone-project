@@ -127,11 +127,14 @@ body {
 .features {
   display: flex;
   justify-content: space-around;
-  margin: 2rem 0;
+  margin: 15px;
+  gap: 15px;
 }
 
 .feature-card {
   background-color: #f8f8f8;
+  width: 450px;
+  height: 300px;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
