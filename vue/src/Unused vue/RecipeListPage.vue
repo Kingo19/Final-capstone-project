@@ -172,21 +172,21 @@ export default {
   margin-bottom: 10px;
 }
 
-.ingredient-list {
+.top-level-remove-div {
   margin-top: 10px;
 }
 
-.ingredient-list strong {
+.top-level-remove-div strong {
   display: block;
   margin-bottom: 5px;
 }
 
-.ingredient-list ul {
+.top-level-remove-div ul {
   padding: 0;
   list-style: none;
 }
 
-.ingredient-list li {
+.top-level-remove-div li {
   margin-bottom: 5px;
 }
 

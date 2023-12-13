@@ -24,7 +24,7 @@
       <!-- Ingredients Section -->
       <div class="input-group">
         <h3>Ingredients test</h3>    <!-- Header -->
-        <div class="ingredient-group" v-for="(ingredient, index) in formData.ingredients" :key="index">
+        <div class="add-items" v-for="(ingredient, index) in formData.ingredients" :key="index">
           <input :id="'ingredientName' + index" type="text" v-model="ingredient.ingredient_name" list="ingredientNames"
                  placeholder="Ingredient Name">
           <!-- Datalist is for predictive text. Array is used named foodName from foodNameArray.js -->
@@ -200,7 +200,7 @@ select {
   background-color: #45A049; /* Darker shade on hover */
 }
 
-.ingredient-group {
+.add-items {
   display: flex;
   align-items: center;
   margin-bottom: 10px;

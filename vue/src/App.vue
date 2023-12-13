@@ -2,7 +2,7 @@
   <div id="capstone-app">
     <header-view></header-view>
     <router-view/>
-    <footer-view/>
+<!--    <footer-view/>-->
   </div>
 </template>
 <script setup>

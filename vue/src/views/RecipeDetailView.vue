@@ -1,9 +1,5 @@
 <template>
   <div>
-<!--    <RecipeDetailPage v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto"/>-->
-<!--    <test-details-page v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto"></test-details-page>-->
-<!--    <test-selected-recipe v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto"></test-selected-recipe>-->
-<!--    <test-selected-recipe  :recipe-dto="recipeDto"></test-selected-recipe>-->
     <small-recipe-cards v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto" ></small-recipe-cards>
   </div>
 </template>

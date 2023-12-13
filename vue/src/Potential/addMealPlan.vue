@@ -7,7 +7,7 @@
         <input type="text" id="mealName" v-model="mealPlanData.plan_name" required :maxlength="maxLenInput"
           placeholder="Enter meal plan name">
       </div>
-    
+      <!-- Meal Plan Date -->
       <div class="input-group">
         <label for="mealDate">Please select the sunday of your weekly plan</label>
         <input type="date" id="mealPlanDate" name="mealPlanDate" v-model="mealPlanData.mealPlanDate">
@@ -49,8 +49,8 @@ export default {
       isSunday: true,
       mealPlanData: {
         plan_name: "",
-        mealId: "",
-        mealPlanDate: ""
+        mealPlanDate: "",
+        mealIds: []
       }
     }
   },
@@ -73,9 +73,19 @@ export default {
       });
       console.log(this.userMeals)
     },
-    addMeal(){
+    addMeal(index) {
+      let removeFromArray = this.recipeNamesToCheck
+      let removedElement = removeFromArray[index]
+      removeFromArray.splice(index, 1);
 
-    }
+      
+    },
+    removeRecipe(index) {
+      let removeFromArray = this.mealData.recipeNames
+      let removedElement = removeFromArray[index]
+      removeFromArray.splice(index, 1);
+      this.recipeNamesToCheck.push(removedElement.recipeName);
+    },
 
   },
   mounted() {
