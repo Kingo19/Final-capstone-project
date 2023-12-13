@@ -85,9 +85,10 @@ export default {
         return value.mealName === this.item.mealName
       })
       console.log(selectedMeal)
-      
+
+      // add Meal Name to selectedMeal
       this.userMealNames.push(selectedMeal.mealName)
-      this.mealPlanData.userMealIds.push(selectedMeal.mealId)
+      this.mealPlanData.mealIds.push(selectedMeal.mealId)
 
 
       let removeFromArray = this.userMeals
@@ -99,9 +100,18 @@ export default {
       
     },
     removeMeal(index) {
-      let removeFromArray = this.mealPlanData.mealIds
-      let removedElement = removeFromArray[index]
-      removeFromArray.splice(index, 1);
+      //remove Meal Name
+      let removeFromArray1 = this.userMealNames
+      let removedElement1 = removeFromArray1[index]
+      removeFromArray1.splice(index, 1);
+      //remove Meal Id
+      let removeFromArray2 = this.userMealNames
+      let removedElement2 = removeFromArray1[index]
+      removeFromArray2.splice(index, 1);
+      //Assign it to meal object
+
+      let removedMeal = {mealName: removedElement1, mealId: removedElement2}
+      this.userMeals.push(removedMeal)
     },
 
   },
