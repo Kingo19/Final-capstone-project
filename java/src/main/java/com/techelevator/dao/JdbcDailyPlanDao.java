@@ -36,6 +36,8 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
             jdbcTemplate.update(SQL_BEGIN);
             dailyPlan = dailyPlanDToDailyPlan(dailyPlanDto, userId);
 
+            System.out.println(dailyPlanDto.toString());
+
             dailyPlan.setPlanId(jdbcTemplate.queryForObject(sql, int.class, dailyPlan.getPlanName(), Date.valueOf(dailyPlan.getDateOfPlan()), userId));
             insertIntoDailyPlanMeals(dailyPlan);
             jdbcTemplate.update(SQL_COMMIT);

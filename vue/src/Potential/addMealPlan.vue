@@ -58,7 +58,7 @@ export default {
       isSunday: true,
       mealPlanData: {
         planName: '',
-        date: '',
+        date: "",
         mealsWithTime: []
       }
     }
@@ -66,7 +66,7 @@ export default {
   methods: {
     submitMealPlan() {
       // Add logic to submit meal plan data
-      let MealPlanDateCheck = new Date(this.mealPlanData.mealPlanDate)
+      let MealPlanDateCheck = new Date(this.mealPlanData.date)
       console.log(MealPlanDateCheck)
       this.isSunday = MealPlanDateCheck.getDay() === 6
       if(this.isSunday) {
