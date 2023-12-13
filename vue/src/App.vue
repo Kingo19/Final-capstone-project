@@ -32,9 +32,9 @@ height: 1080px;*/
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   grid-template-areas:
-    "header header header"
-    "innerBody . ."
-    "footer footer footer";
+    "header"
+    "innerBody"
+    "footer";
   gap: 8px;
 }
 
