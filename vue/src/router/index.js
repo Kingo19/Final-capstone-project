@@ -6,7 +6,7 @@ import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import RecipeDetailView from '../views/RecipeDetailView.vue';
+import RecipeDetailView from '../views/AllRecipesView.vue';
 import addMeal from "@/components/AddMeal.vue";
 import test1 from "@/Potential/test1.vue";
 import test2 from "@/Potential/test2.vue";
@@ -19,7 +19,7 @@ import test8 from "@/Potential/test8.vue";
 import test9 from "@/Potential/test9.vue";
 import test10 from "@/Potential/test10.vue";
 import testAddRecipe from "@/components/CurrentAddRecipe.vue";
-import smallRecipeCards from "@/components/smallRecipeCards.vue";
+import AllRecipeSmallRecipeCards from "@/components/AllRecipeSmallRecipeCards.vue";
 import testSelectedRecipe from "@/components/testSelectedRecipe.vue";
 import addMealPlan from "../Potential/addMealPlan.vue";
 
@@ -156,14 +156,6 @@ const routes = [
         path: '/test10',
         name: "test10",
         component: test10,
-        meta: {
-            requiresAuth: false
-        }
-    },
-    {
-        path: '/test11',
-        name: "test11",
-        component: smallRecipeCards,
         meta: {
             requiresAuth: false
         }
