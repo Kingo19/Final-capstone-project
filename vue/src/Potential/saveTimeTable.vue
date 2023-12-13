@@ -123,20 +123,18 @@ export default {
 
 
 <template>
-  <div class="top">
   <div class="week-view-container">
     <div class="week-header">
       <div class="day-header" v-for="day in days" :key="day">{{ day }}</div>
     </div>
     <div class="week-content">
       <div class="day-column" v-for="day in days" :key="day">
-        <div :id="time" class="time-slot" v-for="time in hours" :key="time" @click="onTimeSlotClick(day, time)">
+        <div :id="time" class="time-slot" v-for="time in times" :key="time" @click="onTimeSlotClick(day, time)">
           {{ time }}
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -146,7 +144,6 @@ export default {
     return {
       days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       times: this.generateTimes(),
-      hours: this.generateHours(),
     };
   },
   methods: {
@@ -159,20 +156,6 @@ export default {
       }
       return times;
     },
-
-    generateHours() {
-      let times = [];
-      times.push("12 AM")
-      for (let hour = 1; hour < 12; hour++) {
-        times.push(`${hour} AM`)
-      }
-      times.push("12 PM")
-      for (let hour = 1; hour < 12; hour++) {
-        times.push(`${hour} PM`)
-      }
-      return times
-    },
-
     onTimeSlotClick(day, time) {
       console.log(`Clicked on ${day} at ${time}`);
       // Add your click event handling logic here
@@ -182,18 +165,13 @@ export default {
 </script>
 
 <style scoped>
-
-.top{
-  display: flex;
-  justify-content: center;
-/*  max-width: 90vw;
-  max-height: 60vh;*/
-}
-
 .week-view-container {
   display: flex;
   flex-direction: column;
-  width: 900px;
+  max-width: 80vw;
+  max-height: 80vh;
+  /*  justify-content: space-between;
+    align-items: center;*/
 }
 
 

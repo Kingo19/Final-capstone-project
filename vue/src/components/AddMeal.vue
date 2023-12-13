@@ -22,7 +22,7 @@
               :value="itemRecipeName"
             ></option>
           </datalist>
-          <h2 id="problem1" v-if="isNameInDatabase">{{ badNamePrompt }}</h2>
+<!--          <h2 id="problem1" v-if="isNameInDatabase">{{ badNamePrompt }}</h2>-->
         </div>
       </div>
 
@@ -91,22 +91,8 @@ export default {
         recipeNames: [],
         type: "",
       },
-      types: [
-        "Breakfast",
-        "Brunch",
-        "Lunch",
-        "Dinner",
-        "Appetizer",
-        "Salad",
-        "Main-course",
-        "Side-dish",
-        "Baked-goods",
-        "Dessert",
-        "Snack",
-        "Soup",
-        "Holiday",
-        "Vegetarian",
-      ],
+      types:["Breakfast","Lunch","Dinner","Appetizer","Salad","Main-course","Side-dish","Baked-goods","Dessert",
+        "Snack","Soup","Holiday", "Vegetarian"]
     };
   },
   methods: {
