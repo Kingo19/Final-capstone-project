@@ -107,4 +107,25 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
         }
         return planList;
     }
+
+    public DailyPlan updateDailyPlan(int planId, int userId, DailyPlanDto dailyPlanDto){
+        String sql = "UPDATE daily_plan SET daily_plan_name, dayofplan WHERE daily_plan_id = ?;";
+        DailyPlan plan = dailyPlanDToDailyPlan(dailyPlanDto, userId);
+        try{
+            plan.setPlanId(planId);
+            if (plan.getUserId() == userId){
+                deleteFromPlanMeals(plan);
+                jdbcTemplate.update(sql, plan.getPlanName(), Date.valueOf(plan.getDateOfPlan()), planId);
+                insertIntoDailyPlanMeals(plan);
+            }
+        }catch (Exception e){
+            System.out.println("Error updating plan, " + e);
+        }
+        return plan;
+    }
+
+    public void deleteFromPlanMeals(DailyPlan plan){
+        String sql = "DELETE FROM daily_plan_meals WHERE daily_plan_id = ?;";
+        jdbcTemplate.update(sql, plan.getPlanId());
+    }
 }

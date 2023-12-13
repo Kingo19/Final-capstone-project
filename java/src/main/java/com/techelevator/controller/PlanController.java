@@ -40,4 +40,16 @@ public class PlanController {
         int userId = userDao.getUserByUsername(principal.getName()).getId();
         return dailyPlanDao.getAllUserPlans(userId);
     }
+
+//    @RequestMapping(path = "user/week/{date}", method = RequestMethod.GET)
+//    public List<DailyPlan> getNextWeeksPlans(Principal principal, String dateInString){
+//
+//    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(path = "user/plans/edit/{id}", method = RequestMethod.GET)
+    public DailyPlan editPlan(Principal principal, @Valid @RequestBody DailyPlanDto dailyPlanDto, @PathVariable int id){
+        int userId = userDao.getUserByUsername(principal.getName()).getId();
+        return dailyPlanDao.updateDailyPlan(id,userId,dailyPlanDto);
+    }
 }

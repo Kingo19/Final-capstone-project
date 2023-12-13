@@ -5,7 +5,6 @@ import java.util.List;
 public class DailyPlanDto {
     private String planName;
     private String date;
-    //private String weekday;
     private List<String> mealIds;
 
     public DailyPlanDto(String planName, String date, List<String> mealIds) {

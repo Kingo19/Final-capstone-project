@@ -7,7 +7,6 @@ import com.techelevator.model.RecipeIngredientDto;
 import java.util.List;
 
 public interface MealDao {
-//    public void createMeal(List<RecipeIngredientDto> recipeIngredientList);
     public Meal createMeal(MealDto mealDto, int userId);
     public Meal mealDtoToMeal(MealDto mealDto);
     public Meal getMealByMealID(int mealId, int userId);
