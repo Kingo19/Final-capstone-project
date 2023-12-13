@@ -6,7 +6,8 @@ export function createStore(currentToken, currentUser) {
         state: {
             token: currentToken || '',
             user: currentUser || {},
-            userRecipeNames:[]
+            userRecipeNames:[],
+            recipeObjs:[]
         },
         mutations: {
             SET_AUTH_TOKEN(state, token) {
@@ -24,6 +25,9 @@ export function createStore(currentToken, currentUser) {
                 state.token = '';
                 state.user = {};
                 axios.defaults.headers.common = {};
+            },
+            setRecipeObjs(state, array){
+                state.recipeObjs = array
             }
         },
         getters: {

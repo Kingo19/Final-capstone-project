@@ -23,6 +23,8 @@ import test8 from "@/components/test8.vue";
 import test9 from "@/components/test9.vue";
 import test10 from "@/components/test10.vue";
 import testAddRecipe from "@/components/testAddRecipe.vue";
+import smallRecipeCards from "@/components/smallRecipeCards.vue";
+import testSelectedRecipe from "@/components/testSelectedRecipe.vue";
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -169,10 +171,27 @@ const routes = [
             requiresAuth: false
         }
     },
+
+    {
+        path: '/test11',
+        name: "test11",
+        component: smallRecipeCards,
+        meta: {
+            requiresAuth: false
+        }
+    },
     {
         path: '/addMeal',
         name: "addMeal",
         component: addMeal,
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/RecipeDetail/:recipeName',
+        name: "RecipeDetail",
+        component: testSelectedRecipe,
         meta: {
             requiresAuth: false
         }

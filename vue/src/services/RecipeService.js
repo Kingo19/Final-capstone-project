@@ -10,6 +10,10 @@ export default {
         return axios.get('http://localhost:9000/user/recipes', user)
     },
 
+    getRecipeByName(){
+        return axios.get('http://localhost:9000/user/recipes/{recipeName}')
+    },
+
     modifyRecipeAndIngredients(orgname, passin) {
         let recipeName = passin.recipe.recipe_name
         axios.put(  `http://localhost:9000/user/recipes/${orgname}/edit`, passin)
