@@ -97,6 +97,7 @@ daily_plan_id serial NOT NULL,
 --meal_plan_id int NOT NULL,
 dayOfPlan date NOT NULL,
 user_id int NOT NULL,
+UNIQUE (user_id,dayofplan),
 CONSTRAINT pk_daily_plan_id PRIMARY KEY (daily_plan_id),
 --CONSTRAINT fk_meal_plan_id FOREIGN KEY (meal_plan_id) REFERENCES meal_plan(meal_plan_id),
 CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
