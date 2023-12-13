@@ -105,6 +105,7 @@ CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
 CREATE TABLE daily_plan_meals (
 	daily_plan_id int NOT NULL,
 	meal_id int NOT NULL,
+	meal_time TIME,
 	CONSTRAINT fk_daily_plan_id FOREIGN KEY (daily_plan_id) REFERENCES daily_plan(daily_plan_id),
 	CONSTRAINT fk_meal_id FOREIGN KEY (meal_id) REFERENCES meal(meal_id)
 );

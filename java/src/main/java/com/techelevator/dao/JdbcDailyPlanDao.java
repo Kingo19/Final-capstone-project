@@ -1,13 +1,15 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.DailyPlan;
-import com.techelevator.model.DailyPlanDto;
-import com.techelevator.model.Meal;
+import com.techelevator.exception.DaoException;
+import com.techelevator.model.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,9 +19,13 @@ import java.util.List;
 public class JdbcDailyPlanDao implements DailyPlanDao{
     private final JdbcTemplate jdbcTemplate;
     private final JdbcMealDao jdbcMealDao;
+    private final String SQL_BEGIN = "BEGIN;";
+    private final String SQL_ROLLBACK = "ROLLBACK;";
+    private final String SQL_COMMIT = "COMMIT;";
 
-    public JdbcDailyPlanDao(JdbcTemplate jdbcTemplate, JdbcMealDao jdbcMealDao) {
-        this.jdbcTemplate = jdbcTemplate;
+
+    public JdbcDailyPlanDao(DataSource dataSource, JdbcMealDao jdbcMealDao) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
         this.jdbcMealDao = jdbcMealDao;
     }
 
@@ -27,71 +33,85 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
         DailyPlan dailyPlan = new DailyPlan();
         String sql = "INSERT INTO daily_plan(daily_plan_name,dayofplan,user_id) VALUES (?,?,?) RETURNING daily_plan_id;";
         try{
+            jdbcTemplate.update(SQL_BEGIN);
             dailyPlan = dailyPlanDToDailyPlan(dailyPlanDto, userId);
 
             dailyPlan.setPlanId(jdbcTemplate.queryForObject(sql, int.class, dailyPlan.getPlanName(), Date.valueOf(dailyPlan.getDateOfPlan()), userId));
             insertIntoDailyPlanMeals(dailyPlan);
+            jdbcTemplate.update(SQL_COMMIT);
         } catch (Exception e){
-            System.out.println("Error creating plan, " + e);
+            jdbcTemplate.update(SQL_ROLLBACK);
+            throw new DaoException("Error creating plan.");
         }
         return dailyPlan;
+
     }
 
     public DailyPlan dailyPlanDToDailyPlan(DailyPlanDto dailyPlanDto, int userId){
         DailyPlan dailyPlan = new DailyPlan();
-        List<Meal> mealList = new ArrayList<>();
+        List<MealTime> mealList = new ArrayList<>();
         dailyPlan.setPlanName(dailyPlanDto.getPlanName());
         dailyPlan.setDateOfPlan(LocalDate.parse(dailyPlanDto.getDate()));
         dailyPlan.setUserId(userId);
-        for(String currentId : dailyPlanDto.getMealIds()){
-            int currentIdCasted = Integer.parseInt(currentId);
-            Meal currentMeal = jdbcMealDao.getMealByMealID(currentIdCasted, userId);
-            mealList.add(currentMeal);
+        for(MealTimeDto currentMealTime : dailyPlanDto.getMealsWithTime()){
+            mealList.add(mealTimeDtoToMeal(currentMealTime, userId));
         }
-        dailyPlan.setPlanMeals(mealList);
+        dailyPlan.setMealTimes(mealList);
         return dailyPlan;
     }
 
     public void insertIntoDailyPlanMeals(DailyPlan dailyPlan){
-        String sql = "INSERT INTO daily_plan_meals(daily_plan_id,meal_id) VALUES (?,?);";
-        for(Meal currentMeal : dailyPlan.getPlanMeals()){
-            jdbcTemplate.update(sql, dailyPlan.getPlanId(), currentMeal.getMealId());
+        String sql = "INSERT INTO daily_plan_meals(daily_plan_id,meal_id,meal_time) VALUES (?,?,?);";
+        try{
+            for(MealTime currentMeal : dailyPlan.getMealTimes()){
+                jdbcTemplate.update(sql, dailyPlan.getPlanId(), currentMeal.getMealId(), currentMeal.getMealTime());
+            }
+        } catch (Exception e){
+            throw new DaoException("Error. " + e);
         }
     }
 
     public DailyPlan getPlanByDate(String date, int userId){
         DailyPlan plan = new DailyPlan();
-        List<Meal> mealList = new ArrayList<>();
-        String sql = "SELECT daily_plan_name, daily_plan.daily_plan_id, meal_id FROM daily_plan\n" +
+        List<MealTime> mealList = new ArrayList<>();
+        String sql = "SELECT daily_plan_name, daily_plan.daily_plan_id, meal_id, meal_time FROM daily_plan\n" +
                 "JOIN daily_plan_meals ON daily_plan_meals.daily_plan_id = daily_plan.daily_plan_id\n" +
                 "WHERE daily_plan.dayofplan = ? AND daily_plan.user_id = ?;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, Date.valueOf(date), userId);
         while(result.next()){
+            Meal meal = (jdbcMealDao.getMealByMealID(result.getInt("meal_id"), userId));
+            MealTime mealTime = setMealTimeInfo(meal);
+            mealTime.setMealTime(result.getTime("meal_time"));
             plan.setPlanName(result.getString("daily_plan_name"));
             plan.setPlanId(result.getInt("daily_plan_id"));
-            mealList.add(jdbcMealDao.getMealByMealID(result.getInt("meal_id"), userId));
+
+            mealList.add(mealTime);
         }
         plan.setDateOfPlan(LocalDate.parse(date));
         plan.setUserId(userId);
-        plan.setPlanMeals(mealList);
+        plan.setMealTimes(mealList);
         return plan;
     }
 
     public DailyPlan getPlanById(int planId, int userId){
         DailyPlan plan = new DailyPlan();
-        List<Meal> mealList = new ArrayList<>();
-        String sql = "SELECT daily_plan_name, daily_plan.dayofplan, meal_id FROM daily_plan\n" +
+        List<MealTime> mealList = new ArrayList<>();
+        String sql = "SELECT daily_plan_name, daily_plan.dayofplan, meal_id, meal_time FROM daily_plan\n" +
                 "JOIN daily_plan_meals ON daily_plan_meals.daily_plan_id = daily_plan.daily_plan_id\n" +
                 "WHERE daily_plan.daily_plan_id = ? AND daily_plan.user_id = ?;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, planId, userId);
         while(result.next()){
+            Meal meal = (jdbcMealDao.getMealByMealID(result.getInt("meal_id"), userId));
+            MealTime mealTime = setMealTimeInfo(meal);
+            mealTime.setMealTime(result.getTime("meal_time"));
             plan.setPlanName(result.getString("daily_plan_name"));
             plan.setDateOfPlan(result.getDate("dayofplan").toLocalDate());
-            mealList.add(jdbcMealDao.getMealByMealID(result.getInt("meal_id"), userId));
+
+            mealList.add(mealTime);
         }
         plan.setPlanId(planId);
         plan.setUserId(userId);
-        plan.setPlanMeals(mealList);
+        plan.setMealTimes(mealList);
         return plan;
     }
 
@@ -145,5 +165,25 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
             planList.add(getPlanById(currentId, userId));
         }
         return planList;
+    }
+
+    private MealTime mealTimeDtoToMeal(MealTimeDto mealTimeDto, int userId){
+        MealTime mealTime = new MealTime();
+        Meal meal = jdbcMealDao.getMealByMealID(mealTimeDto.getMealId(), userId);
+        mealTime.setMealId(mealTimeDto.getMealId());
+        mealTime.setMealTime(Time.valueOf(mealTimeDto.getTimeInString()));
+        mealTime.setMealName(meal.getMealName());
+        mealTime.setRecipeInfo(meal.getRecipeInfo());
+        mealTime.setType(meal.getType());
+        return mealTime;
+    }
+
+    private MealTime setMealTimeInfo(Meal meal){
+        MealTime mealTime = new MealTime();
+        mealTime.setType(meal.getType());
+        mealTime.setRecipeInfo(meal.getRecipeInfo());
+        mealTime.setMealName(meal.getMealName());
+        mealTime.setMealId(meal.getMealId());
+        return mealTime;
     }
 }
