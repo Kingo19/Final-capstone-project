@@ -20,7 +20,7 @@
 <script>
 
 import RecipeDetailPage from "@/components/RecipeDetailPage.vue";
-import RecipeDetailPageSingle from "@/components/RecipeDetailPageSingle.vue";
+import RecipeDetailPageSingle from "@/Potential/RecipeDetailPageSingle.vue";
 
 export default {
   components: {RecipeDetailPageSingle, RecipeDetailPage},

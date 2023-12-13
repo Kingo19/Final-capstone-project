@@ -6,7 +6,7 @@ import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import RecipeDetailView from '../views/AllRecipesView.vue';
+import AllRecipesView from "@/views/AllRecipesView.vue";
 import addMeal from "@/components/AddMeal.vue";
 import test1 from "@/Potential/test1.vue";
 import test2 from "@/Potential/test2.vue";
@@ -66,7 +66,7 @@ const routes = [
     {
         path: "/all/recipes",
         name: "recipeDetailView",
-        component: RecipeDetailView,
+        component: AllRecipesView,
         meta: {
             requiresAuth: false
         }

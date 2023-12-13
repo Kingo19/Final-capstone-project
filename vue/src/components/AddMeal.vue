@@ -30,12 +30,12 @@
 
 <!--    Add Recipe into meal-->
       <div class="input-group">
-        <h3>Add a recipe to your me</h3>
+        <h3>Add a recipe to your meal</h3>
         <div class="add-items">
           <select :disabled="recipeNamesToCheck.length === 0" id="recipeName" v-model="item.recipeName">
             <option class="recipe-item" v-for="(recipe, index) in recipeNamesToCheck" :key="index">{{recipe}}</option>
           </select>
-          <button type="button" @click="addRecipe">Add Recipe</button>
+          <button type="button" @click="addRecipe">Add {{ addButton  }}</button>
         </div>
       </div>
 
@@ -62,6 +62,7 @@ import RecipeService from "@/services/RecipeService";
 export default {
   data() {
     return {
+      addButton: "Recipe",
       recipeNamesToCheck: [],
       item: { recipeName: '' },
       maxLenInput: 255,
