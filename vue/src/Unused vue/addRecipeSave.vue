@@ -1,10 +1,10 @@
 <template>
   <div id="app" class="app-container">
-    <form id="form" v-on:submit.prevent="submitForm" class="recipe-form">
+    <form id="form" v-on:submit.prevent="submitForm" class="formClass">
       <!-- Recipe Name -->
       <div class="input-group">
         <h3>Recipe Name</h3>
-        <div class="recipe-group">
+        <div class="name-group">
           <input type="text" id="recipeName" v-model="formData.recipe.recipe_name"
                  list="recipeNames"
                  :aria-required="requiredFields.recipeName.toString()"
@@ -34,7 +34,7 @@
       <!-- Ingredients List -->
       <div class="input-group">
         <h3>Ingredients</h3>
-        <div class="ingredient-group">
+        <div class="add-items">
           <input id="ingredientName" type="text" v-model="item.ingredient_name"
                  list="ingredientNames"
                  placeholder="Ingredient Name">
@@ -46,8 +46,8 @@
       </div>
 
       <!-- Ingredients Items -->
-      <div class="ingredient-list">
-        <div class="ingredient-item" v-for="(ingredient, index) in formData.ingredients" :key="index">
+      <div class="top-level-remove-div">
+        <div class="show-list-added-items-or-remove" v-for="(ingredient, index) in formData.ingredients" :key="index">
           <p>{{ ingredient.ingredient_name }}</p>
           <button type="button" @click="removeIngredient(index)">Remove</button>
         </div>
@@ -164,7 +164,7 @@ export default {
   padding: 20px;
 }
 
-.recipe-form {
+.formClass {
   background-color: #fff8dc;
   border-radius: 10px;
   padding: 20px;
@@ -193,18 +193,18 @@ input[type='text'], textarea {
   color: #333;
 }
 
-.ingredient-group {
+.add-items {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.ingredient-list {
+.top-level-remove-div {
   display: flex;
   flex-direction: column;
 }
 
-.ingredient-item {
+.show-list-added-items-or-remove {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -228,7 +228,7 @@ input[type='text'], textarea {
 }
 
 @media (max-width: 768px) {
-  .recipe-form {
+  .formClass {
     max-width: 90%;
   }
 }

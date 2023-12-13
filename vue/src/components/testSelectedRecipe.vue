@@ -2,7 +2,7 @@
   <div class="card-container">
     <div class="card">
       <div class="card-image">
-<!--        <img :src="recipe.image" alt="Recipe Image" />-->
+        <img src="https://s-media-cache-ak0.pinimg.com/736x/57/98/9f/57989f2a2e186e38bf93429aa395120c.jpg" alt="Recipe Image" />
       </div>
       <div class="card-details">
         <div class="cont_tabs">
@@ -20,7 +20,7 @@
         </div>
         <div class="instructions" v-show="activeTab === 'instructions'">
           <h3>Instructions</h3>
-          <p>{{ recipeDto.recipe }}</p>
+          <p>{{ recipeDto.recipe.recipe_instructions }}</p>
         </div>
       </div>
     </div>

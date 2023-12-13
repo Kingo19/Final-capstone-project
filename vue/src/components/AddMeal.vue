@@ -1,37 +1,48 @@
 <template>
-  <div id="mealApp" class="meal-container">
-    <form id="mealForm" @submit.prevent="submitMeal" class="meal-form">
+  <div id="app" class="app-container">
+    <form id="mealForm" @submit.prevent="submitMeal" class="formClass">
       <!-- Meal Name -->
       <div class="input-group">
-        <label for="mealName">Meal Name</label>
-        <input type="text" id="mealName" v-model="mealData.mealName"
-               required
-               :maxlength="maxLenInput"
-               placeholder="Enter meal name">
+        <h3>Meal Name</h3>
+        <div class="name-group">
+          <input type="text" id="mealname" v-model="mealData.mealName"
+                 list="mealNames"
+                 required
+                 :max="maxLenInput"
+                 placeholder="Enter meal name">
+          <datalist id="mealName">
+            <option class="innerRecipeNames" v-for="itemRecipeName in this.recipeNamesToCheck"
+                    :key="itemRecipeName"
+                    :value="itemRecipeName" ></option>
+          </datalist>
+          <h2 id="problem1" v-if="isNameInDatabase">{{ badNamePrompt }}</h2>
+        </div>
       </div>
 
       <!-- Meal Type -->
       <div class="input-group">
-        <label for="mealType">Meal Type</label>
+        <h3>Meal Type</h3>
         <select id="mealType" v-model="mealData.type">
           <option v-for="(eachType, num) in types" :key="num"  :value="eachType">{{ eachType }}</option>
         </select>
       </div>
 
+
+<!--    Add Recipe into meal-->
       <div class="input-group">
-        <h3>Add a recipe to your meal</h3>
-        <div class="recipe-group">
-        <label for="recipeNames"></label>
-        <select :disabled="recipeNamesToCheck.length === 0" id="recipeName" v-model="item.recipeName">
-          <option class="recipe-item" v-for="(recipe, index) in recipeNamesToCheck" :key="index">{{recipe}}</option>
-        </select>
-        <button type="button" @click="addRecipe">Add Ingredient</button>
+        <h3>Add a recipe to your me</h3>
+        <div class="add-items">
+          <select :disabled="recipeNamesToCheck.length === 0" id="recipeName" v-model="item.recipeName">
+            <option class="recipe-item" v-for="(recipe, index) in recipeNamesToCheck" :key="index">{{recipe}}</option>
+          </select>
+          <button type="button" @click="addRecipe">Add Recipe</button>
         </div>
       </div>
 
-      <!-- recipes Items -->
-      <div class="recipe-list">
-        <div class="recipe-item" v-for="(recipe, index) in mealData.recipeNames" :key="index">
+
+      <!-- Remove items -->
+      <div class="top-level-remove-div">
+        <div class="show-list-added-items-or-remove"  v-for="(recipe, index) in mealData.recipeNames" :key="index">
           <p>{{ recipe }}</p>
           <button type="button" @click="removeRecipe(index)">Remove</button>
         </div>
@@ -110,19 +121,35 @@ export default {
 </script>
 
 <style scoped>
-
-.meal-container {
-  font-family: Arial, sans-serif;
-  background-color: rgb(239, 234, 231);
-  min-height: 100vh;
-  padding: 20px;
+#problem1{
+  color:red;
 }
 
-.meal-form{
+#app {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.app-container {
+  /*  background-color: rgb(239 234 231);*/
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+
+.formClass {
+  /*  background-color: #fff8dc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
   background-color: #fff8dc;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 60%; /* Adjust the width as per your requirement */
+  max-width: 800px; /* Set a max-width to ensure it doesn't get too wide on larger screens */
+  margin: auto; /* This will center the form if it's smaller than the parent container */
 }
 
 .input-group {
@@ -138,27 +165,27 @@ label {
   color: #333;
 }
 
-input[type='text'], textarea, select {
+input[type='text'], select {
   width: 100%;
   padding: 5px;
   border: 2px solid #ccc;
   border-radius: 5px;
   font-size: 1em;
-  color: black;
+  color: #333;
 }
 
-.recipe-group {
+.add-items {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.recipe-list {
+.top-level-remove-div {
   display: flex;
   flex-direction: column;
 }
 
-.recipe-item {
+.show-list-added-items-or-remove {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -172,24 +199,18 @@ input[type='text'], textarea, select {
 }
 
 .submit-button {
-  background-color: #ffcc00;
-  border: none;
-  color: #333;
-  padding: 10px 15px;
-  text-transform: uppercase;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1.2em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.submit-button:hover {
-  background-color: #e6b800;
-}
+/*.submit-button:hover {
+  background-color: #45A049;
+}*/
 
-@media (max-width: 768px) {
-  .meal-plan-form {
+/*@media (max-width: 768px) {
+  .recipe-form {
     max-width: 90%;
   }
-}
-
+}*/
 </style>
