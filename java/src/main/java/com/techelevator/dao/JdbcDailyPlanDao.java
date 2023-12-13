@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Component
@@ -127,5 +128,22 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
     public void deleteFromPlanMeals(DailyPlan plan){
         String sql = "DELETE FROM daily_plan_meals WHERE daily_plan_id = ?;";
         jdbcTemplate.update(sql, plan.getPlanId());
+    }
+
+    public List<DailyPlan> getNextWeekPlans(int userId){
+        List<Integer> idsList = new ArrayList<>();
+        List<DailyPlan> planList = new ArrayList<>();
+        String sql = "SELECT daily_plan_id FROM daily_plan \n" +
+                "WHERE dayofplan BETWEEN current_date AND (current_date + 7) \n" +
+                "AND user_id = ?;";
+
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
+        while(result.next()){
+            idsList.add(result.getInt("daily_plan_id"));
+        }
+        for(Integer currentId : idsList){
+            planList.add(getPlanById(currentId, userId));
+        }
+        return planList;
     }
 }
