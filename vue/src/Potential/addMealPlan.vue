@@ -7,30 +7,23 @@
         <input type="text" id="mealName" v-model="mealPlanData.plan_name" required :maxlength="maxLenInput"
           placeholder="Enter meal plan name">
       </div>
-      <!-- Previous Code Displaying Meal Type Options -->
-
-      <!-- <option v-for="(eachType, num) in types" :key="num" :value="eachType">{{ eachType }}</option> -->
-
-      <!-- Meal Type -->
+    
       <div class="input-group">
-        <label for="mealType">Please select the sunday of your weekly plan</label>
-        <!-- Previous Code -->
-
-        <!-- <select id="mealType" v-model="mealPlanData.type">
-          <option v-for="(eachType, num) in types" :key="num"  :value="eachType">{{ eachType }}</option>
-        </select> -->
-        
-        <!-- Basic input for adding a Meal Plan Date. Needs styling -->
-
+        <label for="mealDate">Please select the sunday of your weekly plan</label>
         <input type="date" id="mealPlanDate" name="mealPlanDate" v-model="mealPlanData.mealPlanDate">
       </div>
       
 
-      <!-- Meal Names -->
+      <!-- Meal List -->
       <div class="input-group">
-        <label for="mealNames">Meal Names</label>
-        <textarea id="mealNames" v-model="mealPlanData.mealNames" required rows="3" cols="50"
-          placeholder="Enter meal names, separated by commas"></textarea>
+        <h3>Add a recipe to your meal</h3>
+        <div class="meal-group">
+        <label for="userMeals"></label>
+        <select :disabled="userMeals.length === 0" id="recipeName">
+          <option class="recipe-item" v-for="(meal, index) in userMeals" :key="index">{{ meal.mealName }}</option>
+        </select>
+        <button type="button" @click="addMeal">Add Meal</button>
+        </div>
       </div>
 
       <!-- Submit Button -->
@@ -51,12 +44,12 @@ export default {
   data() {
     return {
       user: this.$store.state.user,
-      UserMeals: [],
+      userMeals: [],
       maxLenInput: 255,
       isSunday: true,
       mealPlanData: {
         plan_name: "",
-        mealNames: "",
+        mealId: "",
         mealPlanDate: ""
       }
     }
@@ -75,9 +68,13 @@ export default {
     },
     retrieveUserMeals(){
       RecipeService.getUserMeals().then(cu => {
-        this.UserMeals = cu.data
+        console.log(cu)
+         this.userMeals = cu.data
       });
-      console.log(this.UserMeals)
+      console.log(this.userMeals)
+    },
+    addMeal(){
+
     }
 
   },
