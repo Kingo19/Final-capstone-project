@@ -2,7 +2,7 @@ package com.techelevator.model;
 
 public class MealTimeDto {
     private int mealId;
-    private String timeInString;
+    private String timeInString = null;
     public MealTimeDto(int mealId, String timeInString) {
         this.mealId = mealId;
         this.timeInString = timeInString;

@@ -41,7 +41,7 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
             jdbcTemplate.update(SQL_COMMIT);
         } catch (Exception e){
             jdbcTemplate.update(SQL_ROLLBACK);
-            throw new DaoException("Error creating plan.");
+            throw new DaoException("Error creating plan." + e.getCause());
         }
         return dailyPlan;
 
@@ -171,7 +171,9 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
         MealTime mealTime = new MealTime();
         Meal meal = jdbcMealDao.getMealByMealID(mealTimeDto.getMealId(), userId);
         mealTime.setMealId(mealTimeDto.getMealId());
-        mealTime.setMealTime(Time.valueOf(mealTimeDto.getTimeInString()));
+        if(mealTimeDto.getTimeInString() != null && !mealTimeDto.getTimeInString().trim().isEmpty()){
+            mealTime.setMealTime(Time.valueOf(mealTimeDto.getTimeInString()));
+        }
         mealTime.setMealName(meal.getMealName());
         mealTime.setRecipeInfo(meal.getRecipeInfo());
         mealTime.setType(meal.getType());
