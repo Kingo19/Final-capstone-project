@@ -8,16 +8,16 @@ import java.util.List;
 public class DailyPlan {
     private int planId;
     private String planName;
-    private List<Meal> planMeals;
+    private List<MealTime> mealTimes;
     private int userId;
     private LocalDate dateOfPlan;
 
 
 
-    public DailyPlan(int planId, String planName, List<Meal> planMeals, int userId, LocalDate dateOfPlan) {
+    public DailyPlan(int planId, String planName, List<MealTime> mealTimes, int userId, LocalDate dateOfPlan) {
         this.planId = planId;
         this.planName = planName;
-        this.planMeals = planMeals;
+        this.mealTimes = mealTimes;
         this.userId = userId;
         this.dateOfPlan = dateOfPlan;
     }
@@ -41,14 +41,6 @@ public class DailyPlan {
         this.planName = planName;
     }
 
-    public List<Meal> getPlanMeals() {
-        return planMeals;
-    }
-
-    public void setPlanMeals(List<Meal> planMeals) {
-        this.planMeals = planMeals;
-    }
-
     public int getUserId() {
         return userId;
     }
@@ -63,5 +55,13 @@ public class DailyPlan {
 
     public void setDateOfPlan(LocalDate dateOfPlan) {
         this.dateOfPlan = dateOfPlan;
+    }
+
+    public List<MealTime> getMealTimes() {
+        return mealTimes;
+    }
+
+    public void setMealTimes(List<MealTime> mealTimes) {
+        this.mealTimes = mealTimes;
     }
 }

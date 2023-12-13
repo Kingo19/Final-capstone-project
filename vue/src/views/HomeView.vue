@@ -209,6 +209,7 @@ footer {
 
 .title {
   margin-left: 50px;
+  color: white;
 }
 
 

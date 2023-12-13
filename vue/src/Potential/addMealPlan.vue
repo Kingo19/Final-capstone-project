@@ -3,73 +3,120 @@
     <form id="mealPlanForm" @submit.prevent="submitMealPlan" class="meal-plan-form">
       <!-- Meal Plan Name -->
       <div class="input-group">
-        <label for="mealName">Meal Name</label>
-        <input type="text" id="mealName" v-model="mealPlanData.plan_name"
-               required
-               :maxlength="maxLenInput"
-               placeholder="Enter meal plan name">
+        <label for="mealName">Meal Plan Name</label>
+        <input type="text" id="mealName" v-model="mealPlanData.plan_name" required :maxlength="maxLenInput"
+          placeholder="Enter meal plan name">
       </div>
-      <option v-for="(eachType, num) in types" :key="num"  :value="eachType">{{ eachType }}</option>
-      <!-- Meal Type -->
+      <!-- Meal Plan Date -->
       <div class="input-group">
-        <label for="mealType">Meal Type</label>
-        <select id="mealType" v-model="mealPlanData.type">
-          <option v-for="(eachType, num) in types" :key="num"  :value="eachType">{{ eachType }}</option>
-        </select>
+        <label for="mealDate">Please select the sunday of your weekly plan</label>
+        <input type="date" id="mealPlanDate" name="mealPlanDate" v-model="mealPlanData.mealPlanDate">
       </div>
+      
 
-      <!-- Meal Names -->
+      <!-- Meal List -->
       <div class="input-group">
-        <label for="mealNames">Meal Names</label>
-        <textarea id="mealNames" v-model="mealPlanData.mealNames"
-                  required
-                  rows="3" cols="50"
-                  placeholder="Enter meal names, separated by commas"></textarea>
+        <h3>Add a meal to your plan</h3>
+        <div class="meal-group">
+        <label for="userMeals"></label>
+        <select :disabled="userMeals.length === 0" id="mealName" v-model="item.mealName">
+          <option class="meal-item" v-for="(meal, index) in userMeals" :key="index">{{ meal.mealName }}</option>
+        </select>
+        <button type="button" @click="addMeal">Add Meal</button>
+        </div>
+      </div>
+      <!-- Remove Button -->
+      <div class="top-level-remove-div">
+        <div class="show-list-added-items-or-remove"  v-for="(name, index) in userMealNames" :key="index">
+          <p>{{ name }}</p>
+          <button type="button" @click="removeMeal(index)">Remove</button>
+        </div>
       </div>
 
       <!-- Submit Button -->
       <div class="button-group">
         <button type="submit" class="submit-button">Submit Meal Plan</button>
       </div>
+      <div>
+        <p v-if="!isSunday">Please Select A Sunday!</p>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
+import RecipeService from "@/services/RecipeService";
+
 export default {
   data() {
     return {
+      user: this.$store.state.user,
+      userMeals: [],
+      userMealNames: [],
+      item: {mealName: ''},
       maxLenInput: 255,
+      isSunday: true,
       mealPlanData: {
         plan_name: "",
-        mealNames: "",
-        type: ""
-      },
-      types:[
-        "Breakfast",
-        "Brunch",
-        "Lunch",
-        "Dinner",
-        "Appetizer",
-        "Salad",
-        "Main-course",
-        "Side-dish",
-        "Baked-goods",
-        "Dessert",
-        "Snack",
-        "Soup",
-        "Holiday",
-        "Vegetarian"
-      ]
-
+        mealPlanDate: "",
+        mealIds: []
+      }
     }
   },
   methods: {
     submitMealPlan() {
       // Add logic to submit meal plan data
-      console.log(this.mealPlanData);
+      let MealPlanDateCheck = new Date(this.mealPlanData.mealPlanDate)
+      console.log(MealPlanDateCheck)
+      this.isSunday = MealPlanDateCheck.getDay() === 6
+      if(this.isSunday) {
+
+        console.log(this.mealPlanData);
+      }
       // Call a service to POST the data to your endpoint
-    }
+    },
+    retrieveUserMeals(){
+      RecipeService.getUserMeals().then(cu => {
+         this.userMeals = cu.data
+      });
+    },
+    addMeal(index) {
+      let selectedMeal = this.userMeals.find(value => {
+        return value.mealName === this.item.mealName
+      })
+      console.log(selectedMeal)
+
+      // add Meal Name to selectedMeal
+      this.userMealNames.push(selectedMeal.mealName)
+      this.mealPlanData.mealIds.push(selectedMeal.mealId)
+
+
+      let removeFromArray = this.userMeals
+      let removedElement = removeFromArray[index]
+      removeFromArray.splice(index, 1);
+
+      console.log(this.item.mealName)
+      
+      
+    },
+    removeMeal(index) {
+      //remove Meal Name
+      let removeFromArray1 = this.userMealNames
+      let removedElement1 = removeFromArray1[index]
+      removeFromArray1.splice(index, 1);
+      //remove Meal Id
+      let removeFromArray2 = this.userMealNames
+      let removedElement2 = removeFromArray1[index]
+      removeFromArray2.splice(index, 1);
+      //Assign it to meal object
+
+      let removedMeal = {mealName: removedElement1, mealId: removedElement2}
+      this.userMeals.push(removedMeal)
+    },
+
+  },
+  mounted() {
+    this.retrieveUserMeals()
   }
 }
 </script>
@@ -102,7 +149,9 @@ label {
   color: #333;
 }
 
-input[type='text'], textarea, select {
+input[type='text'],
+textarea,
+select {
   width: 100%;
   padding: 5px;
   border: 2px solid #ccc;
@@ -137,5 +186,4 @@ input[type='text'], textarea, select {
     max-width: 90%;
   }
 }
-
 </style>

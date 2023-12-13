@@ -18,6 +18,9 @@ public class JdbcMealDao implements MealDao {
     private final JdbcTemplate jdbcTemplate;
     private final JdbcRecipeIngredientDao jdbcRecipeIngredientDao;
     private final JdbcRecipeDao jdbcRecipeDao;
+    private final String SQL_BEGIN = "BEGIN;";
+    private final String SQL_ROLLBACK = "ROLLBACK;";
+    private final String SQL_COMMIT = "COMMIT;";
 
     public JdbcMealDao(JdbcTemplate jdbcTemplate, JdbcRecipeIngredientDao jdbcRecipeIngredientDao, JdbcRecipeDao jdbcRecipeDao) {
         this.jdbcTemplate = jdbcTemplate;
@@ -29,12 +32,18 @@ public class JdbcMealDao implements MealDao {
     public Meal createMeal(MealDto mealDto, int userId) {
         Meal meal = mealDtoToMeal(mealDto);
         String sql = "INSERT INTO meal(meal_name) VALUES (?) RETURNING meal_id;";
-
-        int mealId = jdbcTemplate.queryForObject(sql, int.class, meal.getMealName());
-        meal.setMealId(mealId);
-        insertIntoMealType(meal);
-        insertIntoMealRecipe(meal);
-        insertIntoUserMeal(meal, userId);
+        try{
+            jdbcTemplate.update(SQL_BEGIN);
+            int mealId = jdbcTemplate.queryForObject(sql, int.class, meal.getMealName());
+            meal.setMealId(mealId);
+            insertIntoMealType(meal);
+            insertIntoMealRecipe(meal);
+            insertIntoUserMeal(meal, userId);
+            jdbcTemplate.update(SQL_COMMIT);
+        } catch (Exception e){
+            jdbcTemplate.update(SQL_ROLLBACK);
+            throw e;
+        }
         return meal;
     }
 
