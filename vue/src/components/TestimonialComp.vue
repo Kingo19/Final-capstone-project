@@ -1,6 +1,10 @@
 <template>
   <div class="testimonial">
-    <div v-for="testimonial in testimonials" :key="testimonial.persona" class="testimonial-item">
+    <div
+      v-for="testimonial in testimonials"
+      :key="testimonial.persona"
+      class="testimonial-item"
+    >
       <div class="user-info">
         <div class="avatar"></div>
         <div class="user-details">
@@ -15,21 +19,24 @@
 
 <script>
 export default {
-  name: 'TestimonialCompPage',
+  name: "TestimonialCompPage",
   data() {
     return {
       testimonials: [
         {
           persona: "John Doe",
-          review: "This ingredient tracking feature has been a game-changer for me! It helps me stay organized and plan my meals effectively. Highly recommended!",
+          review:
+            "This ingredient tracking feature has been a game-changer for me! It helps me stay organized and plan my meals effectively. Highly recommended!",
         },
         {
           persona: "Jane Smith",
-          review: "As a busy working professional, managing ingredients has always been a hassle. But with this app, I can easily keep track of what I have and what I need. It saves me time and stress!",
+          review:
+            "As a busy working professional, managing ingredients has always been a hassle. But with this app, I can easily keep track of what I have and what I need. It saves me time and stress!",
         },
         {
           persona: "David Johnson",
-          review: "I love cooking, but I often forget to buy essential ingredients. This app solves that problem by allowing me to add ingredients and create shopping lists. It's a must-have for any home cook!",
+          review:
+            "I love cooking, but I often forget to buy essential ingredients. This app solves that problem by allowing me to add ingredients and create shopping lists. It's a must-have for any home cook!",
         },
       ],
     };
@@ -38,7 +45,6 @@ export default {
 </script>
 
 <style scoped>
-
 .testimonial {
   display: flex;
   justify-content: center;
@@ -48,10 +54,12 @@ export default {
 .testimonial-item {
   width: 800px; /* Adjust the width as per your requirement */
   background-color: #f8f8f8;
+  width: 450px;
+  height: 200px;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 10px;
+  margin: 5px;
 }
 
 .user-info {
