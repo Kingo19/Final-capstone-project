@@ -34,7 +34,7 @@ export default {
       loggedInLinks: [
         { text: 'Home', path: '/' },
         { text: 'Add Recipes', path: '/recipes/add' },
-        { text: 'View My Recipes', path: '/all/recipe' },
+        { text: 'View My Recipes', path: '/all/recipes' },
         { text: 'Add Meal', path: '/addMeal' },
         { text: 'Logout', path: '/logout' }
       ],

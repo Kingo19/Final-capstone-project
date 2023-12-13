@@ -6,25 +6,22 @@ import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import RecipeListView from '../views/RecipeListView.vue';
-import RecipeDetailView from '../views/RecipeDetailView.vue';
-import AddRecipe from "@/components/AddRecipe.vue";
-import modifyRecipe from "@/components/ModifyRecipe.vue";
-import addMealPlan from "@/Potential/addMealPlan.vue";
-import addMeal from "@/components/addMeal.vue";
-import test1 from "@/components/test1.vue";
-import test2 from "@/components/test2.vue";
-import test3 from "@/components/test3.vue";
-import test5 from "@/components/test5.vue";
-import test4 from "@/components/test4.vue";
-import test6 from "@/components/test6.vue";
-import test7 from "@/components/test7.vue";
-import test8 from "@/components/test8.vue";
-import test9 from "@/components/test9.vue";
-import test10 from "@/components/test10.vue";
-import testAddRecipe from "@/components/testAddRecipe.vue";
-import smallRecipeCards from "@/components/smallRecipeCards.vue";
+import RecipeDetailView from '../views/AllRecipesView.vue';
+import addMeal from "@/components/AddMeal.vue";
+import test1 from "@/Potential/test1.vue";
+import test2 from "@/Potential/test2.vue";
+import test3 from "@/Potential/test3.vue";
+import test5 from "@/Potential/test5.vue";
+import test4 from "@/Potential/test4.vue";
+import test6 from "@/Potential/test6.vue";
+import test7 from "@/Potential/test7.vue";
+import test8 from "@/Potential/test8.vue";
+import test9 from "@/Potential/test9.vue";
+import test10 from "@/Potential/test10.vue";
+import testAddRecipe from "@/components/CurrentAddRecipe.vue";
+import AllRecipeSmallRecipeCards from "@/components/AllRecipeSmallRecipeCards.vue";
 import testSelectedRecipe from "@/components/testSelectedRecipe.vue";
+import addMealPlan from "../Potential/addMealPlan.vue";
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -69,14 +66,6 @@ const routes = [
     },
     {
         path: "/all/recipes",
-        name: "recipeList",
-        component: RecipeListView,
-        meta: {
-            requiresAuth: false
-        }
-    },
-    {
-        path: "/all/recipe",
         name: "recipeDetailView",
         component: RecipeDetailView,
         meta: {
@@ -171,15 +160,6 @@ const routes = [
             requiresAuth: false
         }
     },
-
-    {
-        path: '/test11',
-        name: "test11",
-        component: smallRecipeCards,
-        meta: {
-            requiresAuth: false
-        }
-    },
     {
         path: '/addMeal',
         name: "addMeal",
@@ -204,6 +184,14 @@ const routes = [
             requiresAuth: false
         }
     },
+    {
+        path: '/addMealPlan',
+        name: "addMealPlan",
+        component: addMealPlan,
+        meta: {
+            requiresAuth: false
+        }
+    }
 
 
 

@@ -1,8 +1,10 @@
 <template>
   <div id="capstone-app">
     <header-view></header-view>
+    <div></div>
     <router-view/>
-    <footer-view/>
+    <div></div>
+<!--   <footer-view/>-->
   </div>
 </template>
 <script setup>

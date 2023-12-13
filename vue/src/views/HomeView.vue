@@ -26,17 +26,6 @@
 
     <!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER --><!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER -->
 
-    <footer>
-      <div class="contact-info">
-        <p>Contact us: contact@example.com</p>
-      </div>
-      <div class="footer-menu">
-        <a @click.prevent="navigateTo('/about')" class="footer-link">About Us</a>
-        <a @click.prevent="navigateTo('/privacy')" class="footer-link">Privacy Policy</a>
-        <a @click.prevent="navigateTo('/terms')" class="footer-link">Terms of Service</a>
-      </div>
-    </footer>
-
   </div>
 </template>
 
@@ -138,11 +127,14 @@ body {
 .features {
   display: flex;
   justify-content: space-around;
-  margin: 2rem 0;
+  margin: 15px;
+  gap: 15px;
 }
 
 .feature-card {
   background-color: #f8f8f8;
+  width: 450px;
+  height: 300px;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
@@ -217,6 +209,7 @@ footer {
 
 .title {
   margin-left: 50px;
+  color: white;
 }
 
 

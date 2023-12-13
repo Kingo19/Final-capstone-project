@@ -2,7 +2,7 @@
   <div class="recipe-container">
     <div class="recipe-card">
       <h1>Create Recipe</h1>
-      <form @submit.prevent="createRecipe" class="recipe-form">
+      <form @submit.prevent="createRecipe" class="formClass">
         <div class="form-group">
           <label for="recipeName">Recipe Name:</label>
           <input
@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
           <h2>Available Ingredients:</h2>
-          <ul class="ingredient-list">
+          <ul class="top-level-remove-div">
             <li v-for="(ingredient, index) in availableIngredients" :key="index"
                 @click="addIngredientToRecipe(ingredient)">
               {{ ingredient }}
@@ -110,7 +110,7 @@ export default {
   background-color: #fff;
 }
 
-.recipe-form {
+.formClass {
   display: flex;
   flex-direction: column;
 }
@@ -156,12 +156,12 @@ textarea:focus {
   background-color: #0056b3;
 }
 
-.ingredient-list {
+.top-level-remove-div {
   list-style-type: none;
   padding: 0;
 }
 
-.ingredient-list li {
+.top-level-remove-div li {
   cursor: pointer;
   margin-bottom: 8px;
   padding: 8px;
@@ -170,7 +170,7 @@ textarea:focus {
   transition: background-color 0.3s;
 }
 
-.ingredient-list li:hover {
+.top-level-remove-div li:hover {
   background-color: #f5f5f5;
 }
 
