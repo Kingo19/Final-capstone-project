@@ -19,7 +19,7 @@ export default {
 <style scoped>
 
 .feature-card {
-  background-color: #f7dada;
+  background-color: #fdfdfd;
   padding: 20px;
   border-radius: 10px;
   text-align: center;

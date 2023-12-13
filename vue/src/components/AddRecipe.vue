@@ -223,9 +223,9 @@ input[type='text'], textarea {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.submit-button:hover {
+/*.submit-button:hover {
   background-color: #45A049;
-}
+}*/
 
 @media (max-width: 768px) {
   .recipe-form {
