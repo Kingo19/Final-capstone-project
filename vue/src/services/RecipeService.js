@@ -30,6 +30,10 @@ export default {
 
     getUserMeals(){
         return axios.get('http://localhost:9000/user/meals' )
+    },
+
+    postMealPlan(mealPlan){
+        return axios.post('http://localhost:9000/user/plans/add', mealPlan)
     }
 
 

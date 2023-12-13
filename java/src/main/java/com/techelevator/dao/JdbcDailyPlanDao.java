@@ -41,7 +41,7 @@ public class JdbcDailyPlanDao implements DailyPlanDao{
             jdbcTemplate.update(SQL_COMMIT);
         } catch (Exception e){
             jdbcTemplate.update(SQL_ROLLBACK);
-            throw new DaoException("Error creating plan." + e.getCause());
+            throw new DaoException("Error creating plan." + e);
         }
         return dailyPlan;
 
