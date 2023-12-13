@@ -41,10 +41,11 @@ public class PlanController {
         return dailyPlanDao.getAllUserPlans(userId);
     }
 
-//    @RequestMapping(path = "user/week/{date}", method = RequestMethod.GET)
-//    public List<DailyPlan> getNextWeeksPlans(Principal principal, String dateInString){
-//
-//    }
+    @RequestMapping(path = "user/next-week", method = RequestMethod.GET)
+    public List<DailyPlan> getNextWeeksPlans(Principal principal){
+        int userId = userDao.getUserByUsername(principal.getName()).getId();
+        return dailyPlanDao.getNextWeekPlans(userId);
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "user/plans/edit/{id}", method = RequestMethod.GET)
