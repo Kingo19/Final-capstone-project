@@ -1,5 +1,5 @@
 <template>
-  <div class="card-container" @click="changeViewToSingle">
+  <div class="card-container" >
     <router-link
         v-for="recipe in recipes"
         :key="recipe.id"
@@ -52,9 +52,9 @@ export default {
       this.isModalOpen[id] = !this.isModalOpen[id];
     },
 
-    changeViewToSingle(){
-      this.$store.commit("switchingTheView")
-    }
+/*    changeViewToSingle(){
+      this.$store.commit("SWITCHINGTHEVIEW")
+    }*/
   },
 };
 </script>
@@ -63,7 +63,6 @@ export default {
 
 
 .card-container {
-/*  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;*/
   width: calc(30% - 20px); /* Adjusts card width */
 }
 
