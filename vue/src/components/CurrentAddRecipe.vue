@@ -114,11 +114,6 @@ export default {
       })
     },
 
-    getArrayOfNames(){
-      console.log("getArrayOfNames")
-      console.log(this.recipeNamesToCheck)
-    },
-
     checkRequiredNames(){
       return !this.isNameInDatabase() &&
           this.formData.recipe.recipe_name.length > 1;

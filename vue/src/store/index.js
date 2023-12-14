@@ -1,19 +1,18 @@
 import {createStore as _createStore} from 'vuex';
 import axios from 'axios';
-import {useRoute} from "vue-router";
 import recipeService from "@/services/RecipeService";
 
 export function createStore(currentToken, currentUser) {
-    let store = _createStore({
+    return _createStore({
         state: {
             token: currentToken || '',
             user: currentUser || {},
-            userRecipeNames:[],
+            userRecipeNames: [],
             recipes: [],
-            meals:[],
+            meals: [],
             selectedMeal: null,
             selectedRecipe: null,
-            switchView:false
+            switchView: false
         },
         mutations: {
             SET_AUTH_TOKEN(state, token) {
@@ -32,22 +31,22 @@ export function createStore(currentToken, currentUser) {
                 state.user = {};
                 axios.defaults.headers.common = {};
             },
-            setRecipeObjs(state, array){
+            SETRECIPEOBJ(state, array) {
                 state.recipeObjs = array
             },
 
-            setRecipes(state, newRecipes) {
+            SETRECIPES(state, newRecipes) {
                 state.recipes = newRecipes;
             },
 
-            setSelectedRecipe(state, recipe) {
+            SETSELECTEDRECIPE(state, recipe) {
                 state.selectedRecipe = recipe;
             },
 
-            setSelectedMeal(state, recipe) {
+            SETSELECTEDMEAL(state, recipe) {
                 state.selectedRecipe = recipe;
             },
-            switchingTheView(state){
+            SWITCHINGTHEVIEW(state) {
                 state.switchView = !state.switchView
             }
         },
@@ -63,8 +62,9 @@ export function createStore(currentToken, currentUser) {
             },
 
 
-            getSwitch:(state) => () =>
-            {return state.switchView},
+            getSwitch: (state) => () => {
+                return state.switchView
+            },
 
             getMealByName: (state) => (mealName) => {
                 return state.meals.find(meal => meal.mealName === mealName);
@@ -80,23 +80,23 @@ export function createStore(currentToken, currentUser) {
                 state.meals = meals;
             },
 
-            getRecipes(state){
+            getRecipes(state) {
                 return state.recipes
             }
         },
         actions: {
-            fetchAllRecipes({ commit }) {
+            fetchAllRecipes({commit}) {
                 commit('setRecipes', recipeService.getAllRecipes(state.user))
-                // axios.get('/path/to/user/recipes', this.user)
-                //     .then(response => {
-                //         commit('setRecipes', response.data);
-                //     })
-                //     .catch(error => {
-                //         console.error('Error fetching recipes:', error);
-                //     });
+                /*                axios.get('/path/to/user/recipes', this.user)
+                                    .then(response => {
+                                        commit('setRecipes', response.data);
+                                    })
+                                    .catch(error => {
+                                        console.error('Error fetching recipes:', error);
+                                    });*/
             },
 
-            fetchMealsByType({ commit }, type) {
+            fetchMealsByType({commit}, type) {
                 axios.get(`user/meals/type/${type}`)
                     .then(response => {
                         commit('setMeals', response.data);
@@ -106,7 +106,7 @@ export function createStore(currentToken, currentUser) {
                     });
             },
 
-            fetchAllUserMeals({ commit }) {
+            fetchAllUserMeals({commit}) {
                 axios.get('user/meals')
                     .then(response => {
                         commit('setMeals', response.data);
@@ -114,11 +114,8 @@ export function createStore(currentToken, currentUser) {
                     .catch(error => {
                         console.error('Error fetching all user meals:', error);
                     });
-            }
+            },
 
-
-        },
-        methods:{
             MealDetails(mealData) {
                 // Logic to process meal data
             },
@@ -128,7 +125,7 @@ export function createStore(currentToken, currentUser) {
                 return response.data;
             }
 
-        }
+
+        },
     });
-    return store;
 }

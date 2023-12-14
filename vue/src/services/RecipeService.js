@@ -10,8 +10,8 @@ export default {
         return axios.get('http://localhost:9000/user/recipes', user)
     },
 
-    getRecipeByName(){
-        return axios.get('http://localhost:9000/user/recipes/{recipeName}')
+    getRecipeByName(name){
+        return axios.get(`http://localhost:9000/user/recipes/${name}`)
     },
 
     modifyRecipeAndIngredients(orgname, passin) {

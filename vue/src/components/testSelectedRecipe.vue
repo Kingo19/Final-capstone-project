@@ -24,16 +24,13 @@
           </ul>
         </div>
 
-
-
-
         <div class="instructions" v-show="activeTab === 'instructions'">
           <h3>Instructions</h3>
           <p>{{ recipeDto.recipe.recipe_instructions}}</p>
         </div>
 
         <div  class="edit" v-show="activeTab === 'edit'">
-          <form id="form"  class="formClass">
+          <form id="form"  v-on:submit.prevent="submitForm"  class="formClass">
             <!-- Recipe Name -->
             <div class="input-group">
               <h3>Recipe Name</h3>
@@ -104,12 +101,18 @@
 <script>
 import foodarray from "@/resources/foodNameArray";
 import RecipeService from "@/services/RecipeService";
+import recipeService from "@/services/RecipeService";
 
 export default {
 
   data() {
     return {
-      recipeDto: {},
+      recipeDto: {
+        recipe:{
+          recipe_name:"",
+          recipe_instructions: ""
+        },ingredients:[]
+      },
       tabs: ['ingredients', 'instructions', 'edit'],
       activeTab: 'ingredients',
       recipeTestObj: {
@@ -120,10 +123,14 @@ export default {
         ingredients: ['Ingredient 1', 'Ingredient 2', 'Ingredient 3'],
         instructions: 'Heat oven to 375 degrees. Heat oil in a large skillet...',
       },
-
-
-
-
+      addButton: "Recipe",
+      mealData: {
+        mealName: "",
+        recipeNames: [],
+        type: "",
+      },
+      types:["Breakfast","Lunch","Dinner","Appetizer","Salad","Main-course","Side-dish","Baked-goods","Dessert",
+        "Snack","Soup","Holiday", "Vegetarian"],
       badNamePrompt:"You have entered a name already in our database. Please try again",
       recipeNamesToCheck: [],
       formValid: false,
@@ -159,10 +166,10 @@ export default {
       this.activeTab = tab;
     },
 
-
     submitForm() {
-      RecipeService.addRecipeAndIngredients(this.formData);
+      RecipeService.modifyRecipeAndIngredients(this.formData.recipe.recipe_name, this.formData);
     },
+
     addIngredient() {
       if (this.item.ingredient_name) {
         this.formData.ingredients.push({...this.item});
@@ -181,11 +188,6 @@ export default {
       })
     },
 
-    getArrayOfNames(){
-      console.log("getArrayOfNames")
-      console.log(this.recipeNamesToCheck)
-    },
-
     checkRequiredNames(){
       return !this.isNameInDatabase() &&
           this.formData.recipe.recipe_name.length > 1;
@@ -193,18 +195,22 @@ export default {
 
   },
   created(){
-    const recipeName = this.$route.params.recipeName;
-    console.log(recipeName)
+    recipeService.getRecipeByName(this.$route.params.recipeName).then(cu => {
+      this.recipeDto = cu.data[0]
+      this.formData = cu.data[0]
+    })
+
+/*    const recipeName = this.$route.params.recipeName;
     let item = this.$store.state.recipes.find(cu => {
-      console.log(cu.recipe.recipe_name)
-      console.log(cu.recipe.recipe_name === recipeName)
       if(cu.recipe.recipe_name === recipeName){
         return cu
       }
     })
-    this.recipeDto = item
+    if(item.recipe.recipe_name){
+      this.recipeDto = item
+    }*/
 /*    this.recipeDto = this.$store.state.getters.getRecipeByName(recipeName);*/
-    console.log(this.recipeDto)
+/*    console.log(this.recipeDto)*/
   }
 
 };
@@ -213,16 +219,22 @@ export default {
 
 <style scoped>
 
+.top-level-remove-div{
+  width: 100%;
+  overflow: scroll;
+}
+
 .container{
-  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;
-  height: 800px;
+/*  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;*/
   display: flex;
   align-content: center;
+  padding: 50px;
+  font-size: 1.2em;
 }
 
 .card-container {
-  width: 100%;
-  max-width: 800px;
+  width: 60%;
+  max-width: 60%;
   margin: auto;
 }
 
@@ -241,7 +253,7 @@ export default {
 }
 
 .card-details {
-  width: 60%;
+  width: 50%;
   padding: 10px;
   background: linear-gradient(to bottom, rgba(251,249,249,1) 28%, rgba(232,234,237,1) 100%);
 }
@@ -277,15 +289,12 @@ export default {
 /* Additional styles for Ingredients and Instructions sections */
 .ingredients ul, .instructions {
   margin-top: 20px;
+  font-size: 2em;
 }
 
 
-
-
-
-
-
 .formClass {
+  font-size: 1em;
   border-radius: 10px;
   padding: 20px;
   max-width: 800px; /* Set a max-width to ensure it doesn't get too wide on larger screens */
