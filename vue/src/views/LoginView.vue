@@ -1,4 +1,5 @@
 <template>
+  <div class="back">
   <div id="login" class="login-container">
     <form v-on:submit.prevent="login" class="login-form">
       <h1>Please Sign In</h1>
@@ -37,7 +38,9 @@
     </form>
   </div>
   <div class="imageView"> <ImageView> </ImageView> </div>
+</div>
 </template>
+
 
 <script>
 import authService from "../services/AuthService";
@@ -78,8 +81,9 @@ export default {
 
 <style scoped>
 .login-container {
-  background: url('https://gico.io/spcica/images/resource/login.jpg') top right/contain no-repeat;
+  background: url('https://images.unsplash.com/photo-1532550907401-a500c9a57435?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') top right/contain no-repeat; 
   height: 100vh;
+  width: 90%;
   margin: 20px 80px;
   display: flex;
   justify-content: flex-end;
@@ -166,8 +170,16 @@ label {
 .imageView {
   margin-top: 100px;
   background: white;
+  border: 2px double white; /* Add this line for the double border */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
 }
 .submit-button:hover {
   background-color: #45a049;
+}
+.back {
+background-color: #ebe9d7;
 }
 </style>
