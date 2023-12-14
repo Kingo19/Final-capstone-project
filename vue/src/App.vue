@@ -1,11 +1,11 @@
 <template>
-  <div>
-  <section class="layout">
-    <header-view class="header"/>
-    <router-view class="innerBody"/>
-    <footer-view class="footer"/>
-  </section>
-  </div>
+  <!-- <div>
+  <section> -->
+    <header-view />
+    <router-view />
+    <footer-view />
+  <!-- </section>
+  </div> -->
 </template>
 <script>
 import headerView from "@/views/HeaderView.vue";
@@ -29,12 +29,12 @@ export default {
 
 body{
   font-family: "MV Boli";
-  margin: 0;
+  /* margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; */
 }
 
-.layout {
+/* .layout {
   display: grid;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
@@ -42,7 +42,7 @@ body{
     "innerBody"
     "footer";
   gap: 8px;
-}
+} */
 
 .header {
   grid-area: header;
@@ -51,9 +51,9 @@ body{
   grid-area: innerBody;
   background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;
 }
-.footer {
+/* .footer {
   grid-area: footer;
   max-height: 200px;
-}
+} */
 
 </style>
