@@ -128,6 +128,9 @@ export default {
     <div class="week-header">
       <div class="day-header" v-for="day in days" :key="day">{{ day }}</div>
     </div>
+    <div class="week-header">
+      <div class="day-header" v-for="plan in userDailyPlans" :key="plan">{{ plan.planName }}</div>
+    </div>
     <div class="week-content">
       <div class="day-column" v-for="day in days" :key="day">
         <div :id="time" class="time-slot" v-for="time in hours" :key="time" @click="onTimeSlotClick(day, time)">
@@ -140,10 +143,13 @@ export default {
 </template>
 
 <script>
+import RecipeService from '../services/RecipeService';
+
 export default {
   name: "SevenDayView",
   data() {
     return {
+      userDailyPlans: [],
       days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       times: this.generateTimes(),
       hours: this.generateHours(),
@@ -172,12 +178,30 @@ export default {
       }
       return times
     },
+    getAllUserPlans(){
+      RecipeService.getNextWeeksPlan().then(response => {
+        this.userDailyPlans = response.data
+        console.log(this.userDailyPlans)
+      })
+    },
 
     onTimeSlotClick(day, time) {
       console.log(`Clicked on ${day} at ${time}`);
       // Add your click event handling logic here
+      console.log(this.userDailyPlans[0].mealTimes[0].mealName)
+
+      let currentTime = this.times.find(value => {
+        return value === time
+      })
+
+      currentTime = this.userDailyPlans[0].mealTimes[0].mealName
+      console.log(time)
+
     },
   },
+  mounted() {
+    this.getAllUserPlans()
+  }
 };
 </script>
 
