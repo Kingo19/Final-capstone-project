@@ -23,6 +23,7 @@ import AllRecipeSmallRecipeCards from "@/components/AllRecipeSmallRecipeCards.vu
 import testSelectedRecipe from "@/components/testSelectedRecipe.vue";
 import addMealPlan from "../Potential/addMealPlan.vue";
 import selectedMealPlan from "@/components/selectedMealPlan.vue";
+import AboutUsView from "@/views/AboutUsView.vue";
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -38,7 +39,7 @@ const routes = [
         name: 'home',
         component: HomeView,
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         }
     },
     {
@@ -65,6 +66,16 @@ const routes = [
             requiresAuth: false
         }
     },
+
+    {
+        path: "/aboutus",
+        name: "aboutus",
+        component: AboutUsView,
+        meta: {
+            requiresAuth: false
+        }
+    },
+
     {
         path: "/all/recipes",
         name: "recipeDetailView",

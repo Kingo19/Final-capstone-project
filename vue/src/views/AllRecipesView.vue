@@ -20,7 +20,6 @@ import testSelectedRecipe from "@/components/testSelectedRecipe.vue";
 export default {
   components: {
     SmallRecipeCards,
-    testSelectedRecipe,
   },
   data(){
     return {

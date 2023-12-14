@@ -93,7 +93,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.home{
+  background: url("../assets/table.png");
+}
   /* App-wide styles (styles.css) */
 /* Hero section styles */
 .upper-body-text {

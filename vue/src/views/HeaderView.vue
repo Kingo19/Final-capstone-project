@@ -24,12 +24,14 @@ export default {
 
       notLoggedInLinks: [
         { text: 'Home', path: '/' },
+        { text: 'aboutus', path: '/aboutus' },
         { text: 'Login', path: '/login' },
-        { text: 'Register', path: '/register' }
+        { text: 'Register', path: '/register' },
       ],
 
       loggedInLinks: [
         { text: 'Home', path: '/' },
+        { text: 'aboutus', path: '/aboutus' },
         { text: 'Add Recipes', path: '/recipes/add' },
         { text: 'View My Recipes', path: '/all/recipes' },
         { text: 'Add Meal', path: '/addMeal' },
