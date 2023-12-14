@@ -68,12 +68,12 @@ export default {
       // Add logic to submit meal plan data
       let MealPlanDateCheck = new Date(this.mealPlanData.date)
       console.log(MealPlanDateCheck)
-      this.isSunday = MealPlanDateCheck.getDay() === 6
-      if(this.isSunday) {
+      // this.isSunday = MealPlanDateCheck.getDay() === 6
+      // if(this.isSunday) {
 
         console.log(this.mealPlanData);
         RecipeService.postMealPlan(this.mealPlanData)
-      }
+        // }
       // Call a service to POST the data to your endpoint
     },
     retrieveUserMeals(){
