@@ -1,265 +1,46 @@
 <template>
   <div class="card-container" >
     <router-link
-        v-for="recipe in recipes"
-        :key="recipe.id"
-        :to="{ name: 'RecipeDetail', params: { recipeName: recipeDto.recipe.recipe_name  } }"
+        :to="{ name: 'ViewMealPlanNum',  params: { dayNumber: daynum } }"
         class="cardRecipe"
         tag="div"
     >
       <div class="cont_photo">
-        <img :src="recipe.image" alt="Recipe Image" />
-        <div class="cont_detalles">
-          <h3>{{ recipeDto.recipe.recipe_name }}</h3>
-          <p>{{ recipeDto.recipe.recipe_instructions}}</p>
+          <h3>{{ name }}</h3>
+          <p>{{ daynum }}</p>
         </div>
-      </div>
     </router-link>
   </div>
 </template>
 
 <script>
 
+import selectedMealPlan from "@/components/selectedMealPlan.vue";
+
 export default {
-  props:{
-    recipeDto:Object
-  },
+
+  props: ["daynum"],
   data() {
     return {
-      isModalOpen: {},
-      meal_plan:
-          {
-            "planId": 40,
-            "planName": "TESTPA  SS112",
-            "mealTimes": [
-              {
-                "mealId": 1,
-                "mealName": "Salad",
-                "mealTime": null,
-                "recipeInfo": [
-                  {
-                    "ingredients": [
-                      {
-                        "ingredient_name": "TestIng11"
-                      },
-                      {
-                        "ingredient_name": "TestIng789"
-                      },
-                      {
-                        "ingredient_name": "TestIng456"
-                      },
-                      {
-                        "ingredient_name": "TestIng123"
-                      }
-                    ],
-                    "recipe": {
-                      "recipe_name": "Test1",
-                      "recipe_instructions": "Instructions"
-                    }
-                  },
-                  {
-                    "ingredients": [
-                      {
-                        "ingredient_name": "TestIng11"
-                      },
-                      {
-                        "ingredient_name": "TestIng789"
-                      },
-                      {
-                        "ingredient_name": "TestIng456"
-                      },
-                      {
-                        "ingredient_name": "TestIng123"
-                      }
-                    ],
-                    "recipe": {
-                      "recipe_name": "Test2",
-                      "recipe_instructions": "Instructions"
-                    }
-                  },
-                  {
-                    "ingredients": [
-                      {
-                        "ingredient_name": "TestIng11"
-                      },
-                      {
-                        "ingredient_name": "TestIng789"
-                      },
-                      {
-                        "ingredient_name": "TestIng456"
-                      },
-                      {
-                        "ingredient_name": "TestIng123"
-                      }
-                    ],
-                    "recipe": {
-                      "recipe_name": "Test3",
-                      "recipe_instructions": "Instructions"
-                    }
-                  }
-                ],
-                "type": "Salad"
-              },
-              {
-                "mealId": 2,
-                "mealName": "Pasta",
-                "mealTime": null,
-                "recipeInfo": [
-                  {
-                    "ingredients": [
-                      {
-                        "ingredient_name": "TestIng11"
-                      },
-                      {
-                        "ingredient_name": "TestIng789"
-                      },
-                      {
-                        "ingredient_name": "TestIng456"
-                      },
-                      {
-                        "ingredient_name": "TestIng123"
-                      }
-                    ],
-                    "recipe": {
-                      "recipe_name": "Test4",
-                      "recipe_instructions": "Instructions"
-                    }
-                  },
-                  {
-                    "ingredients": [
-                      {
-                        "ingredient_name": "TestIng11"
-                      },
-                      {
-                        "ingredient_name": "TestIng789"
-                      },
-                      {
-                        "ingredient_name": "TestIng456"
-                      },
-                      {
-                        "ingredient_name": "TestIng123"
-                      }
-                    ],
-                    "recipe": {
-                      "recipe_name": "Test5",
-                      "recipe_instructions": "Instructions"
-                    }
-                  },
-                  {
-                    "ingredients": [
-                      {
-                        "ingredient_name": "TestIng11"
-                      },
-                      {
-                        "ingredient_name": "TestIng789"
-                      },
-                      {
-                        "ingredient_name": "TestIng456"
-                      },
-                      {
-                        "ingredient_name": "TestIng123"
-                      }
-                    ],
-                    "recipe": {
-                      "recipe_name": "Test6",
-                      "recipe_instructions": "Instructions"
-                    }
-                  }
-                ],
-                "type": "Dinner"
-              },
-              {
-                "mealId": 2,
-                "mealName": "Pasta",
-                "mealTime": null,
-                "recipeInfo": [
-                  {
-                    "ingredients": [
-                      {
-                        "ingredient_name": "TestIng11"
-                      },
-                      {
-                        "ingredient_name": "TestIng789"
-                      },
-                      {
-                        "ingredient_name": "TestIng456"
-                      },
-                      {
-                        "ingredient_name": "TestIng123"
-                      }
-                    ],
-                    "recipe": {
-                      "recipe_name": "Test4",
-                      "recipe_instructions": "Instructions"
-                    }
-                  },
-                  {
-                    "ingredients": [
-                      {
-                        "ingredient_name": "TestIng11"
-                      },
-                      {
-                        "ingredient_name": "TestIng789"
-                      },
-                      {
-                        "ingredient_name": "TestIng456"
-                      },
-                      {
-                        "ingredient_name": "TestIng123"
-                      }
-                    ],
-                    "recipe": {
-                      "recipe_name": "Test5",
-                      "recipe_instructions": "Instructions"
-                    }
-                  },
-                  {
-                    "ingredients": [
-                      {
-                        "ingredient_name": "TestIng11"
-                      },
-                      {
-                        "ingredient_name": "TestIng789"
-                      },
-                      {
-                        "ingredient_name": "TestIng456"
-                      },
-                      {
-                        "ingredient_name": "TestIng123"
-                      }
-                    ],
-                    "recipe": {
-                      "recipe_name": "Test6",
-                      "recipe_instructions": "Instructions"
-                    }
-                  }
-                ],
-                "type": "Dinner"
-              }
-            ],
-            "userId": 3,
-            "dateOfPlan": "2023-12-03"
-          }
-
+      dayNames: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     };
   },
+  methods:{
+    getDayAndDate(){
 
-  created() {
-    this.recipes.forEach(recipe => {
-      this.isModalOpen[recipe.id] = false;
-    });
-
-    const recipeName = this.$route.params.recipeName;
-  },
-  methods: {
-    toggleModal(id) {
-      this.isModalOpen[id] = !this.isModalOpen[id];
     },
 
-    /*    changeViewToSingle(){
-          this.$store.commit("SWITCHINGTHEVIEW")
-        }*/
-  },
+    getMealPlanByDate(days){
+      var targetDate = new Date();
+      targetDate.setDate(targetDate.getDate() + days);
+      let day = targetDate.getDate();
+      let month = targetDate.getMonth() + 1;
+      let year = targetDate.getFullYear();
+      return `${year}-${month}-${day}`
+    },
+
+
+  }
 };
 </script>
 
@@ -269,7 +50,6 @@ export default {
 .card-container {
   width: calc(30% - 20px); /* Adjusts card width */
 }
-
 .cardRecipe {
   display: block;
   cursor: pointer; /* Indicates the item is clickable */
@@ -303,7 +83,6 @@ export default {
   color: white;
   padding: 10px;
 }
-
 
 /* This will expand the ingredients section */
 .cardRecipe:hover .cont_text_ingredients {

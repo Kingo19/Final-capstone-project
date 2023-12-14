@@ -36,6 +36,7 @@ export default {
         { text: 'View My Recipes', path: '/all/recipes' },
         { text: 'Add Meal', path: '/addMeal' },
         {text: 'Add Meal Plan', path: '/addMealPlan'},
+        { text: 'View Meal Plans', path: '/ViewMealPlan' },
         { text: 'Logout', path: '/logout' }
       ],
     };

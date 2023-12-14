@@ -3,13 +3,6 @@
   <small-recipe-cards v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto" ></small-recipe-cards>
   </div>
 
-<!--  <div class="card innerBody" v-if="!switchState">
-    <small-recipe-cards v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto" ></small-recipe-cards>
-  </div>
-  <div class="card innerBody" v-if="switchState">
-    <test-selected-recipe></test-selected-recipe>
-  </div>-->
-
 </template>
 
 <script>

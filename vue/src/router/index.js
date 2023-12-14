@@ -8,22 +8,24 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import AllRecipesView from "@/views/AllRecipesView.vue";
 import addMeal from "@/components/AddMeal.vue";
-import test1 from "@/Potential/test1.vue";
-import test2 from "@/Potential/test2.vue";
-import test3 from "@/Potential/test3.vue";
-import test5 from "@/Potential/test5.vue";
-import test4 from "@/Potential/test4.vue";
-import test6 from "@/Potential/test6.vue";
-import test7 from "@/Potential/test7.vue";
-import test8 from "@/Potential/test8.vue";
-import test9 from "@/Potential/test9.vue";
-import test10 from "@/Potential/test10.vue";
-import testAddRecipe from "@/components/CurrentAddRecipe.vue";
+import test1 from "@/Unused vue/test1.vue";
+import test2 from "@/Unused vue/test2.vue";
+import test3 from "@/Unused vue/test3.vue";
+import test5 from "@/Unused vue/test5.vue";
+import test4 from "@/Unused vue/test4.vue";
+import test6 from "@/Unused vue/test6.vue";
+import test7 from "@/Unused vue/test7.vue";
+import test8 from "@/Unused vue/test8.vue";
+import test9 from "@/Unused vue/test9.vue";
+import test10 from "@/Unused vue/test10.vue";
+import testAddRecipe from "@/components/AddRecipe.vue";
 import AllRecipeSmallRecipeCards from "@/components/AllRecipeSmallRecipeCards.vue";
 import testSelectedRecipe from "@/components/testSelectedRecipe.vue";
-import addMealPlan from "../Potential/addMealPlan.vue";
+import addMealPlan from "../Unused vue/addMealPlan.vue";
 import selectedMealPlan from "@/components/selectedMealPlan.vue";
 import AboutUsView from "@/views/AboutUsView.vue";
+import allMealSmallMealCards from "@/components/AllMealSmallMealCards.vue";
+import ViewMealPlansView from "@/views/ViewMealPlansView.vue";
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -201,6 +203,24 @@ const routes = [
         path: '/addMealPlan',
         name: "addMealPlan",
         component: addMealPlan,
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/ViewMealPlan',
+        name: "ViewMealPlan",
+        props: true,
+        component: ViewMealPlansView,
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/ViewMealPlan/:dayNumber',
+        name: "ViewMealPlanNum",
+        props: true,
+        component: selectedMealPlan,
         meta: {
             requiresAuth: false
         }

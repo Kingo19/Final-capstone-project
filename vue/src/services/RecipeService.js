@@ -40,6 +40,12 @@ export default {
     }*/
     getNextWeeksPlan(){
         return axios.get('http://localhost:9000/user/next-week')
+    },
+
+    getDayPlan(date){
+        console.log("inner service")
+        console.log(date)
+        return axios.get(`http://localhost:9000/user/plans/${date}`)
     }
 
 
