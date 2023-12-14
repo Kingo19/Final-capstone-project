@@ -4,13 +4,13 @@
       <!-- Meal Plan Name -->
       <div class="input-group">
         <label for="mealName">Meal Plan Name</label>
-        <input type="text" id="mealName" v-model="mealPlanData.plan_name" required :maxlength="maxLenInput"
+        <input type="text" id="mealName" v-model="mealPlanData.planName" required :maxlength="maxLenInput"
           placeholder="Enter meal plan name">
       </div>
       <!-- Meal Plan Date -->
       <div class="input-group">
         <label for="mealDate">Please select the sunday of your weekly plan</label>
-        <input type="date" id="mealPlanDate" name="mealPlanDate" v-model="mealPlanData.mealPlanDate">
+        <input type="date" id="mealPlanDate" name="mealPlanDate" v-model="mealPlanData.date">
       </div>
       
 
@@ -57,21 +57,22 @@ export default {
       maxLenInput: 255,
       isSunday: true,
       mealPlanData: {
-        plan_name: "",
-        mealPlanDate: "",
-        mealIds: []
+        planName: '',
+        date: "",
+        mealsWithTime: []
       }
     }
   },
   methods: {
     submitMealPlan() {
       // Add logic to submit meal plan data
-      let MealPlanDateCheck = new Date(this.mealPlanData.mealPlanDate)
+      let MealPlanDateCheck = new Date(this.mealPlanData.date)
       console.log(MealPlanDateCheck)
       this.isSunday = MealPlanDateCheck.getDay() === 6
       if(this.isSunday) {
 
         console.log(this.mealPlanData);
+        RecipeService.postMealPlan(this.mealPlanData)
       }
       // Call a service to POST the data to your endpoint
     },
@@ -81,14 +82,17 @@ export default {
       });
     },
     addMeal(index) {
+
       let selectedMeal = this.userMeals.find(value => {
         return value.mealName === this.item.mealName
       })
       console.log(selectedMeal)
 
+      let mealRequestContainer = {mealId: selectedMeal.mealId, mealTime: ''}
+
       // add Meal Name to selectedMeal
       this.userMealNames.push(selectedMeal.mealName)
-      this.mealPlanData.mealIds.push(selectedMeal.mealId)
+      this.mealPlanData.mealsWithTime.push(mealRequestContainer)
 
 
       let removeFromArray = this.userMeals
@@ -105,15 +109,14 @@ export default {
       let removedElement1 = removeFromArray1[index]
       removeFromArray1.splice(index, 1);
       //remove Meal Id
-      let removeFromArray2 = this.userMealNames
+      let removeFromArray2 = this.mealPlanData.mealsWithTime
       let removedElement2 = removeFromArray1[index]
       removeFromArray2.splice(index, 1);
       //Assign it to meal object
 
       let removedMeal = {mealName: removedElement1, mealId: removedElement2}
       this.userMeals.push(removedMeal)
-    },
-
+    }
   },
   mounted() {
     this.retrieveUserMeals()
