@@ -1,13 +1,23 @@
 <template>
+  <div>
   <section class="layout">
     <header-view class="header"/>
     <router-view class="innerBody"/>
     <footer-view class="footer"/>
   </section>
+  </div>
 </template>
-<script setup>
-import HeaderView from "@/views/HeaderView.vue";
-import FooterView from "./views/FooterView.vue";
+<script>
+import headerView from "@/views/HeaderView.vue";
+import FooterView from "@/views/FooterView.vue";
+
+export default {
+    components:{
+      headerView,
+      FooterView
+    }
+}
+
 </script>
 
 <style>
@@ -24,10 +34,9 @@ body{
   box-sizing: border-box;
 }
 
-
-
 .layout {
   display: grid;
+  grid-template-rows: auto 1fr auto;
   grid-template-areas:
     "header"
     "innerBody"

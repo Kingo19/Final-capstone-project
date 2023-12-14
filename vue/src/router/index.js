@@ -171,6 +171,7 @@ const routes = [
     {
         path: '/RecipeDetail/:recipeName',
         name: "RecipeDetail",
+        props: true,
         component: testSelectedRecipe,
         meta: {
             requiresAuth: false

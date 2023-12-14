@@ -15,8 +15,6 @@
       </li>
     </ul>
   </header>
-
-  <!-- ... other template content ... -->
 </template>
 
 <script>
@@ -52,17 +50,13 @@ export default {
   },
 
 }
-
 </script>
 
-<style scoped>
-
-
+<style>
 header {
   width: 100%;
-  background-color: rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
-
 
 header ul {
   text-align: center;
@@ -89,11 +83,7 @@ header ul li a {
   padding: 25px;
   transition: all ease 0.5s; /* Corrected 'e.5s' to '0.5s' */
 }
-
-
 header ul li a:hover {
-/*  background-color: #211b4385;
-  color: #155724;*/
   background-color: #155724;
 }
 

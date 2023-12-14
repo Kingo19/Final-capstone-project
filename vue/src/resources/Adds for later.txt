@@ -150,3 +150,24 @@ footer {
 <!--    <test-selected-recipe  :recipe-dto="recipeDto"></test-selected-recipe>-->
 
 
+
+/*            async fetchMealsByType({ commit }, type) {
+                const response = await axios.get(`user/meals/type/${type}`);
+                commit('setMeals', response.data);
+            },
+
+            async fetchAllUserMeals({ commit }) {
+                const response = await axios.get('user/meals');
+                commit('setMeals', response.data);
+            }*/
+
+
+
+/*    for(let each in this.$store.state.recipeObjs){
+      if(this.$store.state.recipeObjs[each].recipe.recipe_name == this.$route.params.recipeName){
+        this.recipeDto = this.$store.state.recipeObjs[each]
+        break;
+      }
+    }*/
+
+

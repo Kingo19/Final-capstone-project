@@ -35,6 +35,9 @@ export default {
     postMealPlan(mealPlan){
         return axios.post('http://localhost:9000/user/plans/add', mealPlan)
     }
+/*    async addMeal(mealData) {
+        await axios.post('user/meals/add', mealData);
+    }*/
 
 
 }

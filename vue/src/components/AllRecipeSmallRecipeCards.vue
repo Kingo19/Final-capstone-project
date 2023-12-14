@@ -1,17 +1,17 @@
 <template>
-  <div class="card-container">
+  <div class="card-container" @click="changeViewToSingle">
     <router-link
         v-for="recipe in recipes"
         :key="recipe.id"
-        :to="{ name: 'RecipeDetail', params: { recipeName: recipe.name } }"
+        :to="{ name: 'RecipeDetail', params: { recipeName: recipeDto.recipe.recipe_name  } }"
         class="cardRecipe"
         tag="div"
     >
       <div class="cont_photo">
         <img :src="recipe.image" alt="Recipe Image" />
         <div class="cont_detalles">
-          <h3>{{ recipe.name }}</h3>
-          <p>{{ recipe.description }}</p>
+          <h3>{{ recipeDto.recipe.recipe_name }}</h3>
+          <p>{{ recipeDto.recipe.recipe_instructions}}</p>
         </div>
       </div>
     </router-link>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+
 export default {
   props:{
     recipeDto:Object
@@ -38,6 +39,7 @@ export default {
       ],
     };
   },
+
   created() {
     this.recipes.forEach(recipe => {
       this.isModalOpen[recipe.id] = false;
@@ -48,6 +50,10 @@ export default {
   methods: {
     toggleModal(id) {
       this.isModalOpen[id] = !this.isModalOpen[id];
+    },
+
+    changeViewToSingle(){
+      this.$store.commit("switchingTheView")
     }
   },
 };
@@ -55,24 +61,25 @@ export default {
 
 <style scoped>
 
-.card-container {
-  display: block;
-  width: calc(30% - 20px); /* Adjusts card width */
-  position: relative; /* Required for absolute positioning of children */
 
+.card-container {
+/*  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;*/
+  width: calc(30% - 20px); /* Adjusts card width */
 }
 
 .cardRecipe {
+  display: block;
   cursor: pointer; /* Indicates the item is clickable */
-/*  margin: 10px;*/
+  height: 300px;
+  margin: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-/*  max-height: 40px; !* Set a maximum height *!*/
   overflow: hidden; /* Ensures that content exceeding the height is hidden */
+  position: relative; /* Required for absolute positioning of children */
 }
 
 .cont_photo img {
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 5px;
   object-fit: cover; /* Ensures the image covers the area without distortion */
   max-height: 200px; /* Adjust the height as needed */
@@ -81,6 +88,7 @@ export default {
 
 .cont_detalles {
   position: absolute;
+  width: 100%;
   bottom: 0;
   left: 0;
   right: 0;
@@ -101,35 +109,4 @@ export default {
 
 </style>
 
-<!--
-<style scoped>
-.card-container {
-  padding-top: 10px;
-  max-width: 25%;
-  max-height: 40%;
-}
-
-.cardRecipe {
-  position: relative;
-}
-
-.cont_photo img {
-  width: 100%;
-  display: block;
-  border-radius: 5px;
-  object-fit: cover;
-  position: relative;
-}
-
-.cont_detalles {
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  padding: 10px;
-  position: absolute;
-  bottom: 0;
-  width: 93%;
-}
-</style>
-
--->
 

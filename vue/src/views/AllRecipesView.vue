@@ -1,55 +1,55 @@
 <template>
   <div class="card">
+  <small-recipe-cards v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto" ></small-recipe-cards>
+  </div>
+
+
+
+<!--  Could not get this function to work-->
+
+<!--  <div class="card" v-if="!switchState">
     <small-recipe-cards v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto" ></small-recipe-cards>
   </div>
+  <div class="card" v-if="switchState">
+    <test-selected-recipe></test-selected-recipe>
+  </div>-->
+
 </template>
 
 <script>
-/*import RecipeDetailPage from "../components/RecipeDetailPage.vue";*/
-import RecipeService from "../services/RecipeService";
-import TestDetailsPage from "@/components/testDetailsPage.vue";
-import TestSelectedRecipe from "@/components/testSelectedRecipe.vue";
 import SmallRecipeCards from "@/components/AllRecipeSmallRecipeCards.vue";
+import recipeService from "@/services/RecipeService";
+import testSelectedRecipe from "@/components/testSelectedRecipe.vue";
+
 export default {
   components: {
     SmallRecipeCards,
-    /*    TestDetailsPage,*/
-/*    RecipeDetailPage,*/
+    testSelectedRecipe,
   },
-  data() {
+  data(){
     return {
-/*      recipeDto:
-          {recipe:{
-              "recipe_name": "Chocolate Cake",
-              "recipe_instructions": "Instructions for Chocolate Cake.",
-            },
-            "ingredients": [
-              {"ingredient_name": "Flour"},
-              {"ingredient_name": "Sugar"},
-              {"ingredient_name": "Cocoa Powder"}
-            ]
-          },*/
-      singleRecipe:false,
-      allRecipe: null,
-      singleRecipeObject:null,
+      allRecipe:[],
     }
-  },
 
-  methods: {
-    getting() {
-         RecipeService.getAllRecipes(this.user).then(response => {
-           this.allRecipe = response.data
-           this.$store.commit("setRecipeObjs", this.allRecipe)
-         })
+  },
+  methods:{
+    setArrayRecipes(){
+      let get = recipeService.getAllRecipes(this.user).then(cu =>
+      {this.allRecipe = cu.data
+        this.$store.commit("setRecipes", cu.data)
+      });
+      console.log(this.allRecipe)
     },
-
-    a(){
-      return this.allRecipe[0]
-    }
-
   },
-  mounted() {
-    this.getting()
+  computed:{
+    switchState(){
+      console.log(this.$store.state.switchView)
+      return this.$store.state.getters.getSwitch()
+    }
+  },
+
+  created() {
+    this.setArrayRecipes()
   },
 };
 </script>
@@ -68,3 +68,4 @@ export default {
 }
 
 </style>
+
