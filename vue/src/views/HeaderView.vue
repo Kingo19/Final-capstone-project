@@ -7,7 +7,6 @@
     </ul>
   </header>
 
-
   <header v-if="checkLoggedInUser">
     <ul>
       <li v-for="link in loggedInLinks" :key="link.text">

@@ -1,16 +1,12 @@
 <template>
-  <div class="card">
+  <div class="card innerBody">
   <small-recipe-cards v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto" ></small-recipe-cards>
   </div>
 
-
-
-<!--  Could not get this function to work-->
-
-<!--  <div class="card" v-if="!switchState">
+<!--  <div class="card innerBody" v-if="!switchState">
     <small-recipe-cards v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto" ></small-recipe-cards>
   </div>
-  <div class="card" v-if="switchState">
+  <div class="card innerBody" v-if="switchState">
     <test-selected-recipe></test-selected-recipe>
   </div>-->
 
@@ -28,7 +24,7 @@ export default {
   },
   data(){
     return {
-      allRecipe:[],
+      allRecipe:this.$store.state.recipes,
     }
 
   },
@@ -36,15 +32,13 @@ export default {
     setArrayRecipes(){
       let get = recipeService.getAllRecipes(this.user).then(cu =>
       {this.allRecipe = cu.data
-        this.$store.commit("setRecipes", cu.data)
+        this.$store.commit("SETRECIPES", cu.data)
       });
-      console.log(this.allRecipe)
     },
   },
   computed:{
     switchState(){
-      console.log(this.$store.state.switchView)
-      return this.$store.state.getters.getSwitch()
+      return this.$store.state.switchView
     }
   },
 
