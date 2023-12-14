@@ -3,44 +3,21 @@
     <router-link
         v-for="recipe in recipes"
         :key="recipe.id"
-        :to="{ name: 'RecipeDetail', params: { recipeName: recipeDto.recipe.recipe_name } }"
+        :to="{ name: 'RecipeDetail', params: { recipeName: recipe.name } }"
         class="cardRecipe"
         tag="div"
     >
       <div class="cont_photo">
         <img :src="recipe.image" alt="Recipe Image" />
         <div class="cont_detalles">
-          <h3>{{ recipeDto.recipe.recipe_name }}</h3>
-          <p>{{ recipeDto.recipe.recipe_instructions }}</p>
+          <h3>{{ recipe.name }}</h3>
+          <p>{{ recipe.description }}</p>
         </div>
       </div>
     </router-link>
   </div>
 </template>
 
-<!--<template>
-  <div class="card-container">
-    <div v-for="recipe in recipes" :key="recipe.id" class="cardRecipe">
-      <div @click="toggleModal(recipe.id)">
-        <div class="cont_photo">
-          <img :src="recipe.image" alt="Recipe Image" />
-          <div class="cont_detalles">
-            <h3>{{ recipe.name }}</h3>
-            <p>{{ recipe.description }}</p>
-          </div>
-        </div>
-        <div v-if="isModalOpen[recipe.id]" class="cont_text_ingredients">
-          <h4>Ingredients</h4>
-          <ul>
-            <li v-for="ingredient in recipe.ingredients" :key="ingredient">{{ ingredient }}</li>
-          </ul>
-          <h4>Recipe</h4>
-          <p>{{ recipe.instructions }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>-->
 <script>
 export default {
   props:{
@@ -48,20 +25,8 @@ export default {
   },
   data() {
     return {
-/*      recipeDto:
-          {recipe:{
-              "recipe_name": "Chocolate Cake",
-              "recipe_instructions": "Instructions for Chocolate Cake.",
-            },
-            "ingredients": [
-              {"ingredient_name": "Flour"},
-              {"ingredient_name": "Sugar"},
-              {"ingredient_name": "Cocoa Powder"}
-            ]
-          },*/
       isModalOpen: {},
       recipes: [
-        // Sample recipe data
         {
           id: 1,
           name: 'Shakshuka With Feta',
@@ -70,7 +35,6 @@ export default {
           ingredients: ['Eggs', 'Tomatoes', 'Feta Cheese', 'Onion', 'Bell Pepper'],
           instructions: 'Heat oil, add ingredients, simmer and serve.'
         },
-        // Additional recipe objects
       ],
     };
   },
@@ -90,42 +54,36 @@ export default {
 </script>
 
 <style scoped>
+
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px; /* Adds space between cards */
+  display: block;
+  width: calc(30% - 20px); /* Adjusts card width */
+  position: relative; /* Required for absolute positioning of children */
+
 }
 
 .cardRecipe {
-  width: calc(30% - 20px); /* Adjusts card width */
   cursor: pointer; /* Indicates the item is clickable */
-  margin: 10px;
+/*  margin: 10px;*/
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  position: relative; /* Required for absolute positioning of children */
-  max-height: 400px; /* Set a maximum height */
+/*  max-height: 40px; !* Set a maximum height *!*/
   overflow: hidden; /* Ensures that content exceeding the height is hidden */
 }
 
 .cont_photo img {
-/*  width: 100%;
-  height: auto;
-  display: block;*/
-
   width: 100%;
   height: auto;
-  display: block;
   border-radius: 5px;
   object-fit: cover; /* Ensures the image covers the area without distortion */
   max-height: 200px; /* Adjust the height as needed */
-
+  overflow: hidden; /* Ensures that content exceeding the height is hidden */
 }
 
-.cont_detalles, .cont_text_ingredients {
+.cont_detalles {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
+  right: 0;
   transition: all 0.5s ease; /* Smooth transition for expanding effect */
 }
 
@@ -135,21 +93,43 @@ export default {
   padding: 10px;
 }
 
-.cont_text_ingredients {
-  background: #f9f9f9;
-  color: #333;
-  padding: 10px;
-  max-height: 0;
-  overflow: hidden;
-}
 
 /* This will expand the ingredients section */
 .cardRecipe:hover .cont_text_ingredients {
   max-height: 200px; /* Adjust this value based on content */
 }
 
-.cont_text_ingredients ul {
-  padding: 0;
-  list-style: none;
+</style>
+
+<!--
+<style scoped>
+.card-container {
+  padding-top: 10px;
+  max-width: 25%;
+  max-height: 40%;
+}
+
+.cardRecipe {
+  position: relative;
+}
+
+.cont_photo img {
+  width: 100%;
+  display: block;
+  border-radius: 5px;
+  object-fit: cover;
+  position: relative;
+}
+
+.cont_detalles {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  width: 93%;
 }
 </style>
+
+-->
+

@@ -92,7 +92,9 @@ header ul li a {
 
 
 header ul li a:hover {
-  background-color: #211b4385;
+/*  background-color: #211b4385;
+  color: #155724;*/
+  background-color: #155724;
 }
 
 </style>

@@ -1,12 +1,9 @@
 <template>
-<!--  <div id="capstone-app">-->
   <section class="layout">
     <header-view class="header"/>
     <router-view class="innerBody"/>
     <footer-view class="footer"/>
   </section>
-
-<!--  </div>-->
 </template>
 <script setup>
 import HeaderView from "@/views/HeaderView.vue";
@@ -22,15 +19,15 @@ import FooterView from "./views/FooterView.vue";
 
 body{
   font-family: "MV Boli";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/*width: 1920px;
-height: 1080px;*/
+
 
 .layout {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
   grid-template-areas:
     "header"
     "innerBody"
@@ -38,13 +35,16 @@ height: 1080px;*/
   gap: 8px;
 }
 
-.header { grid-area: header; }
-.leftSide { grid-area: leftSide; }
-.innerBody { grid-area: innerBody; }
-.rightSide { grid-area: rightSide; }
+.header {
+  grid-area: header;
+}
+.innerBody {
+  grid-area: innerBody;
+  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;
+}
 .footer {
   grid-area: footer;
-  height: 50%;
+  max-height: 200px;
 }
 
 </style>

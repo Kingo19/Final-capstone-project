@@ -1,9 +1,9 @@
 <template>
     <footer class="main-footer" :style="'background-image:url(' + backgroundImage + ')'">
       <div class="auto-container">
-        <div class="logo">
-          <a href="index.html"><img src="images/footer-logo.png" alt=""></a>
-        </div>
+<!--        <div class="logo">-->
+<!--          <a href="index.html"><img src="images/footer-logo.png" alt=""></a>-->
+<!--        </div>-->
         <div class="footer-nav">
           <a href="#">Home</a>
           <a href="#">Recipes</a>
@@ -18,9 +18,9 @@
           <li><div class="social-icon"><a href="#"><span class="material-icons">instagram</span></a></div></li>
           <li><div class="social-icon"><a href="#"><span class="material-icons">play_circle_outline</span></a></div></li>
         </ul>
-        <div class="copyright">
+<!--        <div class="copyright">
           © All Right Reserved {{ currentYear }}
-        </div>
+        </div>-->
       </div>
     </footer>
   </template>
@@ -33,13 +33,12 @@
   
   <style scoped>
   .main-footer {
+
     position: relative;
     text-align: center;
     padding: 20px 0px 0px;
-    margin-top: 300px;
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    background: white;
+/*    margin-top: 300px;*/
+    background: #ffffff no-repeat center bottom;
   }
   
   .auto-container {
@@ -103,4 +102,38 @@
     padding: 25px 0px;
     border-top: 1px solid #e6e3e2;
   }
+
+
+/*
+
+
+
+
+  !* Footer styles *!
+  footer {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .contact-info p {
+    margin: 0;
+  }
+
+  .footer-menu ul {
+    list-style: none;
+    display: flex;
+  }
+
+  .footer-menu li {
+    margin-right: 20px;
+  }
+
+  .footer-menu a {
+    text-decoration: none;
+    color: #fff;
+  }*/
   </style>

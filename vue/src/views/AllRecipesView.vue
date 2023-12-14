@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <small-recipe-cards v-for="recipeDto in this.allRecipe" :key="recipeDto" :recipe-dto="recipeDto" ></small-recipe-cards>
   </div>
 </template>
@@ -55,5 +55,16 @@ export default {
 </script>
 
 <style scoped>
+
+.card{
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+/*  width: 100%;
+  height: 100%;*/
+  gap: 10px; /* Adds space between cards */
+}
 
 </style>

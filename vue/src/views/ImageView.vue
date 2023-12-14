@@ -15,7 +15,7 @@
   };
   </script>
   
-  <style>
+  <style scoped>
   .image-container {
     display: flex;
     overflow: hidden;

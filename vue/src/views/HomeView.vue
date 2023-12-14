@@ -95,13 +95,6 @@ export default {
 
 <style>
   /* App-wide styles (styles.css) */
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;
-}
-
 /* Hero section styles */
 .upper-body-text {
   position: relative;
@@ -167,33 +160,7 @@ body {
   background-color: #555;
 }
 
-/* Footer styles */
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.contact-info p {
-  margin: 0;
-}
-
-.footer-menu ul {
-  list-style: none;
-  display: flex;
-}
-
-.footer-menu li {
-  margin-right: 20px;
-}
-
-.footer-menu a {
-  text-decoration: none;
-  color: #fff;
-}
 
 /* Testimonials section styles */
 .testimonials {
