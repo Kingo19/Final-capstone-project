@@ -119,7 +119,7 @@ export default {
 
 
 .home{
-  background: url("../assets/rauls.png");
+  background: url("../assets/newrauh.png");
   background-size: cover;
   height: 1024px;
 }
