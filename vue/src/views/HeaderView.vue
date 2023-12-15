@@ -24,15 +24,15 @@ export default {
 
       notLoggedInLinks: [
         { text: 'Home', path: '/' },
-        { text: 'aboutus', path: '/aboutus' },
+        { text: 'About Us', path: '/aboutus' },
         { text: 'Login', path: '/login' },
         { text: 'Register', path: '/register' },
       ],
 
       loggedInLinks: [
         { text: 'Home', path: '/' },
-        { text: 'aboutus', path: '/aboutus' },
-        { text: 'Add Recipes', path: '/recipes/add' },
+        { text: 'About Us', path: '/aboutus' },
+        { text: 'Add Recipe', path: '/recipes/add' },
         { text: 'View My Recipes', path: '/all/recipes' },
         { text: 'Add Meal', path: '/addMeal' },
         {text: 'Add Meal Plan', path: '/addMealPlan'},
@@ -55,7 +55,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 header {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.2);
@@ -83,11 +83,10 @@ header ul li a {
   font-family: 'Raleway', sans-serif;
   letter-spacing: 2px;
   font-weight: 600;
-  padding: 25px;
-  transition: all ease 0.5s; /* Corrected 'e.5s' to '0.5s' */
+  padding: 10px;
+/*  transition: all ease 0.5s; !* Corrected 'e.5s' to '0.5s' *!*/
 }
 header ul li a:hover {
   background-color: #155724;
 }
-
 </style>

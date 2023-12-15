@@ -1,5 +1,5 @@
 <template>
-  <div id="about">
+  <div class="about">
   <div class="about-us">
     <h1>Welcome to Our World of Innovation and Empathy</h1>
     <p>We're more than just a team of programmers – we're a family of innovative professionals, united by our passion for technology and our commitment to making a positive impact in the world. As proud graduates of the Tech Elevator program, we stand at the threshold of a new era in programming, ready to make our mark.</p>
@@ -37,24 +37,26 @@ export default {
 
 <style scoped>
 
-#about{
+.about{
   background: url("../assets/front.png");
-  width: 100%;
-  height: 100%;
+  background-size: cover;
+  text-wrap: normal;
 }
 
 
 .about-us {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
+  width: 50%;
+  height: auto;
+  padding: 10px;
   background-color: #f8f8f8;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+  transition: all 0.5s ease; /* Smooth transition for expanding effect */
 }
 
+
 .about-us h1 {
+
   color: #2a3f5f;
   font-size: 2.2em;
   text-align: center;
@@ -76,18 +78,4 @@ export default {
   margin-bottom: 20px;
 }
 
-@media screen and (max-width: 768px) {
-  .about-us {
-    padding: 15px;
-    max-width: 100%;
-  }
-
-  .about-us h1 {
-    font-size: 1.8em;
-  }
-
-  .about-us h2 {
-    font-size: 1.4em;
-  }
-}
 </style>

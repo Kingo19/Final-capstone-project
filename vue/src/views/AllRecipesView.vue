@@ -8,7 +8,7 @@
 <script>
 import SmallRecipeCards from "@/components/AllRecipeSmallRecipeCards.vue";
 import recipeService from "@/services/RecipeService";
-import testSelectedRecipe from "@/components/testSelectedRecipe.vue";
+import testSelectedRecipe from "@/components/SelectedRecipe.vue";
 
 export default {
   components: {

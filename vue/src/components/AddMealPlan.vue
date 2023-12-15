@@ -125,18 +125,39 @@ export default {
 </script>
 
 <style scoped>
-.meal-plan-container {
-  font-family: Arial, sans-serif;
-  background-color: rgb(239, 234, 231);
-  min-height: 100vh;
-  padding: 20px;
+
+#problem1 {
+  color: red;
 }
 
-.meal-plan-form {
-  background-color: #fff8dc;
+#mealPlanApp {
+  background-image: url("../assets/meal plan 2.png");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.meal-plan-container{
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  min-height: 100vh;
+}
+
+.meal-plan-form{
+  background-color: rgba(255, 248, 220, 0.8);
   border-radius: 10px;
   padding: 20px;
+  position: relative;
+  top: 100px;
+  right: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 30%; /* Adjust the width as per your requirement */
+  max-width: 800px; /* Set a max-width to ensure it doesn't get too wide on larger screens */
+  height: auto;
+  margin: auto; /* This will center the form if it's smaller than the parent container */
+  z-index: 1;
 }
 
 .input-group {
@@ -152,8 +173,7 @@ label {
   color: #333;
 }
 
-input[type='text'],
-textarea,
+input[type="text"],
 select {
   width: 100%;
   padding: 5px;
@@ -163,6 +183,24 @@ select {
   color: #333;
 }
 
+.meal-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.top-level-remove-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.show-list-added-items-or-remove {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .button-group {
   display: flex;
   justify-content: center;
@@ -170,23 +208,34 @@ select {
 }
 
 .submit-button {
-  background-color: #ffcc00;
-  border: none;
-  color: #333;
-  padding: 10px 15px;
-  text-transform: uppercase;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1.2em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+/*.meal-plan-container::before {
+  content: "";
+  position: absolute;
+  top: 80px;
+  width: 100%;
+  height: 130%;
+ !* background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));*!
+}*/
 
-.submit-button:hover {
-  background-color: #e6b800;
-}
+/*.submit-button:hover {
+  background-color: #45A049;
+}*/
 
-@media (max-width: 768px) {
-  .meal-plan-form {
+/*@media (max-width: 768px) {
+  .recipe-form {
     max-width: 90%;
   }
-}
+}*/
+
+/*  background-color: #fff8dc;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
+
+
+
 </style>

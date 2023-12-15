@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app-container">
+  <div id="appAddIn" class="app-containerAddIn">
     <form id="form" v-on:submit.prevent="submitForm" class="formClass">
       <!-- Recipe Name -->
       <div class="input-group">
@@ -11,11 +11,15 @@
                  required
                  :max="maxLenInput"
                  placeholder="Name your recipe, please enter a unique recipe name">
+
+
           <datalist id="recipeNames">
             <option class="innerRecipeNames" v-for="itemRecipeName in this.recipeNamesToCheck"
                     :key="itemRecipeName"
                     :value="itemRecipeName" ></option>
           </datalist>
+
+
           <h2 id="problem1" v-if="isNameInDatabase">{{ badNamePrompt }}</h2>
         </div>
       </div>
@@ -145,18 +149,22 @@ export default {
   color:red;
 }
 
-#app {
+#appAddIn {
+  background: url("../assets/add recipe 1.png");
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-content: center;
 }
 
-.app-container {
+.app-containerAddIn {
   /*  background-color: rgb(239 234 231);*/
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/*  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
   margin: 10px;
+  /*
   background-image: url("https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");;
+  */
   min-height: 100vh;
 }
 
@@ -165,14 +173,16 @@ export default {
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
-  background-color: #fff8dc;
+  background-color: rgba(255, 248, 220, 0.4);
   border-radius: 10px;
   padding: 20px;
   position: relative;
-  top: -100px;
+  top: 100px;
+  right: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 60%; /* Adjust the width as per your requirement */
+  width: 30%; /* Adjust the width as per your requirement */
   max-width: 800px; /* Set a max-width to ensure it doesn't get too wide on larger screens */
+  height: auto;
   margin: auto; /* This will center the form if it's smaller than the parent container */
   z-index: 1;
 }
@@ -228,13 +238,13 @@ input[type='text'], textarea {
   font-size: 1.2em;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.app-container::before {
+.app-containerAddIn::before {
   content: "";
   position: absolute;
   top: 80px;
   width: 100%;
   height: 130%;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+/*  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));*/
 }
 
 /*.submit-button:hover {

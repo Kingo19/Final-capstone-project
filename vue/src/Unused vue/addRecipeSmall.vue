@@ -240,7 +240,7 @@ input[type='text'], textarea {
 
 
 <template>
-  <div id="app" class="app-container">
+  <div id="appAddMeal" class="app-containerMeal">
     <form id="form" v-on:submit.prevent="submitForm" class="formClass">
       <!-- Recipe Name -->
       <div class="input-group">
@@ -390,13 +390,13 @@ export default {
   color:red;
 }
 
-#app {
+#appAddMeal {
   display: flex;
   justify-content: center;
   align-content: center;
 }
 
-.app-container {
+.app-containerMeal {
   /*  background-color: rgb(239 234 231);*/
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

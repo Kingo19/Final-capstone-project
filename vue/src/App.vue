@@ -1,11 +1,11 @@
 <template>
-  <!-- <div>
-  <section> -->
-    <header-view />
-    <router-view />
-    <footer-view />
-  <!-- </section>
-  </div> -->
+
+  <section class="layout">
+    <header-view class="appHeader" />
+    <router-view class="innerBody"/>
+    <footer-view class="appFooter"/>
+  </section>
+
 </template>
 <script>
 import headerView from "@/views/HeaderView.vue";
@@ -29,31 +29,39 @@ export default {
 
 body{
   font-family: "MV Boli";
-  /* margin: 0;
+   margin: 0;
   padding: 0;
-  box-sizing: border-box; */
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
 }
 
-/* .layout {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-    "header"
-    "innerBody"
-    "footer";
-  gap: 8px;
-} */
+ .layout {
 
-.header {
-  grid-area: header;
+   min-width: 500px;
+   margin: auto;
+
+  display: grid;
+  grid-template-rows: auto 1fr 0.1fr;
+  grid-template-areas:
+    "appHeader"
+    "innerBody"
+    "appFooter";
+  gap: 5px;
+}
+
+.appHeader{
+  grid-area: appHeader;
 }
 .innerBody {
   grid-area: innerBody;
-  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;
+/*  min-height: 800px;*/
+/*  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;*/
 }
-/* .footer {
-  grid-area: footer;
+
+.appFooter {
+  grid-area: appFooter;
   max-height: 200px;
-} */
+}
 
 </style>

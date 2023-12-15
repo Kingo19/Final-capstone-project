@@ -2,96 +2,30 @@
   <div class="container">
     <div class="card-container">
       <div class="card">
-        <div class="card-image">
-      <img src="https://s-media-cache-ak0.pinimg.com/736x/57/98/9f/57989f2a2e186e38bf93429aa395120c.jpg" alt="Recipe Image" />
-        </div>
+          <div class="card-details">
+            <h2>{{ meal_plan.planName }}</h2>
+            <div class="cont_tabs">
+              <ul>
+                <li v-for="tab in Tabs" :key="tab">
+                  <button @click="selectTab(tab)">{{ tab }}</button>
+                </li>
+              </ul>
+            </div>
 
-<!--
-        <div class="card-details">
-          <h2>{{ meal_plan.planName }}</h2>
-          <div class="cont_tabs">
-            <ul>
-              <li v-for="tab in Tabs" :key="tab">
-                <button @click="selectTab(tab)">{{ tab }}</button>
-              </li>
-            </ul>
-          </div>
-
-          <div v-for="tab in Tabs" :key="tab" v-show="activeTab === tab">
-            <ul>
-              <li v-for="item in this.getRecipeInfo(tab).recipeInfo" :key="item.recipe.recipe_name" @click="check(item)">
-                <ul>
-                    <button class="collapsible" @click="toggleCollapse(item.recipe.recipe_name)">{{ item.recipe.recipe_name }}</button>
-                    <div class="content" v-if="isCollapsed">
-                      <ul>
-                      <li>{{ item.recipe.recipe_instructions }}</li>
-                        <ul>
-                        <li v-for="name in item.ingredients" :key="name.ingredient_name">{{ name.ingredient_name }}</li>
-                      </ul></ul>
-                    </div>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
--->
-
-                <div class="card-details">
-                  <h2>{{ meal_plan.planName }}</h2>
-                  <div class="cont_tabs">
+            <div  v-for="tab in Tabs" :key="tab" v-show="activeTab === tab">
+              <ul>
+                <li v-for="item in this.getRecipeInfo(tab).recipeInfo" :key="item" @click="check(item)">
+                  <ul>
+                    <li>{{ item.recipe.recipe_name }}</li>
+                    <li>{{ item.recipe.recipe_instructions }}</li>
                     <ul>
-                      <li v-for="tab in Tabs" :key="tab">
-                        <button @click="selectTab(tab)">{{ tab }}</button>
-                      </li>
+                      <li  v-for="name in item.ingredients" :key="name.ingredient_name">{{ name.ingredient_name }}</li>
                     </ul>
-                  </div>
-
-                  <div  v-for="tab in Tabs" :key="tab" v-show="activeTab === tab">
-                    <ul>
-                      <li v-for="item in this.getRecipeInfo(tab).recipeInfo" :key="item" @click="check(item)">
-                        <ul>
-                          <li>{{ item.recipe.recipe_name }}</li>
-                          <li>{{ item.recipe.recipe_instructions }}</li>
-                          <ul>
-                            <li  v-for="name in item.ingredients" :key="name.ingredient_name">{{ name.ingredient_name }}</li>
-                          </ul>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-
-
-<!--      <div>
-        <button class="collapsible" @click="toggleCollapse">{{ title }}</button>
-        <div class="content" v-show="isCollapsed">
-          <slot></slot>
-        </div>
-      </div>-->
-
-
-
-
-
-
-
-
-
-
-
-
-<!--          <div class="ingredients" v-show="activeTab === 'ingredients'">
-            <h3>Ingredients</h3>
-            <ul>
-              <li v-for="ingredient in recipeDto.ingredients"  :key="ingredient"> {{ ingredient.ingredient_name }}</li>
-            </ul>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
-
-          <div class="instructions" v-show="activeTab === 'instructions'">
-            <h3>Instructions</h3>
-            <p>{{ recipeDto.recipe.recipe_instructions}}</p>
-          </div>-->
 
           <div  class="edit" v-show="activeTab === 'edit'">
             <form id="form"  v-on:submit.prevent="submitForm"  class="formClass">
@@ -166,15 +100,10 @@ import recipeService from "@/services/RecipeService";
 import RecipeService from "@/services/RecipeService";
 
 export default {
-  computed:{
-    Tabs(){
-      return this.meal_plan.mealTimes.map(cu => cu.mealName)
-    }
-  },
-
 
   data() {
     return {
+      Tabs: [],
       collapsedStates: {},
       isCollapsed: false,
       recipeDto: {
@@ -502,182 +431,141 @@ export default {
     check(name) {
       console.log("Trigger")
       console.log(name)
+    },
+
+    getMealPlanByDate(){
+      let paramnum = this.$route.params.dayNumber
+      var targetDate = new Date();
+      let newdate = targetDate.setDate(targetDate.getDate() + Number(paramnum));
+      console.log(newdate)
+      let day = targetDate.getDate();
+      let month = targetDate.getMonth() + 1;
+      let year = targetDate.getFullYear();
+      console.log(`${year}-${month}-${day}`)
+      return `${year}-${month}-${day}`
+    },
+
+    getTodayDate(){
+      const date = new Date();
+
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+// This arrangement can be altered based on how we want the date's format to appear.
+      console.log(`${year}-${month}-${day}`)
+      return `${year}-${month}-${day}`
     }
+
+  },
+  created() {
+    recipeService.getDayPlan(this.$route.params.dayNumber).then(cu => {
+
+      console.log("trigger")
+      console.log(cu.data)
+      this.meal_plan = cu.data
+      console.log(this.meal_plan)
+      console.log(this.meal_plan.length)
+      this.Tabs = this.meal_plan.mealTimes.map(cu => cu.mealName)
+
+    })
   }
 }
 </script>
 
 <style scoped>
 
-
-
-.top-level-remove-div{
-  width: 100%;
-  overflow: scroll;
-}
-
-.container{
-  width: 1024px;
-  height: 1024px;
-  /*  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;*/
+.container {
   display: flex;
-  align-content: center;
-  padding: 50px;
-  font-size: 1.2em;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
 }
 
 .card-container {
-  width: 100%;
-  height: 100%;
-
-  margin: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 80%;
+  height: 720px;
+  max-width: 800px;
+  background-color: #fff;
 }
 
-.card {
-  display: flex;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.card-image {
-  width: 50%;
-}
-
-.card-image img {
-  width: 100%;
-  height: 100%;
-}
-
-.card-details {
-  width: 50%;
-  padding: 10px;
-  background: linear-gradient(to bottom, rgba(251,249,249,1) 28%, rgba(232,234,237,1) 100%);
-}
-
-.cont_tabs {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
+.card-details h2 {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px;
+  margin: 0;
+  text-align: center;
 }
 
 .cont_tabs ul {
-  display: flex;
   list-style-type: none;
+  display: flex;
   padding: 0;
+  margin: 0;
+  background-color: #f2f2f2;
 }
 
-.cont_tabs ul li {
-  margin-right: 10px;
+.cont_tabs li {
+  flex: 1;
+  text-align: center;
 }
 
-.cont_tabs ul li a {
-  text-decoration: none;
-  color: #241C3E;
-  border-top: 7px solid #ED346C;
+.cont_tabs a {
   display: block;
   padding: 10px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s;
 }
 
-.cont_tabs ul li a:hover {
-  color: #ED346C;
+.cont_tabs a:hover {
+  background-color: #ddd;
 }
 
-/* Additional styles for Ingredients and Instructions sections */
-.ingredients ul, .instructions {
-  margin-top: 20px;
-  font-size: 2em;
+.ingredients, .instructions {
+  padding: 15px;
 }
-
 
 .formClass {
-  font-size: 1em;
-  border-radius: 10px;
-  padding: 20px;
-  max-width: 800px; /* Set a max-width to ensure it doesn't get too wide on larger screens */
-  margin: auto; /* This will center the form if it's smaller than the parent container */
-  z-index: 1;
+  padding: 15px;
 }
 
 .input-group {
-  margin-bottom: 20px;
-  width: 100%;
+  margin-bottom: 15px;
 }
 
-label {
+.input-group label {
   display: block;
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
+  margin-bottom: 5px;
 }
 
-input[type='text'], textarea {
+.input-group input, .input-group textarea, .input-group button {
   width: 100%;
-  padding: 5px;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  font-size: 1em;
-  color: #333;
-}
-
-.add-items {
-  display: flex;
-  align-items: center;
+  padding: 10px;
   margin-bottom: 10px;
-}
-
-.top-level-remove-div {
-  display: flex;
-  flex-direction: column;
-}
-
-.show-list-added-items-or-remove {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .button-group {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  text-align: center;
 }
 
 .submit-button {
-  border-radius: 5px;
-  font-size: 1.2em;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-.app-containerMeal::before {
-  content: "";
-  position: absolute;
-  top: 80px;
-  width: 100%;
-  height: 130%;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
-}
-
-.collapsible {
-  background-color: #f1f1f1;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
+  background-color: #4CAF50;
+  color: white;
   border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.active, .collapsible:hover {
-  background-color: #ccc;
+.submit-button:hover {
+  background-color: #45a049;
 }
-
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
-
 </style>

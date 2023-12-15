@@ -27,38 +27,6 @@
             </div>
           </div>
 
-
-
-<!--      <div>
-        <button class="collapsible" @click="toggleCollapse">{{ title }}</button>
-        <div class="content" v-show="isCollapsed">
-          <slot></slot>
-        </div>
-      </div>-->
-
-
-
-
-
-
-
-
-
-
-
-
-<!--          <div class="ingredients" v-show="activeTab === 'ingredients'">
-            <h3>Ingredients</h3>
-            <ul>
-              <li v-for="ingredient in recipeDto.ingredients"  :key="ingredient"> {{ ingredient.ingredient_name }}</li>
-            </ul>
-          </div>
-
-          <div class="instructions" v-show="activeTab === 'instructions'">
-            <h3>Instructions</h3>
-            <p>{{ recipeDto.recipe.recipe_instructions}}</p>
-          </div>-->
-
           <div  class="edit" v-show="activeTab === 'edit'">
             <form id="form"  v-on:submit.prevent="submitForm"  class="formClass">
               <!-- Recipe Name -->
@@ -132,10 +100,6 @@ import recipeService from "@/services/RecipeService";
 import RecipeService from "@/services/RecipeService";
 
 export default {
-  computed:{
-
-  },
-
 
   data() {
     return {
@@ -510,68 +474,90 @@ export default {
 
 <style scoped>
 
-.container{
-  width: 100vw;
-  height: 100vh;
-  /*  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;*/
+<style scoped>
+.container {
   display: flex;
-  align-content: center;
-  padding: 50px;
-  font-size: 1.2em;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
 }
 
-
-.cont_tabs {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
+.card-container {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 80%;
+  max-width: 800px;
 }
 
-/*.cont_tabs ul {
-  display: flex;
+.card-details h2 {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px;
+  margin: 0;
+}
+
+.cont_tabs ul {
   list-style-type: none;
+  display: flex;
   padding: 0;
+  margin: 0;
+  background-color: #f2f2f2;
 }
 
-.cont_tabs ul li {
-  margin-right: 10px;
+.cont_tabs li {
+  flex: 1;
 }
 
-.cont_tabs ul li a {
-  text-decoration: none;
-  color: #241C3E;
-  border-top: 7px solid #ED346C;
-  display: block;
+.cont_tabs button {
+  width: 100%;
   padding: 10px;
+  border: none;
+  background-color: transparent;
+  transition: background-color 0.3s;
+  cursor: pointer;
 }
 
-.cont_tabs ul li a:hover {
-  color: #ED346C;
-}*/
-
-
+.cont_tabs button:hover, .cont_tabs button:focus {
+  background-color: #ddd;
+}
 
 .collapsible {
-  background-color: #f1f1f1;
-  color: #444;
+  background-color: #e7e7e7;
+  color: #333;
   cursor: pointer;
-  padding: 18px;
-  width: 100%;
+  padding: 15px;
   border: none;
   text-align: left;
-  outline: none;
-  font-size: 15px;
+  width: 100%;
+  transition: background-color 0.3s;
 }
 
-.active, .collapsible:hover {
-  background-color: #ccc;
+.collapsible:hover {
+  background-color: #ddd;
 }
 
 .content {
   padding: 0 18px;
+  background-color: white;
   display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
 }
 
+.content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.content li {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+@media screen and (max-width: 768px) {
+  .card-container {
+    width: 90%;
+  }
+}
 </style>

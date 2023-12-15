@@ -30,7 +30,7 @@
     <!--    ===============================================================-->
 
 
-    <div v-if="modifyRecipe"  id="app" class="app-container">
+    <div v-if="modifyRecipe" id="appAddMeal" class="app-containerMeal">
       <form id="form" @submit.prevent="submitForm" class="formClass">
         <!-- Recipe Name -->
         <div class="input-group">
@@ -250,7 +250,7 @@ h1 {
   src: url("../resources/mvboli.ttf");
 }
 
-.app-container {
+.app-containerMeal {
   font-family: "MV Boli";
   background-color: rgb(239 234 231);
   min-height: 100vh;

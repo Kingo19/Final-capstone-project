@@ -14,8 +14,11 @@ export default defineComponent({
 
 <style scoped>
 
+/*
 #ab{
   background: url("../assets/front.png");
+  background-size: contain;
 }
+*/
 
 </style>

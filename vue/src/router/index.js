@@ -20,9 +20,9 @@ import test9 from "@/Unused vue/test9.vue";
 import test10 from "@/Unused vue/test10.vue";
 import testAddRecipe from "@/components/AddRecipe.vue";
 import AllRecipeSmallRecipeCards from "@/components/AllRecipeSmallRecipeCards.vue";
-import testSelectedRecipe from "@/components/testSelectedRecipe.vue";
-import addMealPlan from "../Unused vue/addMealPlan.vue";
-import selectedMealPlan from "@/components/selectedMealPlan.vue";
+import testSelectedRecipe from "@/components/SelectedRecipe.vue";
+import addMealPlan from "../components/AddMealPlan.vue";
+import selectedMealPlan from "@/components/SelectedMealPlan.vue";
 import AboutUsView from "@/views/AboutUsView.vue";
 import allMealSmallMealCards from "@/components/AllMealSmallMealCards.vue";
 import ViewMealPlansView from "@/views/ViewMealPlansView.vue";
@@ -41,7 +41,7 @@ const routes = [
         name: 'home',
         component: HomeView,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -83,7 +83,7 @@ const routes = [
         name: "recipeDetailView",
         component: AllRecipesView,
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         }
     },
     {
@@ -91,7 +91,7 @@ const routes = [
         name: "addRecipe",
         component: testAddRecipe,
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         }
     },
     {
@@ -179,7 +179,7 @@ const routes = [
         name: "addMeal",
         component: addMeal,
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         }
     },
     {
@@ -188,7 +188,7 @@ const routes = [
         props: true,
         component: testSelectedRecipe,
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         }
     },
     {
@@ -196,7 +196,7 @@ const routes = [
         name: "testaddrecipe",
         component: testAddRecipe,
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         }
     },
     {
@@ -204,7 +204,7 @@ const routes = [
         name: "addMealPlan",
         component: addMealPlan,
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         }
     },
     {
@@ -213,7 +213,7 @@ const routes = [
         props: true,
         component: ViewMealPlansView,
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         }
     },
     {
@@ -222,7 +222,7 @@ const routes = [
         props: true,
         component: selectedMealPlan,
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         }
     }
 

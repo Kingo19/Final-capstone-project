@@ -2,26 +2,35 @@
   <div class="home">
     <!-- BODY  ====  BODY  ===  BODY  === BODY-->
 
-    <section class="upper-body-text">
+    <section class="upper-body-text" v-if="!checkLoggedInUser">
       <!-- <img src="@/assets/background-image.jpeg" alt="Appetizing Food Image" class='logo'> -->
+      <div>
       <h1>Plan Your Meals with Ease</h1>
       <p>Discover a new way to organize your meals and create delicious recipes.</p>
+      </div>
+      <div class="test"><router-link to="/register" class="cta-button">Get Started</router-link></div>
     </section>
 
-    <section class="features">
+
+    <section class="upper-body-text" v-if="checkLoggedInUser">
+      <!-- <img src="@/assets/background-image.jpeg" alt="Appetizing Food Image" class='logo'> -->
+      <div>
+        <h1>WELCOME BACK</h1>
+        <br>
+        <h1>{{ getUser() }}</h1>
+      </div>
+    </section>
+
+<!--    <section class="features">
       <FeatureCard title="Add Ingredients" :description="Add_Ingredients"/>
       <FeatureCard title="Create Recipes" :description="Create_Recipes"/>
       <FeatureCard title="Plan Meals" :description="Plan_Meals"/>
-    </section>
+    </section>-->
 
-    <section class="sign-up">
-      <router-link to="/register" class="cta-button">Get Started</router-link>
-    </section>
-
-    <section class="testimonials">
+<!--    <section class="testimonials">
       <h2 class="title">Testimonials</h2>
       <TestimonialComp/>
-    </section>
+    </section>-->
 
 
     <!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER --><!-- FOOTER  ====  FOOTER  ===  FOOTER  === FOOTER -->
@@ -36,6 +45,12 @@ import TestimonialComp
   from '../components/TestimonialComp.vue';
 
 export default {
+
+  computed: {
+    checkLoggedInUser(){
+      return this.$store.getters.isAuthenticated;
+    },
+  },
   name: 'HomePage',
   data() {
     return {
@@ -90,21 +105,45 @@ export default {
     FeatureCard,
     TestimonialComp,
   },
+
+  methods:{
+    getUser(){
+      return this.$store.state.user.username
+    }
+
+  }
 }
 </script>
 
 <style scoped>
 
+
 .home{
-  background: url("../assets/table.png");
+  background: url("../assets/rauls.png");
+  background-size: cover;
+  height: 1024px;
 }
   /* App-wide styles (styles.css) */
 /* Hero section styles */
 .upper-body-text {
-  position: relative;
-  text-align: center;
-  color: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-self: flex-end;
+  align-items: flex-end;
+  height: 600px;
+  width: 400px;
+  background-color: white;
+  font-weight: 600;
+  color: #000000;
+  margin: 15px;
 }
+
+.test{
+  align-content: flex-end;
+/*  justify-content: flex-end;
+  align-content: flex-end;*/
+}
+
 
 .upper-body-text img {
   width: 100%;
@@ -123,9 +162,9 @@ export default {
 /* Features section styles */
 .features {
   display: flex;
-  justify-content: space-around;
-  margin: 15px;
-  gap: 15px;
+  justify-content: center;
+  margin: 2px;
+  gap: 10px;
 }
 
 .feature-card {
@@ -135,11 +174,11 @@ export default {
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .feature-card h2 {
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin-bottom: 10px;
 }
 

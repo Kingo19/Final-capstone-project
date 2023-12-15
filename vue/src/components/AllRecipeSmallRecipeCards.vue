@@ -1,4 +1,5 @@
 <template>
+  <div class="con">
   <div class="card-container" >
     <router-link
         v-for="recipe in recipes"
@@ -15,6 +16,7 @@
         </div>
       </div>
     </router-link>
+  </div>
   </div>
 </template>
 
@@ -59,17 +61,17 @@ export default {
 };
 </script>
 
+
 <style scoped>
 
-
 .card-container {
-  width: calc(30% - 20px); /* Adjusts card width */
+  width: 500px;
 }
 
 .cardRecipe {
   display: block;
   cursor: pointer; /* Indicates the item is clickable */
-  height: 300px;
+  height: 400px;
   margin: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   overflow: hidden; /* Ensures that content exceeding the height is hidden */
@@ -81,14 +83,14 @@ export default {
   height: 100%;
   border-radius: 5px;
   object-fit: cover; /* Ensures the image covers the area without distortion */
-  max-height: 200px; /* Adjust the height as needed */
+/*  max-height: 200px; !* Adjust the height as needed *!*/
   overflow: hidden; /* Ensures that content exceeding the height is hidden */
 }
 
 .cont_detalles {
   position: absolute;
   width: 100%;
-  bottom: 0;
+  bottom: 0%;
   left: 0;
   right: 0;
   transition: all 0.5s ease; /* Smooth transition for expanding effect */
@@ -103,7 +105,7 @@ export default {
 
 /* This will expand the ingredients section */
 .cardRecipe:hover .cont_text_ingredients {
-  max-height: 200px; /* Adjust this value based on content */
+  max-height: 800px; /* Adjust this value based on content */
 }
 
 </style>

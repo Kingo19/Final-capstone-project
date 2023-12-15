@@ -1,9 +1,10 @@
 <template>
-  <footer class="main-footer" :style="'background-image:url(' + backgroundImage + ')'">
+  <footer class="main-footer" >
     <div class="auto-container">
       <!--        <div class="logo">-->
       <!--          <a href="index.html"><img src="images/footer-logo.png" alt=""></a>-->
-      <!--        </div>-->
+      <!--      :style="'background-image:url(' + backgroundImage + ')'"  </div>-->
+      <div>
       <div class="footer-nav">
         <a href="#">Home</a>
         <a href="#">Recipes</a>
@@ -11,6 +12,7 @@
         <a href="#">Events</a>
         <a href="#">Blog</a>
         <a href="#">Contacts</a>
+      </div>
       </div>
       <ul class="social-box">
         <li><div class="social-icon"><a href="#"><span class="material-icons">bookmark</span></a></div></li>
@@ -31,9 +33,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main-footer {
-  position: relative;
+/*  position: relative;*/
   text-align: center;
   padding: 10px 0px 0px;
   /*    margin-top: 300px;
@@ -42,18 +44,18 @@ export default {
 }
 
 .auto-container {
-  position: static;
+/*  position: static;*/
   max-width: 1200px;
   padding: 0px 15px;
   margin: 0 auto;
 }
 
 .main-footer{
-  position: relative;
+/*  position: relative;*/
 }
 
 .main-footer .footer-nav {
-  position: relative;
+/*  position: relative;*/
   margin: 25px 0px 30px;
   display: flex;
   justify-content: center;
@@ -67,7 +69,7 @@ export default {
 }
 
 .main-footer .social-box {
-  position: relative;
+/*  position: relative;*/
   list-style: none;
   display: flex;
   align-items: center;
@@ -95,7 +97,7 @@ export default {
 }
 
 .main-footer .copyright {
-  position: relative;
+/*  position: relative;*/
   margin-top: 60px;
   color: #1c1c1c;
   font-size: 15px;

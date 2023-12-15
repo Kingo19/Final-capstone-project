@@ -227,15 +227,17 @@ export default {
 .container{
 /*  background: url(https://druryjeff.github.io/better-from-the-source/img/wood.jpg) 50% 50%;*/
   display: flex;
+  justify-content: center;
   align-content: center;
+  height: auto;
   padding: 50px;
-  font-size: 1.2em;
+  font-size: 20px;
 }
 
 .card-container {
-  width: 60%;
-  max-width: 60%;
-  margin: auto;
+  width: 70%;
+  height: 40%;
+/*  margin: auto;*/
 }
 
 .card {
@@ -244,7 +246,8 @@ export default {
 }
 
 .card-image {
-  width: 50%;
+  width: auto;
+  height: auto;
 }
 
 .card-image img {
@@ -289,14 +292,13 @@ export default {
 /* Additional styles for Ingredients and Instructions sections */
 .ingredients ul, .instructions {
   margin-top: 20px;
-  font-size: 2em;
 }
 
 
 .formClass {
-  font-size: 1em;
-  border-radius: 10px;
-  padding: 20px;
+  font-size: 20px;
+  border-radius: 5px;
+/*  padding: 20px;*/
   max-width: 800px; /* Set a max-width to ensure it doesn't get too wide on larger screens */
   margin: auto; /* This will center the form if it's smaller than the parent container */
   z-index: 1;
@@ -304,7 +306,7 @@ export default {
 
 .input-group {
   margin-bottom: 20px;
-  width: 100%;
+  width: 90%;
 }
 
 label {
@@ -350,10 +352,10 @@ input[type='text'], textarea {
 
 .submit-button {
   border-radius: 5px;
-  font-size: 1.2em;
+  font-size: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.app-container::before {
+.app-containerMeal::before {
   content: "";
   position: absolute;
   top: 80px;

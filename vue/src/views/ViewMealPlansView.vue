@@ -1,7 +1,10 @@
 <template>
-  <all-meal-small-meal-cards
-      v-for="(day, index) in dayNames" :key="index" name="{{ day }}"
-  :daynum="index + 1"></all-meal-small-meal-cards>
+<!--  <all-meal-small-meal-cards
+      v-for="(day, index) of dayNames" :key="index" name="{{ day }}"
+  :daynum="index + 1"></all-meal-small-meal-cards>-->
+  <all-meal-small-meal-cards class="mealCards"></all-meal-small-meal-cards>
+
+
 </template>
 
 <script>
@@ -20,5 +23,9 @@ export default {
 </script>
 
 <style scoped>
+
+.mealCards{
+
+}
 
 </style>

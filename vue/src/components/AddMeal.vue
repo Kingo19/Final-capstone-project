@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app-container">
+  <div id="appAddMeal" class="app-containerMeal">
     <form id="mealForm" @submit.prevent="submitMeal" class="formClass">
       <!-- Meal Name -->
       <div class="input-group">
@@ -14,6 +14,8 @@
             :max="maxLenInput"
             placeholder="Enter meal name"
           />
+
+
           <datalist id="mealName">
             <option
               class="innerRecipeNames"
@@ -145,34 +147,31 @@ export default {
   color: red;
 }
 
-#app {
+#appAddMeal {
   display: flex;
   justify-content: center;
   align-content: center;
 }
 
-.app-container {
-  /*  background-color: rgb(239 234 231);*/
+.app-containerMeal {
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 10px;
   min-height: 100vh;
-  background-image: url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-  background-color: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+  background-image: url("../assets/meal plan 1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .formClass {
-  /*  background-color: #fff8dc;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
-  background-color: #fff8dc;
+  background-color: rgba(255, 248, 220, 0.4);
   border-radius: 10px;
   padding: 20px;
   position: relative;
-  top: -100px;
+  top: 100px;
+  right: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 60%; /* Adjust the width as per your requirement */
+  width: 30%; /* Adjust the width as per your requirement */
   max-width: 800px; /* Set a max-width to ensure it doesn't get too wide on larger screens */
+  height: auto;
   margin: auto; /* This will center the form if it's smaller than the parent container */
   z-index: 1;
 }
@@ -229,14 +228,14 @@ select {
   font-size: 1.2em;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.app-container::before {
+/*.app-containerMeal::before {
   content: "";
   position: absolute;
   top: 80px;
   width: 100%;
-  height: 130%;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
-}
+  height: 130%;*/
+/*  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));*/
+/*}*/
 
 /*.submit-button:hover {
   background-color: #45A049;

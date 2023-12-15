@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app-container">
+  <div id="appAddMeal" class="app-containerMeal">
     <form id="form" v-on:submit.prevent="submitForm" class="formClass">
       <!-- Recipe Name -->
       <div class="input-group">
@@ -157,7 +157,7 @@ export default {
   src: url("../resources/mvboli.ttf");
 }
 
-.app-container {
+.app-containerMeal {
   font-family: "MV Boli";
   background-color: rgb(239 234 231);
   min-height: 100vh;
