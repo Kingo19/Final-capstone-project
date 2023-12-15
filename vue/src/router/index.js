@@ -83,7 +83,7 @@ const routes = [
         name: "recipeDetailView",
         component: AllRecipesView,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -91,7 +91,7 @@ const routes = [
         name: "addRecipe",
         component: testAddRecipe,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -179,7 +179,7 @@ const routes = [
         name: "addMeal",
         component: addMeal,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -188,7 +188,7 @@ const routes = [
         props: true,
         component: testSelectedRecipe,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -196,7 +196,7 @@ const routes = [
         name: "testaddrecipe",
         component: testAddRecipe,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -204,7 +204,7 @@ const routes = [
         name: "addMealPlan",
         component: addMealPlan,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -213,7 +213,7 @@ const routes = [
         props: true,
         component: ViewMealPlansView,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -222,7 +222,7 @@ const routes = [
         props: true,
         component: selectedMealPlan,
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     }
 
